@@ -1,31 +1,67 @@
 <template>
     <div class="m-4">
-        <h5>标签</h5>
-		<el-select
-			v-model="selectvalue"
-			multiple
-			placeholder="标签"
-			style="width: 500px"
-		>
-			<el-option
-			v-for="item in options.array"
-			:key="item.value"
-			:label="item.label"
-			:value="item.value"
-			/>
-		</el-select>
+        <el-row :gutter="5">
+            <el-col :span="6">
+                <el-input v-model="searchid" placeholder="ID" maxlength=5 />
+            </el-col>
+            <el-col :span="6">
+                <el-input v-model="searchtitle" placeholder="标题" />
+            </el-col>
+            <el-col :span="8">
+                <el-select
+                    v-model="selectvalue"
+                    multiple
+                    placeholder="标签"
+                    style="width: 300px"
+                >
+                    <el-option
+                    v-for="item in options.array"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    />
+                </el-select>
+            </el-col>
+            <el-col :span="4">
+                <el-button type="primary" :icon="Search" @click="searchbutton">搜索</el-button>
+            </el-col>
+        </el-row>
+
+		
 	</div>
 </template>
   
 <script lang="ts" setup>
 import { ref ,reactive,onMounted} from 'vue'
-import service from '../axios'
+import service from '../../axios'
 import { ElMessage } from 'element-plus'
+import { Search} from '@element-plus/icons-vue'
+
+// 保存搜索的标签内容
 const options = reactive({array:[{value:'',label:''}]})
+
 const pointmessage = ref('')
 
 const selectvalue = ref([])
 
+const searchid = ref('')
+const searchtitle = ref('')
+
+const props = defineProps(['SearchProblemSet'])
+function GetSearchInfo()
+{
+    let Info={
+        Id:searchid,
+        Title:searchtitle.value,
+        Tags:selectvalue
+    }
+    return Info
+}
+
+function searchbutton()
+{
+    props.SearchProblemSet()
+}
 function GetServerInfo()
 {
     service
@@ -56,6 +92,9 @@ function setdatainfo(info:Array<string>)
 }
 onMounted(()=>{
     GetServerInfo()
+})
+defineExpose({
+    GetSearchInfo
 })
 // 发送成功消息
 const SuccessMessage = () => {

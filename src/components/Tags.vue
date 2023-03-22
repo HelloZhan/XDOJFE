@@ -1,13 +1,11 @@
 <template>
     <div class="m-4">
+        <h5>标签</h5>
 		<el-select
-			v-model="value4"
+			v-model="selectvalue"
 			multiple
-			collapse-tags
-			collapse-tags-tooltip
-			:max-collapse-tags="3"
-			placeholder="Select"
-			style="width: 240px"
+			placeholder="标签"
+			style="width: 500px"
 		>
 			<el-option
 			v-for="item in options.array"
@@ -17,14 +15,6 @@
 			/>
 		</el-select>
 	</div>
-    <el-tag
-      v-for="tag in options.array"
-      :key="tag.value"
-      class="mx-1"
-      closable
-    >
-      {{ tag.value }}
-    </el-tag>
 </template>
   
 <script lang="ts" setup>
@@ -34,7 +24,7 @@ import { ElMessage } from 'element-plus'
 const options = reactive({array:[{value:'',label:''}]})
 const pointmessage = ref('')
 
-const value4 = ref([])
+const selectvalue = ref([])
 
 function GetServerInfo()
 {
@@ -63,12 +53,6 @@ function setdatainfo(info:Array<string>)
     for(var i = 0; i < info.length; i++){
         options.array.push({value:info[i],label:info[i]})
     }
-    // tags.array.splice(0)
-    // console.log('setdatainfo',info)
-    // for(var i = 0; i < info.length; i++){
-    //     tags.array.push(info[i])
-    // }
-
 }
 onMounted(()=>{
     GetServerInfo()

@@ -1,27 +1,38 @@
 <template>
-    <h1>ProblemSet</h1>
-    <Tags></Tags>
-    <el-table :data="problemsetdata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>problemclick(row, column, cell, event)">
-        <el-table-column prop="ProblemId" label="ID" width="180" />
-        <el-table-column prop="Title" label="Title" width="180" />
-        <el-table-column prop="SubmitNum" label="提交次数" width="180"/>
-        <el-table-column prop="ACNum" label="通过次数" />
-    </el-table>
+    <el-row>
+        <el-col :span="18">
+            <h1>ProblemSet</h1>
+            <Tags></Tags>
+            <el-table :data="problemsetdata.array" style="width: 100%" 
+                @cell-click="problemclick"
+                @cell-mouse-enter="changepiechart"
+                >
+                <el-table-column prop="ProblemId" label="ID" width="180" />
+                <el-table-column prop="Title" label="Title" width="180" />
+                <el-table-column prop="SubmitNum" label="提交次数" width="180"/>
+                <el-table-column prop="ACNum" label="通过次数" />
+            </el-table>
 
-    <div class="demo-pagination-block">
-        <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :page-sizes="[20, 40, 60]"
-        :small="small"
-        :disabled="disabled"
-        :background="background"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalsize"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        />
-    </div>
+            <div class="demo-pagination-block">
+                <el-pagination
+                v-model:current-page="currentPage"
+                v-model:page-size="pageSize"
+                :page-sizes="[20, 40, 60]"
+                :small="small"
+                :disabled="disabled"
+                :background="background"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="totalsize"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                />
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <PieChart ref="piechart"></PieChart>
+        </el-col>
+    </el-row>
+
 </template>
 
 <script setup>
@@ -29,7 +40,10 @@ import axios from 'axios'
 import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
 import Tags from '../components/Tags.vue'
+import PieChart from '../components/Chart/PieChart.vue'
 const router = useRouter()
+
+const piechart = ref()
 
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(20) // 当前页的数量
@@ -78,7 +92,17 @@ function problemclick(row, column, cell, event) {
         query: { ProblemId: row.ProblemId }
     });
 }
-
+function changepiechart(row, column, cell, event){
+    let info = {
+        CENum : row.CENum,
+        ACNum : row.ACNum,
+        WANum : row.WANum,
+        TLENum: row.TLENum,
+        MLENum: row.MLENum,
+        SENum : row.SENum
+    }
+    piechart.value.SetDataInfo(info)
+}
 onMounted(()=>{
     GetProblemSetInfo("common",currentPage.value,pageSize.value)
 })

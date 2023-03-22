@@ -28,10 +28,9 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import {reactive,ref} from 'vue'
 import ViewStatus from '../components/Dialog/ViewStatus.vue'
-
+import service from '../axios'
 
 
 const viewstatusdialog = ref()
@@ -57,7 +56,7 @@ const handleCurrentChange = (val) => {
 let statusrecorddata = reactive({'array':[]})
 
 function GetStatusRecordInfo(m_querytype,m_page, m_pagesize){
-    axios.get(`/api/statusrecord`,{
+    service.get(`/api/statusrecord`,{
         params: {
             QueryType : m_querytype,
             Page : m_page,
@@ -76,7 +75,7 @@ function GetStatusRecordInfo(m_querytype,m_page, m_pagesize){
 }
 // 点击单元格
 function statusrecordclick(row, column, cell, event) {
-    viewstatusdialog.value.opendialog(row)
+    viewstatusdialog.value.opendialog(row._id)
 }
 GetStatusRecordInfo("all",currentPage.value,pageSize.value)
 

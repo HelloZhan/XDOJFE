@@ -13,17 +13,18 @@
 		<h5>{{ submittime }}</h5>
 		<h5>{{ code }}</h5>
 		<h5>{{ complierinfo }}</h5>
-		<li v-for="info in testinfo.array" :key="info" >{{ info }}</li>
+		<li v-for="(info,index) in testinfo.array" :key="index" >{{ info }}</li>
     </el-dialog>
 </template>
   
-<script lang="ts" setup>
+<script setup>
 import { reactive, ref } from 'vue'
+import service from '../../axios'
 // 是否打开
 const dialogVisible = ref(false)
 
-const submitd = ref(0)
-const problemid = ref(0)
+const submitd = ref('')
+const problemid = ref('')
 const usernickname = ref('')
 const problemtitle = ref('')
 const status = ref(0)
@@ -36,8 +37,28 @@ const code = ref('')
 const complierinfo = ref('')
 const testinfo = reactive({array:[]})
 
-function opendialog(statusinfo){
+function opendialog(submitid){
 	dialogVisible.value = true;
+	console.log('submitid',submitid)
+	service
+		.get(`/api/statusrecord/info`, {
+			params:{
+				SubmitId:submitid
+			}
+		})
+		.then(
+		(response) => {
+			console.log(response.data)
+			SetDataInfo(response.data)
+		},
+		(error) => {
+			console.log(error.data);
+		}
+	);
+}
+
+function SetDataInfo(statusinfo)
+{
 	submitd.value = statusinfo._id
  	problemid.value = statusinfo.ProblemId
  	usernickname.value = statusinfo.UserNickName

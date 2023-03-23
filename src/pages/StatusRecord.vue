@@ -28,12 +28,19 @@
 </template>
 
 <script setup>
-import {reactive,ref} from 'vue'
+import {reactive,ref,onMounted} from 'vue'
+import { useRoute} from 'vue-router'
 import ViewStatus from '../components/Dialog/ViewStatus.vue'
 import service from '../axios'
 
+const route = useRoute()
 
 const viewstatusdialog = ref()
+const searchinfo = reactive({
+    ProblemId: '0',
+    UserId : '0'
+})
+
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(25) // 当前页的数量
 let totalsize = ref(25)
@@ -42,25 +49,23 @@ const background = ref(false)
 const disabled = ref(false)
 
 const handleSizeChange = (val) => {
-    console.log(`${val} items per page`)
     pageSize.value = val;
-    GetStatusRecordInfo("all",currentPage.value,pageSize.value)
+    GetStatusRecordInfo()
 }
 const handleCurrentChange = (val) => {
-    console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetStatusRecordInfo("all",currentPage.value,pageSize.value)
+    GetStatusRecordInfo()
 }
 
 // 题目信息列表
 let statusrecorddata = reactive({'array':[]})
 
-function GetStatusRecordInfo(m_querytype,m_page, m_pagesize){
+function GetStatusRecordInfo(){
     service.get(`/api/statusrecord`,{
         params: {
-            QueryType : m_querytype,
-            Page : m_page,
-            PageSize : m_pagesize
+            SearchInfo : JSON.stringify(searchinfo),
+            Page : currentPage.value,
+            PageSize : pageSize.value
         },
     }).then(
         response => {
@@ -77,7 +82,16 @@ function GetStatusRecordInfo(m_querytype,m_page, m_pagesize){
 function statusrecordclick(row, column, cell, event) {
     viewstatusdialog.value.opendialog(row._id)
 }
-GetStatusRecordInfo("all",currentPage.value,pageSize.value)
+
+onMounted(()=>{
+    if(route.query.ProblemId!=null){
+        searchinfo.ProblemId = route.query.ProblemId
+    }
+    if(route.query.UserId!=null){
+        searchinfo.UserId = route.query.UserId
+    }
+    GetStatusRecordInfo()
+})
 
 </script>
 

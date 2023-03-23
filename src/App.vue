@@ -15,7 +15,8 @@
 							<router-link to="/problemset">题库</router-link>
 						</el-menu-item>
 						<el-menu-item index="3">
-							<router-link to="/statusrecord">提交记录</router-link>
+							<!-- <router-link to="/statusrecord">提交记录</router-link> -->
+							<el-button :type="primary" link @click="ClickStatusRecord">提交记录</el-button>
 						</el-menu-item>
 						<el-menu-item index="4">
 							<router-link to="/discussset">讨论</router-link>
@@ -40,7 +41,7 @@
 								<template #dropdown>
 									<el-dropdown-menu>
 										<el-dropdown-item command="userhome">个人主页</el-dropdown-item>
-										<el-dropdown-item>测评记录</el-dropdown-item>
+										<el-dropdown-item command="statusrecord">我的提交</el-dropdown-item>
 										<el-dropdown-item command="usersetting">设置</el-dropdown-item>
 										<el-dropdown-item command="admin">管理员</el-dropdown-item>
 										<el-dropdown-item>退出登录</el-dropdown-item>
@@ -53,7 +54,7 @@
 			<el-main>
 				<login ref="logindialog"></login>
 				<register ref="registerdialog"></register>
-				<router-view></router-view>
+				<router-view :key="$route.fullPath"></router-view>
 			</el-main>
 	  	</el-container>
 	</div>
@@ -86,7 +87,22 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+	}else if(command == "statusrecord"){
+		router.push({
+			name:"StatusRecord",
+			query:{
+				UserId:store.state.UserId
+			}
+		})
 	}
+
+}
+
+function ClickStatusRecord()
+{
+	router.push({
+		name:"StatusRecord"
+	})
 }
 </script>
 <style scoped>
@@ -94,7 +110,7 @@ function handleCommand(command){
     padding: 0;
     margin: 0;
 	height: 100vh;
-	width: 1300px;
+	width: 1280px;
 }
 
 .example-showcase .el-dropdown + .el-dropdown {

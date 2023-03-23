@@ -19,7 +19,7 @@
 							<!-- <el-button :type="primary" link @click="ClickStatusRecord">提交记录</el-button> -->
 						</el-menu-item>
 						<el-menu-item index="4">
-							<router-link to="/discussset">讨论</router-link>
+							<router-link to="/discusslist">讨论</router-link>
 						</el-menu-item>
 						<el-menu-item index="5">
 							<router-link to="/userrank">排名</router-link>
@@ -87,7 +87,6 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
-		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",
@@ -99,12 +98,6 @@ function handleCommand(command){
 
 }
 
-function ClickStatusRecord()
-{
-	router.push({
-		name:"StatusRecord"
-	})
-}
 </script>
 <style scoped>
 .el-container{

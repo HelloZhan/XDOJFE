@@ -9,12 +9,13 @@
                 </div>
                 </template>
             </el-card>
+            <AnnouncementList></AnnouncementList>
         </el-col>
     </el-row>
   
 </template>
-<script>
-
+<script setup>
+import AnnouncementList from '../components/HomePage/AnnouncementList.vue'
 </script>
 
 <style>

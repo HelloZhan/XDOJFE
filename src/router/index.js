@@ -5,18 +5,20 @@ import HomePage from '../pages/HomePage.vue'
 import ProblemSet from '../pages/ProblemSet.vue'
 import Problem from '../pages/Problem.vue'
 import StatusRecord from '../pages/StatusRecord.vue'
-import DiscussSet from '../pages/DiscussSet.vue'
-import Discuss from '../pages/Discuss.vue'
+import DiscussList from '../pages/DiscussList.vue'
 import UserRank from '../pages/UserRank.vue'
 import UserHome from '../pages/UserHome.vue'
 import TextEditor from '../pages/TextEditor.vue'
 import UserSetting from '../pages/UserSetting.vue'
 import Admin from '../pages/Admin.vue'
 import ProblemEditor from '../pages/ProblemEditor.vue'
+import ArticleView from '../pages/ArticleView.vue'
+import Announcement from '../pages/Announcement.vue'
 
 import AdminDiscuss from '../components/Admin/AdminDiscuss.vue'
 import AdminProblem from '../components/Admin/AdminProblem.vue'
 import AdminUser from '../components/Admin/AdminUser.vue'
+import AdminAnnouncement from '../components/Admin/AdminAnnouncement.vue'
 
 import Test from '../pages/Test.vue'
 
@@ -42,14 +44,9 @@ const routes = [
         component:StatusRecord
     },
     {
-        path:'/discussset',
-        name:'DiscussSet',
-        component:DiscussSet
-    },
-    {
-        path:'/discuss',
-        name:'Discuss',
-        component:Discuss
+        path:'/discusslist',
+        name:'DiscussList',
+        component:DiscussList
     },
     {
         path:'/userrank',
@@ -87,7 +84,11 @@ const routes = [
             {
                 path:'adminuser',
                 component: AdminUser
-            }
+            },
+            {
+                path:'adminannouncement',
+                component: AdminAnnouncement
+            } 
         ]
     },
     {
@@ -95,6 +96,17 @@ const routes = [
         name:'ProblemEditor',
         component:ProblemEditor
     },
+    {
+        path:'/articleview',
+        name:'ArticleView',
+        component:ArticleView
+    },
+    {
+        path:'/announcement',
+        name:'Announcement',
+        component:Announcement
+    },
+    
     {
         path:'/test',
         name:'Test',

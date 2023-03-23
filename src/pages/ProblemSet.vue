@@ -43,7 +43,9 @@
             </div>
         </el-col>
         <el-col :span="6">
-            <PieChart ref="piechart"></PieChart>
+            <el-affix :offset="120">
+                <PieChart ref="piechart"></PieChart>
+            </el-affix>
         </el-col>
     </el-row>
 

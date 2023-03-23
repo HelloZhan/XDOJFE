@@ -1,22 +1,34 @@
 <template>
-	<div>
-		<v-md-preview :text="problemdata"></v-md-preview>
-	</div>
-	<h1>Problem</h1>
+	<el-row>
+		<el-col :span="20">
+			<div>
+				<v-md-preview :text="problemdata"></v-md-preview>
+			</div>
+			<h1>Problem</h1>
 
-	<h3>题目描述</h3>
-	<h4>题目ID：{{ $route.query.ProblemId }}</h4>
-	<h4>题目名字：{{ $route.query.Title }}</h4>
-	<el-input
-		v-model="Code"
-		:rows="10"
-		type="textarea"
-		placeholder="请输入代码！"
-	/>
-	<hr />
-	<h4>结果是 {{ result }}</h4>
-	<h4>原因是 {{ reason }}</h4>
-	<button @click="SubmitCode()">提交</button>
+			<h3>题目描述</h3>
+			<h4>题目ID：{{ $route.query.ProblemId }}</h4>
+			<h4>题目名字：{{ $route.query.Title }}</h4>
+			<el-input
+				v-model="Code"
+				:rows="10"
+				type="textarea"
+				placeholder="请输入代码！"
+			/>
+			<hr />
+			<h4>结果是 {{ result }}</h4>
+			<h4>原因是 {{ reason }}</h4>
+			<button @click="SubmitCode()">提交</button>
+		</el-col>
+		<el-col :span="4">
+			<el-affix :offset="120">
+				<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
+				<el-button type="primary">题解</el-button>
+				<el-button type="primary">讨论</el-button>
+			</el-affix>
+		</el-col>
+	</el-row>
+	
 </template>
 
 <script setup>
@@ -24,9 +36,10 @@ import service from '../axios'
 import { ref,onMounted } from "vue"
 import store from '../store'
 import axios from 'axios'
-import { useRoute} from 'vue-router'
+import { useRoute,useRouter} from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 // 创建题目描述，是否显示，获取题目数据
 let problemdata = ref("# 题目列表");
 let result = ref("");
@@ -76,6 +89,16 @@ function SubmitCode() {
 			console.log(error.data);
 		}
 	);
+}
+
+function ClickStatusRecord()
+{
+	router.push({
+		name:"StatusRecord",
+		query:{
+			ProblemId:route.query.ProblemId
+		}
+	})
 }
 onMounted(()=>{
 	GetProblem();

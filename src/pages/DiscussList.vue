@@ -1,9 +1,16 @@
 <template>
-    <h1>DiscussSet</h1>
+    <h1>DiscussList</h1>
     <el-button type="primary" @click="AddDiscussion">写讨论</el-button>
-    <el-table :data="discussdata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>problemclick(row, column, cell, event,$router)">
-        <el-table-column prop="Title" label="标题" width="400" />
-        <el-table-column prop="User[0].NickName" label="作者" width="180"/>
+    <el-table :data="discussdata.array" style="width: 100%" @cell-click="cellclick">
+        <el-table-column prop="User[0].Avatar" label="头像" width="100">
+            <template #default="scope">
+                <div style="display: flex; align-items: center">
+                    <el-avatar :size="50" :src="scope.row.User[0].Avatar" />
+                </div>
+            </template>
+        </el-table-column>
+        <el-table-column prop="User[0].NickName" label="作者" width="100"/>
+        <el-table-column prop="Title" label="标题" width="700" />
         <el-table-column prop="Comments" label="评论数" width="100"/>
         <el-table-column prop="Views" label="浏览量" width="100"/>
         <el-table-column prop="CreateTime" label="创建时间" width="360"/>
@@ -28,25 +35,33 @@
 
 <script setup>
 import service from '../axios'
-import {reactive,ref} from 'vue'
+import {reactive,ref,onMounted} from 'vue'
 
-import { useRouter } from 'vue-router'
-const router = useRouter();
+import { useRouter,useRoute,onBeforeRouteUpdate } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
 
+// 上层id 默认为 0
+const parentid = ref(0)
 let discussdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
 
-function GetDiscussInfo(m_page, m_pagesize){
-    console.log(m_page,m_pagesize)
+// 请求服务器获取信息
+function GetServerInfo(id){
+    if(id!=null){
+        parentid.value = id
+    }else{
+        parentid.value = 0
+    }
     service.get(`/api/article`,{
         params: {
             ArticleType:"Discuss",
-            ParentId : 0,
-            Page : m_page,
-            PageSize : m_pagesize
+            ParentId : parentid.value,
+            Page : currentPage.value,
+            PageSize : pageSize.value
         },
     }).then(
         response => {
@@ -58,15 +73,14 @@ function GetDiscussInfo(m_page, m_pagesize){
             console.log('请求失败了',error.data)
         }
     )
-    console.log(m_page,m_pagesize)
 }
 
-function problemclick(row, column, cell, event,router) {
-    console.log('请求讨论ID：',row._id)
+function cellclick(row, column, cell, event) {
     router.push({
-        name: "Discuss",
-        query: { 
-            DiscussId: row._id, 
+        name: "ArticleView",
+        query: {
+            ArticleId: row._id,
+            ArticleType : 'Discuss',
             UserNickName:row.User[0].NickName, 
             UserAvatar:row.User[0].Avatar,
             Title:row.Title
@@ -84,16 +98,22 @@ function AddDiscussion(){
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
-    GetDiscussInfo(currentPage.value,pageSize.value)
+    GetDiscussInfo(parentid.value)
 }
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetDiscussInfo(currentPage.value,pageSize.value)
+    GetDiscussInfo(parentid.value)
 }
 
-// 获取信息
-GetDiscussInfo(currentPage.value,pageSize.value)
+// 路由更改前
+onBeforeRouteUpdate(to=>{
+    GetServerInfo(to.query.ParentId)
+})
+// 组件初始化
+onMounted(()=>{
+    GetServerInfo(route.query.ParentId)
+})
 </script>
 
 <style scoped>

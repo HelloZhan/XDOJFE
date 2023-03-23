@@ -13,7 +13,6 @@ import TextEditor from '../pages/TextEditor.vue'
 import UserSetting from '../pages/UserSetting.vue'
 import Admin from '../pages/Admin.vue'
 import ProblemEditor from '../pages/ProblemEditor.vue'
-import ProblemCode from '../components/Problem/ProblemCode.vue'
 
 import AdminDiscuss from '../components/Admin/AdminDiscuss.vue'
 import AdminProblem from '../components/Admin/AdminProblem.vue'
@@ -35,14 +34,7 @@ const routes = [
     {
         path:'/problem',
         name:'Problem',
-        component:Problem,
-        children:[
-            {
-                path:'problemcode',
-                name:'ProblemCode',
-                component:ProblemCode
-            }
-        ]
+        component:Problem
     },
     {
         path:'/statusrecord',

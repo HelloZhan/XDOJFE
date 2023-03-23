@@ -91,7 +91,7 @@ function AddSolution(){
     router.push({name:"TextEditor",query: { 
         EditType:"Insert",
         ArticleType:"Solution",
-        ParentId:"0",
+        ParentId : parentid.value,
         ArticleId:"0"
     }})
 }

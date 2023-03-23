@@ -59,7 +59,8 @@ function InsertArticle(){
         ParentId:router.currentRoute.value.query.ParentId,
         UserId:store.state.UserId,
         Content:mdtext.value,
-        Title:title.value
+        Title:title.value,
+        Public:1
     }).then(
         response => {
             console.log('请求成功了',response.data)
@@ -95,7 +96,8 @@ function UpdateArticle(){
         ArticleType:router.currentRoute.value.query.ArticleType,
         ArticleId:router.currentRoute.value.query.ArticleId,
         Content:mdtext.value,
-        Title:title.value
+        Title:title.value,
+        Public:1
     }).then(
         response => {
             console.log('请求成功了',response.data)

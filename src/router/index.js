@@ -14,6 +14,7 @@ import Admin from '../pages/Admin.vue'
 import ProblemEditor from '../pages/ProblemEditor.vue'
 import ArticleView from '../pages/ArticleView.vue'
 import Announcement from '../pages/Announcement.vue'
+import SolutionList from '../pages/SolutionList.vue'
 
 import AdminDiscuss from '../components/Admin/AdminDiscuss.vue'
 import AdminProblem from '../components/Admin/AdminProblem.vue'
@@ -106,7 +107,11 @@ const routes = [
         name:'Announcement',
         component:Announcement
     },
-    
+    {
+        path:'/solutionlist',
+        name:'SolutionList',
+        component:SolutionList
+    },
     {
         path:'/test',
         name:'Test',

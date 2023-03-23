@@ -23,8 +23,8 @@
 		<el-col :span="4">
 			<el-affix :offset="120">
 				<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
-				<el-button type="primary">题解</el-button>
-				<el-button type="primary">讨论</el-button>
+				<el-button type="primary" @click="ClickSolution">题解</el-button>
+				<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
 			</el-affix>
 		</el-col>
 	</el-row>
@@ -97,6 +97,25 @@ function ClickStatusRecord()
 		name:"StatusRecord",
 		query:{
 			ProblemId:route.query.ProblemId
+		}
+	})
+}
+function ClickSolution()
+{
+	router.push({
+		name:"SolutionList",
+		query:{
+			ParentId:route.query.ProblemId
+		}
+	})
+}
+
+function ClickDiscuss()
+{
+	router.push({
+		name:"DiscussList",
+		query:{
+			ParentId:route.query.ProblemId
 		}
 	})
 }

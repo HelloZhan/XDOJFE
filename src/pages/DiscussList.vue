@@ -91,7 +91,7 @@ function AddDiscussion(){
     router.push({name:"TextEditor",query: { 
         EditType:"Insert",
         ArticleType:"Discuss",
-        ParentId:"0",
+        ParentId:parentid.value,
         ArticleId:"0"
     }})
 }

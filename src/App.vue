@@ -15,8 +15,8 @@
 							<router-link to="/problemset">题库</router-link>
 						</el-menu-item>
 						<el-menu-item index="3">
-							<!-- <router-link to="/statusrecord">提交记录</router-link> -->
-							<el-button :type="primary" link @click="ClickStatusRecord">提交记录</el-button>
+							<router-link to="/statusrecord">提交记录</router-link>
+							<!-- <el-button :type="primary" link @click="ClickStatusRecord">提交记录</el-button> -->
 						</el-menu-item>
 						<el-menu-item index="4">
 							<router-link to="/discussset">讨论</router-link>
@@ -54,7 +54,7 @@
 			<el-main>
 				<login ref="logindialog"></login>
 				<register ref="registerdialog"></register>
-				<router-view :key="$route.fullPath"></router-view>
+				<router-view></router-view>
 			</el-main>
 	  	</el-container>
 	</div>
@@ -87,6 +87,7 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",

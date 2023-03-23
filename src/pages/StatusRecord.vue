@@ -29,7 +29,7 @@
 
 <script setup>
 import {reactive,ref,onMounted} from 'vue'
-import { useRoute} from 'vue-router'
+import { useRoute,onBeforeRouteUpdate } from 'vue-router'
 import ViewStatus from '../components/Dialog/ViewStatus.vue'
 import service from '../axios'
 
@@ -60,7 +60,19 @@ const handleCurrentChange = (val) => {
 // 题目信息列表
 let statusrecorddata = reactive({'array':[]})
 
-function GetStatusRecordInfo(){
+function GetStatusRecordInfo(ProblemId,UserId){
+    if(ProblemId!=null){
+        searchinfo.ProblemId = ProblemId
+    }else{
+        searchinfo.ProblemId = 0
+    }
+
+    if(UserId!=null){
+        searchinfo.UserId = UserId
+    }else{
+        searchinfo.UserId = 0
+    }
+
     service.get(`/api/statusrecord`,{
         params: {
             SearchInfo : JSON.stringify(searchinfo),
@@ -82,15 +94,13 @@ function GetStatusRecordInfo(){
 function statusrecordclick(row, column, cell, event) {
     viewstatusdialog.value.opendialog(row._id)
 }
-
+// 检测组件是否更新
+onBeforeRouteUpdate(to=>{
+    GetStatusRecordInfo(to.query.ProblemId,to.query.UserId)
+})
+// 组件初始化
 onMounted(()=>{
-    if(route.query.ProblemId!=null){
-        searchinfo.ProblemId = route.query.ProblemId
-    }
-    if(route.query.UserId!=null){
-        searchinfo.UserId = route.query.UserId
-    }
-    GetStatusRecordInfo()
+    GetStatusRecordInfo(route.query.ProblemId,route.query.UserId)
 })
 
 </script>

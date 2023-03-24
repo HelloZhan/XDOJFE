@@ -1,5 +1,5 @@
 <template>
-    <div id ="main" style="height:150px;width:100%"></div>
+    <div id ="main" style="height:250px;width:250px"></div>
 </template>
 
 <script setup>
@@ -38,7 +38,7 @@ const options = reactive({
                     name: 'SE'
                 }
             ],
-            radius: '80%'
+            radius: '50%'
         }
     ]
 })

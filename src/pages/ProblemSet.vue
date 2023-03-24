@@ -12,7 +12,7 @@
                 <el-table-column
                     prop="Tags"
                     label="Tag"
-                    width="200"
+                    width="400"
                     >
                     <template #default="scope">
                         <el-tag
@@ -24,7 +24,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="SubmitNum" label="提交次数" width="180"/>
-                <el-table-column prop="ACNum" label="通过次数" />
+                <el-table-column prop="ACNum" label="通过次数" width="100"/>
             </el-table>
 
             <div class="demo-pagination-block">

@@ -1,7 +1,7 @@
 <template>
 	<el-row>
 		<el-col :span="20">
-			<div>
+			<div class="content">
 				<v-md-preview :text="problemdata"></v-md-preview>
 			</div>
 			<h1>Problem</h1>
@@ -124,4 +124,8 @@ onMounted(()=>{
 })
 </script>
 
-<style></style>
+<style>
+.content{
+	width: 1000px
+}
+</style>

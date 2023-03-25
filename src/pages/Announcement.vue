@@ -1,11 +1,9 @@
 <template>
 	<h2>标题：{{ title }}</h2>
-	<el-avatar :size="50" :src="$route.query.UserAvatar" />
-	<h2>作者：{{ $route.query.UserNickName }}</h2>
     <div>
       <v-md-preview :text=content></v-md-preview>
     </div>
-    <Comment :ParentId=$route.query.ArticleId :ArticleType=$route.query.ArticleType ></Comment>
+    <Comment :ParentId=$route.query.AnnouncementId ArticleType="Announcement" ></Comment>
 </template>
 
 <script setup>
@@ -16,23 +14,28 @@ import service from '../axios'
 
 const route = useRoute()
 
-const articleid = ref(0)
+const announcementid = ref(0)
 const title = ref('')
 const content = ref('')
-const articletype = ref('')
-
-function GetAnnouncementContent() {
+const views = ref(0)
+const comments = ref(0)
+const createtime = ref('')
+const updatetime = ref('')
+function GetServerInfo() {
 	service
-	.get(`/api/article/content`, {
+	.get(`/api/announcement/content`, {
 		params: {
-			ArticleType:"Announcement",
-			ArticleId: articleid.value,
+			AnnouncementId: announcementid.value
 		},
 	})
 	.then(
 		(response) => {
-			console.log("请求成功了！！！");
-			content.value = response.data.Content; // 赋值
+			console.log("请求成功了！！！")
+			if(response.data.Result == "Success"){
+				SetServerData(response.data)
+			}else{
+				console.log('请求失败')
+			}
 		},
 		(error) => {
 			console.log("请求失败了！！！");
@@ -41,11 +44,18 @@ function GetAnnouncementContent() {
 	);
 }
 
+function SetServerData(data)
+{
+	title.value = data.Title
+	content.value = data.Content
+	views.value = data.Views
+	comments.value = data.Comments
+	createtime.value = data.CreateTime
+	updatetime.value = data.UpdateTime
+}
 onMounted(()=>{
-	title.value = route.query.Title
-	articleid.value = route.query.ArticleId
-    articletype.value = route.query.ArticleType
-	GetAnnouncementContent()
+	announcementid.value = route.query.AnnouncementId
+	GetServerInfo()
 })
 </script>
   

@@ -1,9 +1,8 @@
 <template>
     <h1>公告</h1>
     <el-button type="primary" @click="AddAnnouncement">添加公告</el-button>
-    <el-table :data="infodata.array" style="width: 100%">
+    <el-table :data="serverdata.array" style="width: 100%">
         <el-table-column prop="Title" label="标题" width="400" />
-        <el-table-column prop="User[0].NickName" label="作者" width="180"/>
         <el-table-column prop="Comments" label="评论数" width="100"/>
         <el-table-column prop="Views" label="浏览量" width="100"/>
         <el-table-column prop="CreateTime" label="创建时间" width="360"/>
@@ -43,7 +42,7 @@ const router = useRouter();
 
 const pointmessage = ref('')
 
-let infodata = reactive({'array':[]})
+let serverdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
 let currentPage = ref(1) // 当前页数
@@ -51,11 +50,9 @@ let pageSize = ref(10) // 当前页的数量
 
 // 增加公告
 function AddAnnouncement(){
-    router.push({name:"TextEditor",query: { 
+    router.push({name:"AnnouncementEditor",query: { 
         EditType:"Insert",
-        ArticleType:"Announcement",
-        ParentId:"0",
-        ArticleId:"0"
+        AnnouncementId:"0"
     }})
 }
 
@@ -64,28 +61,23 @@ function handleCheck(row){
     router.push({
         name: "Announcement",
         query: { 
-            ArticleId: row._id, 
-            ArticleType:'Announcement',
-            UserNickName:row.User[0].NickName, 
-            UserAvatar:row.User[0].Avatar,
-            Title:row.Title
+            AnnouncementId: row._id, 
         }
     });
 }
 // 编辑公告
 function handleEdit(row){
-    router.push({name:"TextEditor",query: { 
+    router.push({name:"AnnouncementEditor",query: { 
         EditType:"Update",
-        ArticleType:"Announcement",
-        ArticleId:row._id,
-		ParentId:"0"
+        AnnouncementId:row._id,
     }})
 }
 // 删除讨论
 function handleDelete(row){
-    service.post(`/api/article/delete`,{
-        ArticleType:"Announcement",
-        ArticleId:row._id
+    service.delete(`/api/announcement`,{
+        params:{
+            AnnouncementId:row._id
+        }
     }).then(
         response => {
             console.log('请求成功了',response.data)
@@ -100,18 +92,16 @@ function handleDelete(row){
     )
 }
 
-function GetDiscussInfo(){
-    service.get(`/api/article`,{
+function GetServerInfo(){
+    service.get(`/api/announcement`,{
         params: {
-            ArticleType:"Announcement",
-            ParentId : 0,
             Page : currentPage.value,
             PageSize : pageSize.value
         },
     }).then(
         response => {
             console.log('请求成功了',response.data)
-            infodata.array = response.data.ArrayInfo
+            serverdata.array = response.data.ArrayInfo
             TotalNum.value = Number(response.data.TotalNum)
         },
         error => {
@@ -132,8 +122,7 @@ const handleCurrentChange = (val) => {
 }
 
 onMounted(()=>{
-    // 获取信息
-    GetDiscussInfo()
+    GetServerInfo()
 })
 // 发送成功消息
 const SuccessMessage = () => {

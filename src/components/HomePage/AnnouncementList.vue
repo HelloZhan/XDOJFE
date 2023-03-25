@@ -5,7 +5,7 @@
             <span>公告</span>
         </div>
         </template>
-        <el-table :data="announcementdata.array" style="width: 100%" @cell-click="cellclick">
+        <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
             <el-table-column prop="Title" label="标题" width="400" />
             <el-table-column prop="Comments" label="评论数" width="100"/>
             <el-table-column prop="Views" label="浏览量" width="100"/>
@@ -37,25 +37,25 @@ import {reactive,ref,onMounted} from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter();
 
-let announcementdata = reactive({'array':[]})
+let serverdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
 
 function GetServerInfo(){
-    service.get(`/api/article`,{
+    service.get(`/api/announcement`,{
         params: {
-            ArticleType:"Announcement",
-            ParentId : 0,
             Page : currentPage.value,
             PageSize : pageSize.value
         },
     }).then(
         response => {
-            console.log('请求成功了',response.data)
-            announcementdata.array = response.data.ArrayInfo
-            TotalNum.value = Number(response.data.TotalNum)
+            console.log('请求Announcement成功',response.data)
+            if(response.data.Result=="Success"){
+                serverdata.array = response.data.ArrayInfo
+                TotalNum.value = Number(response.data.TotalNum)
+            }
         },
         error => {
             console.log('请求失败了',error.data)
@@ -67,11 +67,7 @@ function cellclick(row, column, cell, event) {
     router.push({
         name: "Announcement",
         query: { 
-            ArticleId: row._id, 
-            ArticleType : 'Announcement',
-            UserNickName:row.User[0].NickName, 
-            UserAvatar:row.User[0].Avatar,
-            Title:row.Title
+            AnnouncementId: row._id, 
         }
     });
 }

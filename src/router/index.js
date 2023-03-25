@@ -34,6 +34,8 @@ import AdminProblem from '../components/Admin/AdminProblem.vue'
 import AdminUser from '../components/Admin/AdminUser.vue'
 import AdminAnnouncement from '../components/Admin/AdminAnnouncement.vue'
 
+import AnnouncementEditor from '../pages/Editor/AnnouncementEditor.vue'
+
 import Test from '../pages/Test.vue'
 
 const routes = [
@@ -124,6 +126,11 @@ const routes = [
         path:'/solutionlist',
         name:'SolutionList',
         component:SolutionList
+    },
+    {
+        path:'/announcementeditor',
+        name:'AnnouncementEditor',
+        component:AnnouncementEditor
     },
     {
         path:'/test',

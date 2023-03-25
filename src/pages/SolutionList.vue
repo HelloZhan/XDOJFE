@@ -41,8 +41,11 @@ import { useRouter,useRoute,onBeforeRouteUpdate } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-// 上层id 默认为 0
-const parentid = ref(0)
+const searchinfo = reactive({
+    ParentId:'0',
+    UserId:'0'
+})
+
 let serverdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
@@ -50,15 +53,21 @@ let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
 
 // 请求服务器获取信息
-function GetServerInfo(id){
-    if(id!=null){
-        parentid.value = id
+function GetServerInfo(ParentId,UserId){
+    if(ParentId!=null){
+        searchinfo.ParentId = ParentId
     }else{
-        parentid.value = 0
+        searchinfo.ParentId = 0
+    }
+
+    if(UserId!=null){
+        searchinfo.UserId = UserId
+    }else{
+        searchinfo.UserId = 0
     }
     service.get(`/api/solution`,{
         params: {
-            ParentId : parentid.value,
+            SearchInfo:JSON.stringify(searchinfo),
             Page : currentPage.value,
             PageSize : pageSize.value
         },
@@ -85,7 +94,7 @@ function cellclick(row, column, cell, event) {
 function AddSolution(){
     router.push({name:"SolutionEditor",query: { 
         EditType:"Insert",
-        ParentId : parentid.value,
+        ParentId : searchinfo.ParentId,
         SolutionId:"0"
     }})
 }
@@ -93,21 +102,21 @@ function AddSolution(){
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
-    GetDiscussInfo(parentid.value)
+    GetDiscussInfo(searchinfo.ParentId,searchinfo.UserId)
 }
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetDiscussInfo(parentid.value)
+    GetDiscussInfo(searchinfo.ParentId,searchinfo.UserId)
 }
 
 // 路由更改前
 onBeforeRouteUpdate(to=>{
-    GetServerInfo(to.query.ParentId)
+    GetServerInfo(to.query.ParentId,to.query.UserId)
 })
 // 组件初始化
 onMounted(()=>{
-    GetServerInfo(route.query.ParentId)
+    GetServerInfo(route.query.ParentId,route.query.UserId)
 })
 </script>
 

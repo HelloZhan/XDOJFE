@@ -50,11 +50,11 @@ const disabled = ref(false)
 
 const handleSizeChange = (val) => {
     pageSize.value = val;
-    GetStatusRecordInfo()
+    GetStatusRecordInfo(searchinfo.ProblemId,searchinfo.UserId)
 }
 const handleCurrentChange = (val) => {
     currentPage.value = val;
-    GetStatusRecordInfo()
+    GetStatusRecordInfo(searchinfo.ProblemId,searchinfo.UserId)
 }
 
 // 题目信息列表

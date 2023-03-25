@@ -78,12 +78,12 @@ const searchinfo = reactive({
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
-    GetProblemSetInfo("common",currentPage.value,pageSize.value)
+    GetProblemSetInfo()
 }
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetProblemSetInfo("common",currentPage.value,pageSize.value)
+    GetProblemSetInfo()
 }
 
 // 题目信息列表

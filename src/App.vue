@@ -46,6 +46,12 @@
 							<el-dropdown-item command="statusrecord">
 								<el-icon><Edit /></el-icon>我的提交
 							</el-dropdown-item>
+							<el-dropdown-item command="discuss">
+								<el-icon><Edit /></el-icon>我的讨论
+							</el-dropdown-item>
+							<el-dropdown-item command="solution">
+								<el-icon><Edit /></el-icon>我的题解
+							</el-dropdown-item>
 							<el-dropdown-item command="usersetting">
 								<el-icon><Setting /></el-icon>设置
 							</el-dropdown-item>
@@ -96,10 +102,23 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
-		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",
+			query:{
+				UserId:store.state.UserId
+			}
+		})
+	}else if(command == "discuss"){
+		router.push({
+			name:"DiscussList",
+			query:{
+				UserId:store.state.UserId
+			}
+		})
+	}else if(command == "solution"){
+		router.push({
+			name:"SolutionList",
 			query:{
 				UserId:store.state.UserId
 			}

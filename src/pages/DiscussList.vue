@@ -1,7 +1,7 @@
 <template>
     <h1>DiscussList</h1>
     <el-button type="primary" @click="AddDiscussion">写讨论</el-button>
-    <el-table :data="discussdata.array" style="width: 100%" @cell-click="cellclick">
+    <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
         <el-table-column prop="User[0].Avatar" label="头像" width="100">
             <template #default="scope">
                 <div style="display: flex; align-items: center">
@@ -43,7 +43,7 @@ const route = useRoute()
 
 // 上层id 默认为 0
 const parentid = ref(0)
-let discussdata = reactive({'array':[]})
+let serverdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
 let currentPage = ref(1) // 当前页数
@@ -56,9 +56,8 @@ function GetServerInfo(id){
     }else{
         parentid.value = 0
     }
-    service.get(`/api/article`,{
+    service.get(`/api/discuss`,{
         params: {
-            ArticleType:"Discuss",
             ParentId : parentid.value,
             Page : currentPage.value,
             PageSize : pageSize.value
@@ -66,7 +65,7 @@ function GetServerInfo(id){
     }).then(
         response => {
             console.log('请求成功了',response.data)
-            discussdata.array = response.data.ArrayInfo
+            serverdata.array = response.data.ArrayInfo
             TotalNum.value = Number(response.data.TotalNum)
         },
         error => {
@@ -77,22 +76,17 @@ function GetServerInfo(id){
 
 function cellclick(row, column, cell, event) {
     router.push({
-        name: "ArticleView",
+        name: "Discuss",
         query: {
-            ArticleId: row._id,
-            ArticleType : 'Discuss',
-            UserNickName:row.User[0].NickName, 
-            UserAvatar:row.User[0].Avatar,
-            Title:row.Title
+            DiscussId: row._id,
         }
     });
 }
 function AddDiscussion(){
-    router.push({name:"TextEditor",query: { 
+    router.push({name:"DiscussEditor",query: { 
         EditType:"Insert",
-        ArticleType:"Discuss",
         ParentId:parentid.value,
-        ArticleId:"0"
+        DiscussId:"0"
     }})
 }
 const handleSizeChange = (val) => {

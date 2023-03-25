@@ -54,28 +54,25 @@ function handleCheck(row){
         name: "Discuss",
         query: { 
             DiscussId: row._id, 
-            UserNickName:row.User[0].NickName, 
-            UserAvatar:row.User[0].Avatar,
-            Title:row.Title
         }
     });
 }
 // 编辑讨论
 function handleEdit(row){
     console.log('点击编辑',row)
-    router.push({name:"TextEditor",query: { 
+    router.push({name:"DiscussEditor",query: { 
         EditType:"Update",
-        ArticleType:"Discuss",
-        ArticleId:row._id,
+        DiscussId:row._id,
 		ParentId:"0"
     }})
 }
 // 删除讨论
 function handleDelete(row){
     console.log('点击删除',row)
-    service.post(`/api/article/delete`,{
-        ArticleType:"Discuss",
-        ArticleId:row._id
+    service.delete(`/api/discuss`,{
+        params:{
+            DiscussId:row._id
+        }
     }).then(
         response => {
             console.log('请求成功了',response.data)
@@ -92,10 +89,8 @@ function handleDelete(row){
 
 function GetDiscussInfo(m_page, m_pagesize){
     console.log(m_page,m_pagesize)
-    service.get(`/api/article`,{
+    service.get(`/api/discuss/admin`,{
         params: {
-            ArticleType:"Discuss",
-            ParentId : 0,
             Page : m_page,
             PageSize : m_pagesize
         },

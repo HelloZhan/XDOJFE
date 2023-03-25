@@ -7,7 +7,7 @@
     </div>
 	<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
 	<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
-    <Comment :ParentId=$route.query.SolutionId ArticleType="Solution" ></Comment>
+    <Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
 </template>
 
 <script setup>
@@ -19,7 +19,7 @@ import service from '../axios'
 const router = useRouter()
 const route = useRoute()
 
-const solutionid = ref(0)
+const discussid = ref(0)
 
 const title = ref('')
 const content = ref('')
@@ -32,9 +32,9 @@ const showbutton = ref(true)
 
 function GetServerInfo() {
 	service
-	.get(`/api/solution/content`, {
+	.get(`/api/discuss/content`, {
 		params: {
-			SolutionId: solutionid.value,
+			DiscussId: discussid.value,
 		},
 	})
 	.then(
@@ -62,18 +62,18 @@ function SetServerData(data)
 }
 
 function UpdateArticle(){
-	router.push({name:"SolutionEditor",query: { 
+	router.push({name:"DiscussEditor",query: { 
         EditType:"Update",
-        SolutionId:solutionid.value,
+        DiscussId:discussid.value,
 		ParentId:"0"
     }})
 }
 
 function DeleteArticle(){
 	service
-	.delete(`/api/solution`, {
+	.delete(`/api/discuss`, {
         params:{
-            SolutionId:solutionid.value,
+            DiscussId:discussid.value,
         }
 	})
 	.then(
@@ -89,7 +89,7 @@ function DeleteArticle(){
 }
 
 onMounted(()=>{
-	solutionid.value = route.query.SolutionId
+	discussid.value = route.query.DiscussId
 	GetServerInfo()
 })
 </script>

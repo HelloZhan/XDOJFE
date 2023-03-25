@@ -79,7 +79,6 @@ function cellclick(row, column, cell, event) {
         name: "Solution",
         query: {
             SolutionId: row._id,
-            ParentId:parentid.value
         }
     });
 }

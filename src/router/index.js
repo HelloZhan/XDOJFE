@@ -29,6 +29,7 @@ import ArticleView from '../pages/ArticleView.vue'
 import Announcement from '../pages/Announcement.vue'
 import SolutionList from '../pages/SolutionList.vue'
 import Solution from '../pages/Solution.vue'
+import Discuss from '../pages/Discuss.vue'
 
 import AdminDiscuss from '../components/Admin/AdminDiscuss.vue'
 import AdminProblem from '../components/Admin/AdminProblem.vue'
@@ -38,6 +39,7 @@ import AdminSolution from '../components/Admin/AdminSolution.vue'
 
 import AnnouncementEditor from '../pages/Editor/AnnouncementEditor.vue'
 import SolutionEditor from '../pages/Editor/SolutionEditor.vue'
+import DiscussEditor from '../pages/Editor/DiscussEditor.vue'
 
 import Test from '../pages/Test.vue'
 
@@ -135,6 +137,11 @@ const routes = [
         component:Solution
     },
     {
+        path:'/discuss',
+        name:'Discuss',
+        component:Discuss
+    },
+    {
         path:'/solutionlist',
         name:'SolutionList',
         component:SolutionList
@@ -148,6 +155,11 @@ const routes = [
         path:'/solutioneditor',
         name:'SolutionEditor',
         component:SolutionEditor
+    },
+    {
+        path:'/discusseditor',
+        name:'DiscussEditor',
+        component:DiscussEditor
     },
     {
         path:'/test',

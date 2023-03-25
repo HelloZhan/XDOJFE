@@ -53,11 +53,11 @@ function handleCheck(row){
     router.push({
         name: "Solution",
         query: { 
-            SolutionId: row._id, 
+            SolutionId: row._id,
         }
     });
 }
-// 编辑公告
+// 编辑题解
 function handleEdit(row){
     router.push({name:"SolutionEditor",query: { 
         EditType:"Update",
@@ -65,7 +65,7 @@ function handleEdit(row){
         ParentId:"0"
     }})
 }
-// 删除讨论
+// 删除题解
 function handleDelete(row){
     service.delete(`/api/solution`,{
         params:{

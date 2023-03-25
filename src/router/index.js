@@ -21,11 +21,9 @@ import StatusRecord from '../pages/StatusRecord.vue'
 import DiscussList from '../pages/DiscussList.vue'
 import UserRank from '../pages/UserRank.vue'
 import UserHome from '../pages/UserHome.vue'
-import TextEditor from '../pages/TextEditor.vue'
 import UserSetting from '../pages/UserSetting.vue'
 import Admin from '../pages/Admin.vue'
 import ProblemEditor from '../pages/ProblemEditor.vue'
-import ArticleView from '../pages/ArticleView.vue'
 import Announcement from '../pages/Announcement.vue'
 import SolutionList from '../pages/SolutionList.vue'
 import Solution from '../pages/Solution.vue'
@@ -80,11 +78,6 @@ const routes = [
         component:UserHome
     },
     {
-        path:'/texteditor',
-        name:'TextEditor',
-        component:TextEditor
-    },
-    {
         path:'/usersetting',
         name:'UserSetting',
         component:UserSetting
@@ -120,11 +113,6 @@ const routes = [
         path:'/problemeditor',
         name:'ProblemEditor',
         component:ProblemEditor
-    },
-    {
-        path:'/articleview',
-        name:'ArticleView',
-        component:ArticleView
     },
     {
         path:'/announcement',

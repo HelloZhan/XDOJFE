@@ -42,11 +42,11 @@
 
 <script lang="ts" setup>
 import {  reactive, ref ,onMounted} from 'vue'
-import TestDataFrom from '../components/Admin/TestDataFrom.vue'
-import ProblemTags from '../components/Admin/ProblemTags.vue'
-import store from '../store'
+import TestDataFrom from '../../components/Problem/TestDataFrom.vue'
+import ProblemTags from '../../components/Problem/ProblemTags.vue'
+import store from '../../store'
 import { ElMessage } from 'element-plus'
-import service from '../axios'
+import service from '../../axios'
 import { useRouter,useRoute } from 'vue-router'
 
 const router = useRouter()

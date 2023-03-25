@@ -28,13 +28,16 @@ import ProblemEditor from '../pages/ProblemEditor.vue'
 import ArticleView from '../pages/ArticleView.vue'
 import Announcement from '../pages/Announcement.vue'
 import SolutionList from '../pages/SolutionList.vue'
+import Solution from '../pages/Solution.vue'
 
 import AdminDiscuss from '../components/Admin/AdminDiscuss.vue'
 import AdminProblem from '../components/Admin/AdminProblem.vue'
 import AdminUser from '../components/Admin/AdminUser.vue'
 import AdminAnnouncement from '../components/Admin/AdminAnnouncement.vue'
+import AdminSolution from '../components/Admin/AdminSolution.vue'
 
 import AnnouncementEditor from '../pages/Editor/AnnouncementEditor.vue'
+import SolutionEditor from '../pages/Editor/SolutionEditor.vue'
 
 import Test from '../pages/Test.vue'
 
@@ -104,6 +107,10 @@ const routes = [
             {
                 path:'adminannouncement',
                 component: AdminAnnouncement
+            },
+            {
+                path:'adminsolution',
+                component: AdminSolution
             } 
         ]
     },
@@ -123,6 +130,11 @@ const routes = [
         component:Announcement
     },
     {
+        path:'/solution',
+        name:'Solution',
+        component:Solution
+    },
+    {
         path:'/solutionlist',
         name:'SolutionList',
         component:SolutionList
@@ -131,6 +143,11 @@ const routes = [
         path:'/announcementeditor',
         name:'AnnouncementEditor',
         component:AnnouncementEditor
+    },
+    {
+        path:'/solutioneditor',
+        name:'SolutionEditor',
+        component:SolutionEditor
     },
     {
         path:'/test',

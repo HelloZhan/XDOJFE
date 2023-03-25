@@ -24,6 +24,10 @@
 			<el-icon><icon-menu /></el-icon>
 			<router-link to="/admin/adminannouncement">公告管理</router-link>
 		</el-menu-item>
+		<el-menu-item index="5">
+			<el-icon><icon-menu /></el-icon>
+			<router-link to="/admin/adminsolution">题解管理</router-link>
+		</el-menu-item>
 	</el-menu>
 	</el-col>
 	<el-col :span="21">

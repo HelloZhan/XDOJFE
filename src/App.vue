@@ -1,14 +1,13 @@
 <template>
 	<div class="header">
-		<el-affix :offset="0">
+		<!-- <el-affix :offset="0"> -->
 			<el-menu id="nav"
 				:default-active="$route"
 				class="el-menu-demo"
 				mode="horizontal"
 				v-bind:router="true"
-				@select="handleSelect"
 			>
-				<el-menu-item index="/homepage">
+				<el-menu-item index="/">
 					<el-icon><HomeFilled /></el-icon>
 					首页
 				</el-menu-item>
@@ -36,7 +35,7 @@
 				<el-button id="button" type="primary" @click="openregisterdialog">注册</el-button>
 				<el-dropdown @command="handleCommand" id="user">
 					<el-button type="primary">
-						你好！{{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+						<el-icon><User /></el-icon>{{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
 					</el-button>
 					<template #dropdown>
 						<el-dropdown-menu>
@@ -65,14 +64,21 @@
 					</template>
 				</el-dropdown>
 			</el-menu>
-  		</el-affix>
+  		<!-- </el-affix> -->
 	</div>
 	<div class="main">
 		<login ref="logindialog"></login>
 		<register ref="registerdialog"></register>
 		<router-view></router-view>
 	</div>
-	<div class="footer"></div>
+	<div class="footer">
+		<p>
+			Powered by
+			<a href="https://github.com/HelloZhan/XDOJ.git"
+			target="_blank"
+			style="text-decoration: none;color:#409EFF;">HelloZhan</a>
+		</p>
+	</div>
 </template>
 <script setup>
 import Register from './components/Dialog/Register.vue'
@@ -102,6 +108,7 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",
@@ -132,6 +139,8 @@ function handleCommand(command){
 .flex-grow {
   flex-grow: 1;
 }
+
+
 #button {
   float: right;
   margin: 20px;
@@ -143,14 +152,11 @@ function handleCommand(command){
 #nav {
   background-color: #ffffff;
   position: relative;
+  margin: 8px;
   left: 0px;
   top: 0px;
   z-index: 5;
   width: 100%;
-  /* box-shadow: 00px 0px 00px rgb(255, 255, 255),
-    0px 0px 10px rgb(255, 255, 255),
-     0px 0px 0px rgb(255, 255, 255),
-     1px 1px 0px rgb(218, 218, 218);  */
 }
 .example-showcase .el-dropdown + .el-dropdown {
   margin-left: 15px;
@@ -160,5 +166,11 @@ function handleCommand(command){
   color: var(--el-color-primary);
   display: flex;
   align-items: center;
+}
+.footer {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: small;
 }
 </style>

@@ -15,10 +15,10 @@
                     style="width: 300px"
                 >
                     <el-option
-                    v-for="item in options.array"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                        v-for="item in options.array"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
                     />
                 </el-select>
             </el-col>
@@ -26,8 +26,6 @@
                 <el-button type="primary" :icon="Search" @click="searchbutton">搜索</el-button>
             </el-col>
         </el-row>
-
-		
 	</div>
 </template>
   

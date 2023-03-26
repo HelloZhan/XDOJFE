@@ -1,5 +1,4 @@
 <template>
-    <h1>StatusRecord</h1>
     <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
         <el-table-column prop="_id" label="ID" width="180" />
         <el-table-column prop="UserNickName" label="User" width="180" />

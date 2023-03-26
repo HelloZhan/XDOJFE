@@ -1,14 +1,17 @@
 <template>
     <el-row>
         <el-col :span="18">
-            <h1>ProblemSet</h1>
-            <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet"></ProblemSearch>
+            <el-card class="box-card">
+                <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet"></ProblemSearch>
+            </el-card>
+            <el-card class="box-card">
+
             <el-table :data="problemsetdata.array" style="width: 100%" 
                 @cell-click="problemclick"
                 @cell-mouse-enter="changepiechart"
                 >
-                <el-table-column prop="ProblemId" label="ID" width="180" />
-                <el-table-column prop="Title" label="Title" width="180" />
+                <el-table-column prop="ProblemId" label="ID" width="50" />
+                <el-table-column prop="Title" label="Title" width="300" />
                 <el-table-column
                     prop="Tags"
                     label="Tag"
@@ -23,10 +26,9 @@
                         >{{ name }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="SubmitNum" label="提交次数" width="180"/>
+                <el-table-column prop="SubmitNum" label="提交次数" width="100"/>
                 <el-table-column prop="ACNum" label="通过次数" width="100"/>
             </el-table>
-
             <div class="demo-pagination-block">
                 <el-pagination
                 v-model:current-page="currentPage"
@@ -41,10 +43,13 @@
                 @current-change="handleCurrentChange"
                 />
             </div>
+            </el-card>
         </el-col>
         <el-col :span="6">
             <el-affix :offset="120">
-                <PieChart ref="piechart"></PieChart>
+                <el-card class="box-card">
+                    <PieChart ref="piechart"></PieChart>
+                </el-card>
             </el-affix>
         </el-col>
     </el-row>

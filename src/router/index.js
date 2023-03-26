@@ -43,7 +43,7 @@ import Test from '../pages/Test.vue'
 
 const routes = [
     {
-        path:'/homepage',
+        path:'/',
         name:'HomePage',
         component:HomePage
     },

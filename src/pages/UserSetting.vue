@@ -1,28 +1,30 @@
 <template>
-    <h1>修改个人信息</h1>
-    <el-form :model="form" label-width="120px">
-        <el-form-item label="头像">
-            <el-avatar :size="100" :src="form.Avatar" />
-            <el-input v-model="form.Avatar" />
-            <el-text class="mx-1">大家可以通过网上获取图片地址链接更改头像，本OJ提供10个头像大家更改后缀即可</el-text>
-        </el-form-item>
-        <el-form-item label="个性签名">
-            <el-input v-model="form.PersonalProfile" maxlength="25" show-word-limit/>
-        </el-form-item>
-        <el-form-item label="学校">
-            <el-input v-model="form.School" maxlength="15" show-word-limit/>
-        </el-form-item>
-        <el-form-item label="专业">
-            <el-input v-model="form.Major" maxlength="15" show-word-limit/>
-        </el-form-item>
-        <el-form-item label="权限">
-            <el-input v-model="form.Authority" maxlength="15" show-word-limit/>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">确认</el-button>
-            <el-button>取消</el-button>
-        </el-form-item>
-    </el-form>
+    <el-card class="box-card">
+        <h1>修改个人信息</h1>
+        <el-form :model="form" label-width="120px">
+            <el-form-item label="头像">
+                <el-avatar :size="100" :src="form.Avatar" />
+                <el-input v-model="form.Avatar" />
+                <el-text class="mx-1">大家可以通过网上获取图片地址链接更改头像，本OJ提供10个头像大家更改后缀即可</el-text>
+            </el-form-item>
+            <el-form-item label="个性签名">
+                <el-input v-model="form.PersonalProfile" maxlength="25" show-word-limit/>
+            </el-form-item>
+            <el-form-item label="学校">
+                <el-input v-model="form.School" maxlength="15" show-word-limit/>
+            </el-form-item>
+            <el-form-item label="专业">
+                <el-input v-model="form.Major" maxlength="15" show-word-limit/>
+            </el-form-item>
+            <el-form-item label="权限">
+                <el-input v-model="form.Authority" maxlength="15" show-word-limit/>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">确认</el-button>
+                <el-button>取消</el-button>
+            </el-form-item>
+        </el-form>
+    </el-card>
   </template>
   
 <script lang="ts" setup>

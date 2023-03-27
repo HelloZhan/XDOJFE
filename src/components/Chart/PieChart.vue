@@ -1,5 +1,5 @@
 <template>
-    <div id ="main" style="height:200px;width:200px"></div>
+    <div id ="main" style="height:300px;width:300px"></div>
 </template>
 
 <script setup>
@@ -7,7 +7,14 @@ import { onMounted,reactive } from 'vue'
 import * as echarts from 'echarts'
 let myChart
 const options = reactive({
-    tooltip: {},
+    tooltip: {
+    },
+    legend: {
+      orient: 'horizontal',
+      x: 'center',
+      y: 'bottom',
+      data: [ 'CE', 'AC', 'WA', 'TLE', 'MLE', 'SE' ],
+    },
     series: [
         {
             type: 'pie',
@@ -38,7 +45,7 @@ const options = reactive({
                     name: 'SE'
                 }
             ],
-            radius: '50%'
+            radius: '45%'
         }
     ]
 })

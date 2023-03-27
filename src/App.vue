@@ -108,7 +108,6 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
-
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",
@@ -152,7 +151,7 @@ function handleCommand(command){
 #nav {
   background-color: #ffffff;
   position: relative;
-  margin: 8px;
+  margin: 5px;
   left: 0px;
   top: 0px;
   z-index: 5;

@@ -1,29 +1,32 @@
 <template>
-    <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
-        <el-table-column prop="_id" label="ID" width="180" />
-        <el-table-column prop="UserNickName" label="User" width="180" />
-        <el-table-column prop="ProblemTitle" label="Title" width="180"/>
-        <el-table-column prop="Status" label="Status" width="180"/>
-        <el-table-column prop="RunTime" label="RunTime" width="100"/>
-        <el-table-column prop="RunMemory" label="Memory" width="100"/>
-        <el-table-column prop="Length" label="Length" width="100"/>
-        <el-table-column prop="SubmitTime" label="SubmitTime" />
-    </el-table>
-    <ViewStatus ref="viewstatusdialog"></ViewStatus>
-    <div class="demo-pagination-block">
-        <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :page-sizes="[25, 50, 75]"
-        :small="small"
-        :disabled="disabled"
-        :background="background"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalsize"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        />
-    </div>
+    <el-card class="box-card">
+        <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
+            <el-table-column prop="_id" label="ID" width="180" />
+            <el-table-column prop="UserNickName" label="User" width="180" />
+            <el-table-column prop="ProblemTitle" label="Title" width="180"/>
+            <el-table-column prop="Status" label="Status" width="180"/>
+            <el-table-column prop="RunTime" label="RunTime" width="100"/>
+            <el-table-column prop="RunMemory" label="Memory" width="100"/>
+            <el-table-column prop="Length" label="Length" width="100"/>
+            <el-table-column prop="SubmitTime" label="SubmitTime" />
+        </el-table>
+        <ViewStatus ref="viewstatusdialog"></ViewStatus>
+        <div class="demo-pagination-block">
+            <el-pagination
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[25, 50, 75]"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalsize"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            />
+        </div>
+    </el-card>
+    
 </template>
 
 <script setup>

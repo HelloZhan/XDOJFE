@@ -1,25 +1,11 @@
 <template>
-    <el-row :gutter="15">
-        <el-col :span="5">
-            <el-card class="box-card">
-                <template #header>
-                <div class="card-header">
-                    <span>欢迎来到XDJO</span>
-                    <el-button class="button" text>Operation button</el-button>
-                </div>
-                </template>
-            </el-card>
-            <AnnouncementList></AnnouncementList>
-        </el-col>
-    </el-row>
-  
+	<AnnouncementList></AnnouncementList>
 </template>
 <script setup>
 import AnnouncementList from '../components/HomePage/AnnouncementList.vue'
 </script>
 
-<style>
-
+<style scoped>
 .el-row {
   margin-bottom: 20px;
 }
@@ -49,7 +35,4 @@ import AnnouncementList from '../components/HomePage/AnnouncementList.vue'
   margin-bottom: 18px;
 }
 
-.box-card {
-  width: 1280px;
-}
 </style>

@@ -1,30 +1,32 @@
 <template>
-    <div class="common-layout">
-        <el-container>
-            <el-header>
-                <h1>个人主页：{{ NickName }}</h1>
-            </el-header>
+    <el-card class="box-card">
+        <div class="common-layout">
             <el-container>
-                <el-aside width="150px">
-                    <el-avatar :size="150" :src="Avatar" />
-                </el-aside>
-                <el-main>
-                    个性签名：{{ PersonalProfile }}
-                    <el-divider />
-                    学校：{{ School }}
-                    <el-divider />
-                    专业：{{ Major }}
-                    <el-divider />
-                    通过次数：{{ ACNum }}
-                    <el-divider />
-                    提交次数：{{ SubmitNum }}
-                    <el-divider />
-                    加入时间：{{ JoinTime }}
-                    <el-divider />
-                </el-main>
+                <el-header>
+                    <h1>个人主页：{{ NickName }}</h1>
+                </el-header>
+                <el-container>
+                    <el-aside width="150px">
+                        <el-avatar :size="150" :src="Avatar" />
+                    </el-aside>
+                    <el-main>
+                        个性签名：{{ PersonalProfile }}
+                        <el-divider />
+                        学校：{{ School }}
+                        <el-divider />
+                        专业：{{ Major }}
+                        <el-divider />
+                        通过次数：{{ ACNum }}
+                        <el-divider />
+                        提交次数：{{ SubmitNum }}
+                        <el-divider />
+                        加入时间：{{ JoinTime }}
+                        <el-divider />
+                    </el-main>
+                </el-container>
             </el-container>
-        </el-container>
-    </div>
+        </div>
+    </el-card>
 </template>
   
 <script setup>

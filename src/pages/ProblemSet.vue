@@ -5,16 +5,22 @@
                 <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet"></ProblemSearch>
             </el-card>
             <el-card class="box-card">
-
-            <el-table :data="problemsetdata.array" style="width: 100%" 
+            <el-table :data="problemsetdata.array"
                 @cell-click="problemclick"
                 @cell-mouse-enter="changepiechart"
                 >
+                <el-table-column label="状态" width="100">
+                    <template #default="scope">
+                        <el-icon v-if="store.state.ACProblems.includes(scope.row.ProblemId)" >
+                            <Check />
+                        </el-icon>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="ProblemId" label="ID" width="50" />
-                <el-table-column prop="Title" label="Title" width="300" />
+                <el-table-column prop="Title" label="题目" width="300" />
                 <el-table-column
                     prop="Tags"
-                    label="Tag"
+                    label="标签"
                     width="400"
                     >
                     <template #default="scope">
@@ -26,8 +32,8 @@
                         >{{ name }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="SubmitNum" label="提交次数" width="100"/>
                 <el-table-column prop="ACNum" label="通过次数" width="100"/>
+                <el-table-column prop="SubmitNum" label="提交次数" width="100"/>
             </el-table>
             <div class="demo-pagination-block">
                 <el-pagination
@@ -46,11 +52,9 @@
             </el-card>
         </el-col>
         <el-col :span="6">
-            <el-affix :offset="120">
-                <el-card class="box-card">
-                    <PieChart ref="piechart"></PieChart>
-                </el-card>
-            </el-affix>
+            <el-card class="box-card">
+                <PieChart ref="piechart"></PieChart>
+            </el-card>
         </el-col>
     </el-row>
 
@@ -58,6 +62,7 @@
 
 <script setup>
 import axios from 'axios'
+import store from '../store'
 import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
 import PieChart from '../components/Chart/PieChart.vue'

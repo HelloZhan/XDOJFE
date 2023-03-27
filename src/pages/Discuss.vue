@@ -1,13 +1,16 @@
 <template>
-	<h2>标题：{{ title }}</h2>
-	<el-avatar :size="50" :src="useravatar" />
-	<h2>作者：{{ usernickname }}</h2>
-    <div>
-      <v-md-preview :text=content></v-md-preview>
-    </div>
-	<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
-	<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
-    <Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
+	<el-card class="box-card">
+		<h2>标题：{{ title }}</h2>
+		<el-avatar :size="50" :src="useravatar" />
+		<h2>作者：{{ usernickname }}</h2>
+		<div>
+		<v-md-preview :text=content></v-md-preview>
+		</div>
+		<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
+		<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
+		<Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
+	</el-card>
+	
 </template>
 
 <script setup>

@@ -1,17 +1,16 @@
 <template>
-    <div class="comment-view">
-        <u-comment
-            :config="config"
-            :show-size="3"
-            page
-            style="width: 820px; margin-left: 2rem"
-            @submit="submit"
-            @like="like"
-            @remove="remove"
-            @report="report"
-            @reply-page="replyPage"
-        ></u-comment>
-    </div>
+	<div class="comment-view">
+		<u-comment
+			:config="config"
+			:show-size="3"
+			page
+			@submit="submit"
+			@like="like"
+			@remove="remove"
+			@report="report"
+			@reply-page="replyPage"
+		></u-comment>
+	</div>
 </template>
 
 <script setup lang="ts">

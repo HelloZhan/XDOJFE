@@ -1,27 +1,29 @@
 <template>
-    <h1>用户Rank排名</h1>
-    <el-table :data="userrankdata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>rankclick(row, column, cell, event)">
-        <el-table-column prop="Rank" label="排名" width="180" />
-        <el-table-column prop="NickName" label="NickName" width="180" />
-        <el-table-column prop="PersonalProfile" label="PersonalProfile" width="360"/>
-        <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
-        <el-table-column prop="ACNum" label="ACNum" width="100"/>
-    </el-table>
-    <ViewStatus ref="viewstatusdialog"></ViewStatus>
-    <div class="demo-pagination-block">
-        <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :page-sizes="[10, 20, 30]"
-        :small="small"
-        :disabled="disabled"
-        :background="background"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="TotalNum"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        />
-    </div>
+    <el-card class="box-card">
+        <h1>用户Rank排名</h1>
+        <el-table :data="userrankdata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>rankclick(row, column, cell, event)">
+            <el-table-column prop="Rank" label="排名" width="180" />
+            <el-table-column prop="NickName" label="NickName" width="180" />
+            <el-table-column prop="PersonalProfile" label="PersonalProfile" width="360"/>
+            <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
+            <el-table-column prop="ACNum" label="ACNum" width="100"/>
+        </el-table>
+        <ViewStatus ref="viewstatusdialog"></ViewStatus>
+        <div class="demo-pagination-block">
+            <el-pagination
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[10, 20, 30]"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="TotalNum"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            />
+        </div>
+    </el-card>
 </template>
 
 <script setup>

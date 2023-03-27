@@ -1,35 +1,37 @@
 <template>
-    <h1>题解</h1>
-    <el-button type="primary" @click="AddSolution">写题解</el-button>
-    <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
-        <el-table-column prop="User[0].Avatar" label="头像" width="100">
-            <template #default="scope">
-                <div style="display: flex; align-items: center">
-                    <el-avatar :size="50" :src="scope.row.User[0].Avatar" />
-                </div>
-            </template>
-        </el-table-column>
-        <el-table-column prop="User[0].NickName" label="作者" width="100"/>
-        <el-table-column prop="Title" label="标题" width="700" />
-        <el-table-column prop="Comments" label="评论数" width="100"/>
-        <el-table-column prop="Views" label="浏览量" width="100"/>
-        <el-table-column prop="CreateTime" label="创建时间" width="360"/>
-    </el-table>
+    <el-card class="box-card">
+        <h1>题解</h1>
+        <el-button type="primary" @click="AddSolution">写题解</el-button>
+        <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
+            <el-table-column prop="User[0].Avatar" label="头像" width="100">
+                <template #default="scope">
+                    <div style="display: flex; align-items: center">
+                        <el-avatar :size="50" :src="scope.row.User[0].Avatar" />
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="User[0].NickName" label="作者" width="100"/>
+            <el-table-column prop="Title" label="标题" width="700" />
+            <el-table-column prop="Comments" label="评论数" width="100"/>
+            <el-table-column prop="Views" label="浏览量" width="100"/>
+            <el-table-column prop="CreateTime" label="创建时间" width="360"/>
+        </el-table>
 
-    <div class="demo-pagination-block">
-        <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :page-sizes="[10, 20, 30]"
-        :small="small"
-        :disabled="disabled"
-        :background="background"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="TotalNum"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        />
-    </div>
+        <div class="demo-pagination-block">
+            <el-pagination
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[10, 20, 30]"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="TotalNum"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            />
+        </div>
+    </el-card>
 </template>
 
 

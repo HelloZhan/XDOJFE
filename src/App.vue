@@ -1,70 +1,68 @@
 <template>
 	<div class="header">
-		<!-- <el-affix :offset="0"> -->
-			<el-menu id="nav"
-				:default-active="$route"
-				class="el-menu-demo"
-				mode="horizontal"
-				v-bind:router="true"
-			>
-				<el-menu-item index="/">
-					<el-icon><HomeFilled /></el-icon>
-					首页
-				</el-menu-item>
-				<el-menu-item index="/problemset">
-					<el-icon><Grid /></el-icon>
-					题库
-				</el-menu-item>
-				<el-menu-item index="/statusrecord">
-					<el-icon><Tools /></el-icon>
-					测评
-				</el-menu-item>
-				<el-menu-item index="/discusslist">
-					<el-icon><Comment /></el-icon>
-					讨论
-				</el-menu-item>
-				<el-menu-item index="/userrank">
-					<el-icon><Histogram /></el-icon>
-					排名
-				</el-menu-item>
-				<el-menu-item index="/test">
-					测试
-				</el-menu-item>
-				<div class="flex-grow" />
-				<el-button id="button" type="primary" @click="openlogindialog">登录</el-button>
-				<el-button id="button" type="primary" @click="openregisterdialog">注册</el-button>
-				<el-dropdown @command="handleCommand" id="user">
-					<el-button type="primary">
-						<el-icon><User /></el-icon>{{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
-					</el-button>
-					<template #dropdown>
-						<el-dropdown-menu>
-							<el-dropdown-item command="userhome">
-								<el-icon><User /></el-icon>个人主页
-							</el-dropdown-item>
-							<el-dropdown-item command="statusrecord">
-								<el-icon><Edit /></el-icon>我的提交
-							</el-dropdown-item>
-							<el-dropdown-item command="discuss">
-								<el-icon><Edit /></el-icon>我的讨论
-							</el-dropdown-item>
-							<el-dropdown-item command="solution">
-								<el-icon><Edit /></el-icon>我的题解
-							</el-dropdown-item>
-							<el-dropdown-item command="usersetting">
-								<el-icon><Setting /></el-icon>设置
-							</el-dropdown-item>
-							<el-dropdown-item command="admin">
-								<el-icon><Odometer /></el-icon>管理员
-							</el-dropdown-item>
-							<el-dropdown-item>
-								<el-icon><SwitchButton /></el-icon>退出登录
-							</el-dropdown-item>
-						</el-dropdown-menu>
-					</template>
-				</el-dropdown>
-			</el-menu>
-  		<!-- </el-affix> -->
+		<el-menu id="nav"
+			:default-active="$route"
+			class="el-menu-demo"
+			mode="horizontal"
+			v-bind:router="true"
+		>
+			<el-menu-item index="/">
+				<el-icon><HomeFilled /></el-icon>
+				首页
+			</el-menu-item>
+			<el-menu-item index="/problemset">
+				<el-icon><Grid /></el-icon>
+				题库
+			</el-menu-item>
+			<el-menu-item index="/statusrecord">
+				<el-icon><Tools /></el-icon>
+				测评
+			</el-menu-item>
+			<el-menu-item index="/discusslist">
+				<el-icon><Comment /></el-icon>
+				讨论
+			</el-menu-item>
+			<el-menu-item index="/userrank">
+				<el-icon><Histogram /></el-icon>
+				排名
+			</el-menu-item>
+			<el-menu-item index="/test">
+				测试
+			</el-menu-item>
+			<div class="flex-grow" />
+			<el-button id="button" type="primary" @click="openlogindialog">登录</el-button>
+			<el-button id="button" type="primary" @click="openregisterdialog">注册</el-button>
+			<el-dropdown @command="handleCommand" id="user">
+				<el-button type="primary">
+					<el-icon><User /></el-icon>{{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+				</el-button>
+				<template #dropdown>
+					<el-dropdown-menu>
+						<el-dropdown-item command="userhome">
+							<el-icon><User /></el-icon>个人主页
+						</el-dropdown-item>
+						<el-dropdown-item command="statusrecord">
+							<el-icon><Edit /></el-icon>我的提交
+						</el-dropdown-item>
+						<el-dropdown-item command="discuss">
+							<el-icon><Edit /></el-icon>我的讨论
+						</el-dropdown-item>
+						<el-dropdown-item command="solution">
+							<el-icon><Edit /></el-icon>我的题解
+						</el-dropdown-item>
+						<el-dropdown-item command="usersetting">
+							<el-icon><Setting /></el-icon>设置
+						</el-dropdown-item>
+						<el-dropdown-item command="admin">
+							<el-icon><Odometer /></el-icon>管理员
+						</el-dropdown-item>
+						<el-dropdown-item>
+							<el-icon><SwitchButton /></el-icon>退出登录
+						</el-dropdown-item>
+					</el-dropdown-menu>
+				</template>
+			</el-dropdown>
+		</el-menu>
 	</div>
 	<div class="main">
 		<login ref="logindialog"></login>
@@ -108,6 +106,7 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",

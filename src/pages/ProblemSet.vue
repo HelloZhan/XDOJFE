@@ -3,15 +3,13 @@
         <el-col :span="18">
             <el-card class="box-card">
                 <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet"></ProblemSearch>
-            </el-card>
-            <el-card class="box-card">
             <el-table :data="problemsetdata.array"
                 @cell-click="problemclick"
                 @cell-mouse-enter="changepiechart"
                 >
                 <el-table-column label="状态" width="100">
                     <template #default="scope">
-                        <el-icon v-if="store.state.ACProblems.includes(scope.row.ProblemId)" >
+                        <el-icon v-if="store.state.Solves.includes(scope.row.ProblemId)" >
                             <Check />
                         </el-icon>
                     </template>

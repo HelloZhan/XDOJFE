@@ -68,8 +68,10 @@ function handleEdit(row){
 // 删除用户
 function handleDelete(row){
     console.log('点击删除',row)
-    service.post(`/api/user/delete`,{
-        UserId:row._id
+    service.delete(`/api/user`,{
+        params:{
+            UserId:row._id
+        }
     }).then(
         response => {
             console.log('请求成功了',response.data)

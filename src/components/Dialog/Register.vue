@@ -125,8 +125,13 @@
 			WaringMessage()
 			return
 		}
+		/*
+			功能：注册用户
+			传入：Json(NickName,Account,PassWord,PersonalProfile,School,Major)
+			传出：Json(Result,Reason)
+		*/
 		service
-			.post(`/api/register`, {
+			.post(`/api/user/register`, {
 				NickName:form.nickname,
 				Account:form.account,
 				PassWord:form.password,

@@ -46,16 +46,16 @@ const School = ref('')
 const Major = ref('')
 const JoinTime = ref('')
 const ACNum = ref(0)
-const ACProblems = reactive({array:[]})
+const Solves = reactive({array:[]})
 const SubmitNum = ref()
 
 function GetInfo(){
     console.log('调用函数')
     service
-        .get(`/api/user/userhome`, {
-          params: {
-            UserId: userid,
-          },
+        .get(`/api/user/home`, {
+            params: {
+                UserId: userid,
+            },
         })
         .then(
             (response) => {
@@ -83,7 +83,7 @@ function setinfo(info)
     Major.value = info.Major
     JoinTime.value = info.JoinTime
     ACNum.value = info.ACNum
-    ACProblems.array = info.ACProblems
+    Solves.array = info.Solves
     SubmitNum.value = info.SubmitNum
 }
 

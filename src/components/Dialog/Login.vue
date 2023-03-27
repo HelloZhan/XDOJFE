@@ -25,6 +25,7 @@
 	import { reactive, ref } from 'vue'
 	import { ElMessage } from 'element-plus'
 	import service from '../../axios'
+	import store from '../../store'
 	const pointmessage = ref('')
 	// 对话框是否关闭
 	const dialogFormVisible = ref(false)
@@ -63,8 +64,13 @@
 			WaringMessage()
 			return
 		}
+		/*
+			功能：登录用户
+			传入：Json(Account,PassWord)
+			传出：Json(Result,Reason,Info(_id,NickName,Avatar,CommentLikes,Solves,Authority))
+		*/
 		service
-			.post(`/api/login`, {
+			.post(`/api/user/login`, {
 				Account:form.account,
 				PassWord:form.password,
 			})
@@ -79,10 +85,12 @@
 					// 本地保存账号密码
 					localStorage.setItem('Account',form.account)
 					localStorage.setItem('PassWord',form.password)
-                    // TODO:保存数据 _id,NickName,Avatar
 
+					store.commit('Login',response.data.Info)
 					return
 				}else{
+					localStorage.removeItem('Account')
+					localStorage.removeItem('PassWord')
 					pointmessage.value = response.data.Reason
 					WaringMessage()
 					return

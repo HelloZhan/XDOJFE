@@ -16,9 +16,6 @@
             <el-form-item label="专业">
                 <el-input v-model="form.Major" maxlength="15" show-word-limit/>
             </el-form-item>
-            <el-form-item label="权限">
-                <el-input v-model="form.Authority" maxlength="15" show-word-limit/>
-            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">确认</el-button>
                 <el-button>取消</el-button>
@@ -44,18 +41,16 @@ const form = reactive({
     PersonalProfile:'',
     School:'',
     Major:'',
-    Authority:''
 })
 
 const onSubmit = () => {
     service
-        .post(`/api/user/usersetting`, {
+        .post(`/api/user/update`, {
             UserId:userid.value,
             Avatar:form.Avatar,
             School:form.School,
             Major:form.Major,
             PersonalProfile:form.PersonalProfile,
-            Authority:form.Authority
         })
         .then(
             (response) => {
@@ -114,7 +109,6 @@ function setdatainfo(info:any)
     form.Major = info.Major
     form.PersonalProfile = info.PersonalProfile
     form.School = info.School
-    form.Authority = info.Authority
 }
 onMounted(()=>{
     userid.value = String(route.query.UserId)

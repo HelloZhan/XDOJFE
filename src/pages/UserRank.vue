@@ -5,8 +5,8 @@
             <el-table-column prop="Rank" label="排名" width="180" />
             <el-table-column prop="NickName" label="NickName" width="180" />
             <el-table-column prop="PersonalProfile" label="PersonalProfile" width="360"/>
-            <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
             <el-table-column prop="ACNum" label="ACNum" width="100"/>
+            <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
         </el-table>
         <ViewStatus ref="viewstatusdialog"></ViewStatus>
         <div class="demo-pagination-block">
@@ -34,7 +34,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
-let TotalNum = ref(10)
+let TotalNum = ref(0)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
@@ -42,22 +42,27 @@ const disabled = ref(false)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
-    GetUserRank(currentPage.value,pageSize.value)
+    GetUserRank()
 }
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetUserRank(currentPage.value,pageSize.value)
+    GetUserRank()
 }
 
 // 用户排名信息列表
 let userrankdata = reactive({'array':[]})
 
-function GetUserRank(m_page, m_pagesize){
-    service.get(`/api/userrank`,{
+/*
+    功能：获取用户的Rank排名
+    传入：Json(Page,PageSize)
+    传出：Json(ArrayInfo[_id,Rank,Avatar,NickName,PersonalProfile,SubmitNum,ACNum],TotalNum)
+*/
+function GetUserRank(){
+    service.get(`/api/user/rank`,{
         params: {
-            Page : m_page,
-            PageSize : m_pagesize
+            Page : currentPage.value,
+            PageSize : pageSize.value
         },
     }).then(
         response => {
@@ -76,7 +81,7 @@ function rankclick(row, column, cell, event){
 }
 
 onMounted(()=>{
-    GetUserRank(currentPage.value,pageSize.value)
+    GetUserRank()
 })
 </script>
 

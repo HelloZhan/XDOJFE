@@ -1,18 +1,18 @@
 <template>
     <div class="m-4">
-        <el-row :gutter="5">
-            <el-col :span="6">
+        <el-row :gutter="10">
+            <el-col :span="4">
                 <el-input v-model="searchid" placeholder="ID" maxlength=5 />
             </el-col>
-            <el-col :span="6">
+            <el-col :span="7">
                 <el-input v-model="searchtitle" placeholder="标题" />
             </el-col>
-            <el-col :span="8">
+            <el-col :span="10">
                 <el-select
                     v-model="selectvalue"
                     multiple
                     placeholder="标签"
-                    style="width: 300px"
+                    style="width: 450px"
                 >
                     <el-option
                         v-for="item in options.array"
@@ -22,7 +22,7 @@
                     />
                 </el-select>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="3">
                 <el-button type="primary" :icon="Search" @click="searchbutton">搜索</el-button>
             </el-col>
         </el-row>

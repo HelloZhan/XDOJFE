@@ -46,7 +46,7 @@ let password = localStorage.getItem('PassWord')
 // 如果获取到用户名和密码则进行登录
 if(account && password){
 	service
-	.post(`/api/login`, {
+	.post(`/api/user/login`, {
 		Account:account,
 		PassWord:password,
 	})

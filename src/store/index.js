@@ -7,26 +7,27 @@ export default createStore({
 		NickName:'未登录',
 		Avatar:'http://192.168.49.132:8081/image/1',
 		CommentLikes:[],
-		ACProblems:[],
-		PersonalProfile:'',
-		School:'',
-		Major:'',
+		Solves:[],
 		Authority:1,
-		isloading:false,
+		IsLogin:false,
+		IsAdmin:false
 	},
 	mutations: {
-		// 登录 保存信息
+		/*
+			功能：登录用户
+			传入：Json(Account,PassWord)
+			传出：Json(Result,Reason,Info(_id,NickName,Avatar,CommentLikes,Solves,Authority))
+		*/
 		Login(state,userinfo){
 			state.UserId = userinfo._id
 			state.NickName = userinfo.NickName
 			state.Avatar = userinfo.Avatar
 			state.CommentLikes = userinfo.CommentLikes
-			state.ACProblems = userinfo.ACProblems
-			state.PersonalProfile = userinfo.PersonalProfile
-			state.School = userinfo.School
-			state.Major = userinfo.Major
+			state.Solves = userinfo.Solves
 			state.Authority = userinfo.Authority
-			state.isloading = true
+			state.IsLogin = true
+			if(state.Authority==5)
+				state.IsAdmin=true
 		}
 	},
 	actions: {

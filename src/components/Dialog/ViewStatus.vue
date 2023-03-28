@@ -1,5 +1,5 @@
 <template>  
-    <el-dialog v-model="dialogVisible" title="测评详情">
+    <el-dialog id="dialog" v-model="dialogVisible" title="测评详情">
 		<h3>{{ problemtitle }}</h3>
 		<h5>{{ submitd }}</h5>
 		<h5>{{ problemid }}</h5>
@@ -11,7 +11,7 @@
 		<h5>{{ submitd }}</h5>
 		<h5>{{ language }}</h5>
 		<h5>{{ submittime }}</h5>
-		<h5>{{ code }}</h5>
+		<MonacoView ref="monacoview"></MonacoView>
 		<h5>{{ complierinfo }}</h5>
 		<li v-for="(info,index) in testinfo.array" :key="index" >{{ info }}</li>
     </el-dialog>
@@ -19,9 +19,12 @@
   
 <script setup>
 import { reactive, ref } from 'vue'
+import MonacoView from '../Problem/MonacoView.vue'
 import service from '../../axios'
 // 是否打开
 const dialogVisible = ref(false)
+
+const monacoview = ref()
 
 const submitd = ref('')
 const problemid = ref('')
@@ -72,12 +75,21 @@ function SetDataInfo(statusinfo)
  	code.value = statusinfo.Code
  	complierinfo.value = statusinfo.ComplierInfo
 	testinfo.array = statusinfo.TestInfo
+
+	let Info={
+		Code:statusinfo.Code,
+		Language:statusinfo.Language
+	}
+	monacoview.value.SetData(Info)
 }
 defineExpose({
 	opendialog
 })
 </script>
 <style scoped>
+#dialog{
+	width:800px;
+}
 .el-button--text {
 margin-right: 15px;
 }

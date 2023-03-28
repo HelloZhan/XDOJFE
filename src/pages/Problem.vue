@@ -1,4 +1,5 @@
 <template>
+	<el-card class="box-card">
 	<el-row>
 		<el-col :span="20">
 			<div class="content">
@@ -9,12 +10,7 @@
 			<h3>题目描述</h3>
 			<h4>题目ID：{{ $route.query.ProblemId }}</h4>
 			<h4>题目名字：{{ $route.query.Title }}</h4>
-			<el-input
-				v-model="Code"
-				:rows="10"
-				type="textarea"
-				placeholder="请输入代码！"
-			/>
+			<MonacoEditor ref="monacoeditor"></MonacoEditor>
 			<hr />
 			<h4>结果是 {{ result }}</h4>
 			<h4>原因是 {{ reason }}</h4>
@@ -28,23 +24,24 @@
 			</el-affix>
 		</el-col>
 	</el-row>
-	
+	</el-card>
 </template>
 
 <script setup>
+import MonacoEditor from '../components/Problem/MonacoEditor.vue'
 import service from '../axios'
 import { ref,onMounted } from "vue"
 import store from '../store'
 import axios from 'axios'
 import { useRoute,useRouter} from 'vue-router'
 
+const monacoeditor = ref()
 const route = useRoute()
 const router = useRouter()
 // 创建题目描述，是否显示，获取题目数据
 let problemdata = ref("# 题目列表");
 let result = ref("");
 let reason = ref("");
-let Code = ref("");
 // 请求当前题目详情
 function GetProblem() {
 	axios
@@ -68,27 +65,34 @@ function GetProblem() {
 
 // 提交代码
 function SubmitCode() {
-	console.log("获取代码", Code.value);
-	service
-	.post(`/api/problemcode`, { 
+	let Info = {
 		ProblemId: route.query.ProblemId,
-		UserId:store.state.UserId,
-		UserNickName:store.state.NickName,
-		Code: Code.value,
-		Language:"C++" 
-	})
-	.then(
-		(response) => {
-			console.log("提交成功了！！！", response.data);
-			result.value = response.data.Status;
-			reason.value = response.data.CompilerInfo;
-			// TODO:如果AC成功 需要添加到表中
-		},
-		(error) => {
-			console.log("提交失败了！！！");
-			console.log(error.data);
-		}
-	);
+		UserId: store.state.UserId,
+		UserNickName: store.state.NickName,
+		Code: monacoeditor.value.GetCode(),
+		Language: monacoeditor.value.GetLanguage(),
+	}
+	console.log(Info)
+	// service
+	// .post(`/api/problemcode`, { 
+	// 	ProblemId: route.query.ProblemId,
+	// 	UserId:store.state.UserId,
+	// 	UserNickName:store.state.NickName,
+	// 	Code: Code.value,
+	// 	Language:"C++" 
+	// })
+	// .then(
+	// 	(response) => {
+	// 		console.log("提交成功了！！！", response.data);
+	// 		result.value = response.data.Status;
+	// 		reason.value = response.data.CompilerInfo;
+	// 		// TODO:如果AC成功 需要添加到表中
+	// 	},
+	// 	(error) => {
+	// 		console.log("提交失败了！！！");
+	// 		console.log(error.data);
+	// 	}
+	// );
 }
 
 function ClickStatusRecord()

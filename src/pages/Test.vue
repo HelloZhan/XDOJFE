@@ -1,10 +1,10 @@
 <template>
-	<PieChart></PieChart>
+	<MonacoEditor></MonacoEditor>
 </template>
   
 <script lang="ts" setup>
 import { ref } from 'vue'
-import PieChart from '../components/Chart/PieChart.vue'
+import MonacoEditor from '../components/Problem/MonacoEditor.vue'
 
 </script>
   

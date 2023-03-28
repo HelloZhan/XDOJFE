@@ -52,11 +52,11 @@ defineExpose({
 </script>
 <style scoped>
 #codeEdit{
-    width:500px;
+    width:700px;
     height: 300px;
 }
 .wrapper{
-    width: 500px;
+    width: 700px;
     height: 500px;
 }
 </style>

@@ -2,14 +2,11 @@
 	<el-card class="box-card">
 	<el-row>
 		<el-col :span="20">
+			<h1>ID: {{data.problemid}}</h1>
+			<h1>题目：{{data.title}}</h1>
 			<div class="content">
-				<v-md-preview :text="problemdata"></v-md-preview>
+				<v-md-preview :text="data.content"></v-md-preview>
 			</div>
-			<h1>Problem</h1>
-
-			<h3>题目描述</h3>
-			<h4>题目ID：{{ $route.query.ProblemId }}</h4>
-			<h4>题目名字：{{ $route.query.Title }}</h4>
 			<MonacoEditor ref="monacoeditor"></MonacoEditor>
 			<hr />
 			<h4>结果是 {{ result }}</h4>
@@ -17,11 +14,34 @@
 			<button @click="SubmitCode()">提交</button>
 		</el-col>
 		<el-col :span="4">
-			<el-affix :offset="120">
-				<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
-				<el-button type="primary" @click="ClickSolution">题解</el-button>
-				<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
-			</el-affix>
+			<div class="demo-collapse">
+				<el-collapse v-model="activeNames" @change="handleChange">
+					<el-collapse-item title="作者" name="1">
+						<div>
+							{{ data.nickname }}
+						</div>
+					</el-collapse-item>
+					<el-collapse-item title="时间限制" name="2">
+						<div>
+							{{ data.timelimit }} MS
+						</div>
+					</el-collapse-item>
+					<el-collapse-item title="空间限制" name="3">
+						<div>
+							{{ data.memorylimit }} MB
+						</div>
+					</el-collapse-item>
+					<el-collapse-item title="标签" name="4">
+						<div>
+							<el-tag v-for="(tag,index) in data.tags" :key="index">{{ tag }}</el-tag>
+						</div>
+					</el-collapse-item>
+				</el-collapse>
+			</div>
+
+			<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
+			<el-button type="primary" @click="ClickSolution">题解</el-button>
+			<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
 		</el-col>
 	</el-row>
 	</el-card>
@@ -30,7 +50,7 @@
 <script setup>
 import MonacoEditor from '../components/Problem/MonacoEditor.vue'
 import service from '../axios'
-import { ref,onMounted } from "vue"
+import { ref,onMounted,reactive } from "vue"
 import store from '../store'
 import axios from 'axios'
 import { useRoute,useRouter} from 'vue-router'
@@ -39,7 +59,18 @@ const monacoeditor = ref()
 const route = useRoute()
 const router = useRouter()
 // 创建题目描述，是否显示，获取题目数据
-let problemdata = ref("# 题目列表");
+const data = reactive({
+	problemid:'',
+	title:'',
+	content:'',
+	timelimit:0,
+	memorylimit:0,
+	submitnum:0,
+	acnum:0,
+	nickname:'',
+	tags:[]
+})
+
 let result = ref("");
 let reason = ref("");
 // 请求当前题目详情
@@ -47,14 +78,18 @@ function GetProblem() {
 	axios
 	.get(`/api/problem`, {
 		params: {
-			ProblemId: route.query.ProblemId,
+			ProblemId: data.problemid,
 		},
 	})
 	.then(
 		(response) => {
-			console.log("请求成功了！！！");
-			problemdata.value = response.data; // 赋值
-			console.log('请求数据',response.data)
+			if(response.data.Result == "Success"){
+				console.log("请求成功了！！！",response.data);
+				SetDataInfo(response.data)
+			}else{
+				console.log('出错啦！')
+			}
+			
 		},
 		(error) => {
 			console.log("请求失败了！！！");
@@ -62,7 +97,17 @@ function GetProblem() {
 		}
 	);
 }
-
+function SetDataInfo(Info)
+{
+	data.title = Info.Title
+	data.content = Info.Description
+	data.timelimit = Info.TimeLimit
+	data.memorylimit = Info.MemoryLimit
+	data.submitnum = Info.SubmitNum
+	data.acnum = Info.ACNum
+	data.nickname = Info.UserNickName
+	data.tags = Info.Tags
+}
 // 提交代码
 function SubmitCode() {
 	let Info = {
@@ -73,26 +118,26 @@ function SubmitCode() {
 		Language: monacoeditor.value.GetLanguage(),
 	}
 	console.log(Info)
-	// service
-	// .post(`/api/problemcode`, { 
-	// 	ProblemId: route.query.ProblemId,
-	// 	UserId:store.state.UserId,
-	// 	UserNickName:store.state.NickName,
-	// 	Code: Code.value,
-	// 	Language:"C++" 
-	// })
-	// .then(
-	// 	(response) => {
-	// 		console.log("提交成功了！！！", response.data);
-	// 		result.value = response.data.Status;
-	// 		reason.value = response.data.CompilerInfo;
-	// 		// TODO:如果AC成功 需要添加到表中
-	// 	},
-	// 	(error) => {
-	// 		console.log("提交失败了！！！");
-	// 		console.log(error.data);
-	// 	}
-	// );
+	service
+	.post(`/api/problemcode`, { 
+		ProblemId: route.query.ProblemId,
+		UserId:store.state.UserId,
+		UserNickName:store.state.NickName,
+		Code: Code.value,
+		Language:"C++" 
+	})
+	.then(
+		(response) => {
+			console.log("提交成功了！！！", response.data);
+			result.value = response.data.Status;
+			reason.value = response.data.CompilerInfo;
+			// TODO:如果AC成功 需要添加到表中
+		},
+		(error) => {
+			console.log("提交失败了！！！");
+			console.log(error.data);
+		}
+	);
 }
 
 function ClickStatusRecord()
@@ -124,6 +169,7 @@ function ClickDiscuss()
 	})
 }
 onMounted(()=>{
+	data.problemid = route.query.ProblemId
 	GetProblem();
 })
 </script>

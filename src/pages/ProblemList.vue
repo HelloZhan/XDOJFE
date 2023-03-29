@@ -98,7 +98,7 @@ const handleCurrentChange = (val) => {
 let problemsetdata = reactive({'array':[]})
 
 function GetProblemSetInfo(){
-    axios.get(`/api/problemset`,{
+    axios.get(`/api/problemlist`,{
         params: {
             SearchInfo : JSON.stringify(searchinfo),
             Page : currentPage.value,

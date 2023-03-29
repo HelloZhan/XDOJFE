@@ -15,7 +15,7 @@ NProgress.configure({
 })
 
 import HomePage from '../pages/HomePage.vue'
-import ProblemSet from '../pages/ProblemSet.vue'
+import ProblemList from '../pages/ProblemList.vue'
 import Problem from '../pages/Problem.vue'
 import StatusRecord from '../pages/StatusRecord.vue'
 import DiscussList from '../pages/DiscussList.vue'
@@ -48,9 +48,9 @@ const routes = [
         component:HomePage
     },
     {
-        path:'/problemset',
-        name:'ProblemSet',
-        component:ProblemSet
+        path:'/problemlist',
+        name:'ProblemList',
+        component:ProblemList
     },
     {
         path:'/problem',

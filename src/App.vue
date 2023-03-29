@@ -10,7 +10,7 @@
 				<el-icon><HomeFilled /></el-icon>
 				首页
 			</el-menu-item>
-			<el-menu-item index="/problemset">
+			<el-menu-item index="/problemlist">
 				<el-icon><Grid /></el-icon>
 				题库
 			</el-menu-item>
@@ -106,6 +106,7 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",

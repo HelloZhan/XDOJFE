@@ -65,6 +65,7 @@ const data = reactive({
 	content:'',
 	timelimit:0,
 	memorylimit:0,
+	judgenum:0,
 	submitnum:0,
 	acnum:0,
 	nickname:'',
@@ -103,6 +104,7 @@ function SetDataInfo(Info)
 	data.content = Info.Description
 	data.timelimit = Info.TimeLimit
 	data.memorylimit = Info.MemoryLimit
+	data.judgenum = Info.JudgeNum
 	data.submitnum = Info.SubmitNum
 	data.acnum = Info.ACNum
 	data.nickname = Info.UserNickName
@@ -120,11 +122,15 @@ function SubmitCode() {
 	console.log(Info)
 	service
 	.post(`/api/problemcode`, { 
-		ProblemId: route.query.ProblemId,
+		ProblemId: data.problemid,
 		UserId:store.state.UserId,
 		UserNickName:store.state.NickName,
-		Code: Code.value,
-		Language:"C++" 
+		Code: monacoeditor.value.GetCode(),
+		Language:monacoeditor.value.GetLanguage(),
+		TimeLimit: data.timelimit,
+		MemoryLimit: data.memorylimit,
+		JudgeNum: data.judgenum,
+		ProblemTitle: data.title
 	})
 	.then(
 		(response) => {

@@ -72,7 +72,7 @@ function handleEdit(row){
         AnnouncementId:row._id,
     }})
 }
-// 删除讨论
+// 删除公告
 function handleDelete(row){
     service.delete(`/api/announcement`,{
         params:{
@@ -93,7 +93,7 @@ function handleDelete(row){
 }
 
 function GetServerInfo(){
-    service.get(`/api/announcement`,{
+    service.get(`/api/announcementlist`,{
         params: {
             Page : currentPage.value,
             PageSize : pageSize.value

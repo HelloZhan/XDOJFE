@@ -35,7 +35,7 @@ const showbutton = ref(true)
 
 function GetServerInfo() {
 	service
-	.get(`/api/discuss/content`, {
+	.get(`/api/discuss`, {
 		params: {
 			DiscussId: discussid.value,
 		},

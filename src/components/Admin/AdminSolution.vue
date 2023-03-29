@@ -86,7 +86,7 @@ function handleDelete(row){
 }
 
 function GetServerInfo(){
-    service.get(`/api/solution/admin`,{
+    service.get(`/api/solutionlist/admin`,{
         params: {
             Page : currentPage.value,
             PageSize : pageSize.value

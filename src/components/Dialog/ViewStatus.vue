@@ -8,7 +8,6 @@
 		<h5>{{ runtime }}</h5>
 		<h5>{{ runmemory }}</h5>
 		<h5>{{ length }}</h5>
-		<h5>{{ submitd }}</h5>
 		<h5>{{ language }}</h5>
 		<h5>{{ submittime }}</h5>
 		<MonacoView ref="monacoview"></MonacoView>
@@ -44,7 +43,7 @@ function opendialog(submitid){
 	dialogVisible.value = true;
 	console.log('submitid',submitid)
 	service
-		.get(`/api/statusrecord/info`, {
+		.get(`/api/statusrecord`, {
 			params:{
 				SubmitId:submitid
 			}

@@ -89,7 +89,7 @@ function handleDelete(row){
 
 function GetDiscussInfo(m_page, m_pagesize){
     console.log(m_page,m_pagesize)
-    service.get(`/api/discuss/admin`,{
+    service.get(`/api/discusslist/admin`,{
         params: {
             Page : m_page,
             PageSize : m_pagesize

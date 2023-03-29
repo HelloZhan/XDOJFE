@@ -68,7 +68,7 @@ function GetServerInfo(ParentId,UserId){
     }else{
         searchinfo.UserId = 0
     }
-    service.get(`/api/discuss`,{
+    service.get(`/api/discusslist`,{
         params: {
             SearchInfo:JSON.stringify(searchinfo),
             Page : currentPage.value,

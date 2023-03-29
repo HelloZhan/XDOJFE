@@ -36,7 +36,7 @@ const showbutton = ref(true)
 
 function GetServerInfo() {
 	service
-	.get(`/api/solution/content`, {
+	.get(`/api/solution`, {
 		params: {
 			SolutionId: solutionid.value,
 		},

@@ -44,7 +44,7 @@ let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
 
 function GetServerInfo(){
-    service.get(`/api/announcement`,{
+    service.get(`/api/announcementlist`,{
         params: {
             Page : currentPage.value,
             PageSize : pageSize.value

@@ -23,7 +23,7 @@ const createtime = ref('')
 const updatetime = ref('')
 function GetServerInfo() {
 	service
-	.get(`/api/announcement/content`, {
+	.get(`/api/announcement`, {
 		params: {
 			AnnouncementId: announcementid.value
 		},

@@ -93,38 +93,36 @@ function handleDelete(row){
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
-    GetProblemSetInfo("common",currentPage.value,pageSize.value)
+    GetProblemSetInfo()
 }
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
     currentPage.value = val;
-    GetProblemSetInfo("common",currentPage.value,pageSize.value)
+    GetProblemSetInfo()
 }
 // 题目信息列表
 let problemsetdata = reactive({'array':[]})
 
-function GetProblemSetInfo(m_querytype,m_page, m_pagesize){
-    service.get(`/api/problemset`,{
+function GetProblemSetInfo(){
+    service.get(`/api/problemlist/admin`,{
         params: {
-            QueryType : m_querytype,
-            Page : m_page,
-            PageSize : m_pagesize
+            Page : currentPage.value,
+            PageSize : pageSize.value
         },
     }).then(
         response => {
             console.log('请求成功了',response.data)
-            problemsetdata.array = response.data.Array
+            problemsetdata.array = response.data.ArrayInfo
             totalsize.value = Number(response.data.TotalNum)
         },
         error => {
             console.log('请求失败了',error.data)
         }
     )
-    console.log(m_page,m_pagesize)
 }
 
 onMounted(()=>{
-    GetProblemSetInfo("common",currentPage.value,pageSize.value)
+    GetProblemSetInfo()
 })
 // 发送成功消息
 const SuccessMessage = () => {

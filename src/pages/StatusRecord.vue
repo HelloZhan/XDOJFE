@@ -75,7 +75,7 @@ function GetStatusRecordInfo(ProblemId,UserId){
         searchinfo.UserId = 0
     }
 
-    service.get(`/api/statusrecord`,{
+    service.get(`/api/statusrecordlist`,{
         params: {
             SearchInfo : JSON.stringify(searchinfo),
             Page : currentPage.value,
@@ -84,7 +84,7 @@ function GetStatusRecordInfo(ProblemId,UserId){
     }).then(
         response => {
             console.log('请求成功了',response.data)
-            statusrecorddata.array = response.data.Array
+            statusrecorddata.array = response.data.ArrayInfo
             totalsize.value = Number(response.data.TotalNum)
         },
         error => {

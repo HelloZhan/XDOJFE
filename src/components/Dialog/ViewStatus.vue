@@ -1,18 +1,50 @@
 <template>  
     <el-dialog id="dialog" v-model="dialogVisible" title="测评详情">
-		<h3>{{ problemtitle }}</h3>
-		<h5>{{ submitd }}</h5>
-		<h5>{{ problemid }}</h5>
-		<h5>{{ usernickname }}</h5>
-		<h5>{{ status }}</h5>
-		<h5>{{ runtime }}</h5>
-		<h5>{{ runmemory }}</h5>
-		<h5>{{ length }}</h5>
-		<h5>{{ language }}</h5>
-		<h5>{{ submittime }}</h5>
+		<el-alert 
+			:title="alerttitle"
+			:type="alerttype"
+			:description="alertdescription"
+			:closable="false"
+			show-icon
+			:show-close="false">
+		</el-alert>
 		<MonacoView ref="monacoview"></MonacoView>
-		<h5>{{ complierinfo }}</h5>
-		<li v-for="(info,index) in testinfo.array" :key="index" >{{ info }}</li>
+		<el-collapse>
+			<el-collapse-item 
+				v-for="(info,index) in testinfo.array"
+				:key="index"
+				:class="ChangeStatusToCollapseClass(info.Status)"
+				>
+				<template #title>
+					#Test{{ index+1 }}  {{ ChangeStatusToTitle(info.Status) }}
+				</template>
+				<div>
+					标准输入：
+					<el-input
+						v-model="info.StandardInput"
+						autosize
+						type="textarea"
+						placeholder="Please input"
+					/>
+					标准输出：
+					<el-input
+						v-model="info.StandardOutput"
+						autosize
+						type="textarea"
+						placeholder="Please input"
+					/>
+					你的输出：
+					<el-input
+						v-model="info.PersonalOutput"
+						autosize
+						type="textarea"
+						placeholder="Please input"
+					/>
+					运行时间：{{ info.RunTime }}
+					运行内存：{{ info.RunMemory }}
+				</div>
+			</el-collapse-item>
+		</el-collapse>
     </el-dialog>
 </template>
   
@@ -25,18 +57,10 @@ const dialogVisible = ref(false)
 
 const monacoview = ref()
 
-const submitd = ref('')
-const problemid = ref('')
-const usernickname = ref('')
-const problemtitle = ref('')
-const status = ref(0)
-const runtime = ref('')
-const runmemory = ref('')
-const length = ref('')
-const language = ref('')
-const submittime = ref('')
-const code = ref('')
-const complierinfo = ref('')
+const alerttype = ref('success')
+const alerttitle = ref('')
+const alertdescription = ref('')
+
 const testinfo = reactive({array:[]})
 
 function opendialog(submitid){
@@ -61,26 +85,47 @@ function opendialog(submitid){
 
 function SetDataInfo(statusinfo)
 {
-	submitd.value = statusinfo._id
- 	problemid.value = statusinfo.ProblemId
- 	usernickname.value = statusinfo.UserNickName
- 	problemtitle.value = statusinfo.ProblemTitle
- 	status.value = statusinfo.Status
-	runtime.value = statusinfo.RunTime
- 	runmemory.value = statusinfo.RunMemory
- 	length.value = statusinfo.Length
- 	language.value = statusinfo.Language
- 	submittime.value = statusinfo.SubmitTime
- 	code.value = statusinfo.Code
- 	complierinfo.value = statusinfo.ComplierInfo
 	testinfo.array = statusinfo.TestInfo
-
+	alertdescription.value = statusinfo.ComplierInfo
+	// 显示代码
 	let Info={
 		Code:statusinfo.Code,
 		Language:statusinfo.Language
 	}
 	monacoview.value.SetData(Info)
+	if(statusinfo.Status == 2) alerttype.value = "success"
+	else if(statusinfo.Status == 3)alerttype.value = "error"
+	else alerttype.value = "warning"
+
+	alerttitle.value = ChangeStatusToTitle(statusinfo.Status)
 }
+
+function ChangeStatusToTitle(status)
+{
+	if(status == 0)
+		return "Pending & Judging"
+	else if(status == 1)
+		return "Compile Error"
+	else if(status == 2)
+		return "Accepted"
+	else if(status == 3)
+		return  "Wrong Answer"
+	else if(status == 4)
+		return "Runtime Error"
+	else if(status == 5)
+		return "Time Limit Exceeded"
+	else if(status == 6)
+		return "Memory Limit Exceeded"
+	else if(status == 7)
+		return "System Error"
+}
+function ChangeStatusToCollapseClass(status)
+{
+	if(status == 2) return "el-collapse-success"
+	else if(status == 3)return "el-collapse-error"
+	else return "el-collapse-warning"
+}
+
 defineExpose({
 	opendialog
 })
@@ -100,6 +145,18 @@ width: 300px;
 }
 .dialog-footer button:first-child {
 margin-right: 10px;
+}
+
+.el-collapse-error{
+  background-color:#FEF0F0; 
+}
+
+.el-collapse-success{
+  background-color:#F0F9EB; 
+}
+
+.el-collapse-warning{
+  background-color:#FDF6EC; 
 }
 </style>
   

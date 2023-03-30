@@ -57,6 +57,6 @@ defineExpose({
 }
 .wrapper{
     width: 700px;
-    height: 500px;
+    height: 300px;
 }
 </style>

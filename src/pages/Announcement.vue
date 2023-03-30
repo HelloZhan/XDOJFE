@@ -1,9 +1,22 @@
 <template>
-	<h2>标题：{{ title }}</h2>
-    <div>
-      <v-md-preview :text=content></v-md-preview>
-    </div>
-    <Comment :ParentId=$route.query.AnnouncementId ArticleType="Announcement" ></Comment>
+	<el-card>
+		<center>
+			<h2>{{ title }}</h2>
+		</center>
+		<el-row>
+			<el-col :span="2">
+			</el-col>
+			<el-col :span="20">
+				<div>
+					<v-md-preview :text=content></v-md-preview>
+				</div>
+				<Comment :ParentId=$route.query.AnnouncementId ArticleType="Announcement" ></Comment>
+			</el-col>
+			<el-col :span="2">
+			</el-col>
+		</el-row>
+		
+	</el-card>
 </template>
 
 <script setup>

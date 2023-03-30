@@ -3,8 +3,19 @@
         <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
             <el-table-column prop="_id" label="ID" width="180" />
             <el-table-column prop="UserNickName" label="User" width="180" />
-            <el-table-column prop="ProblemTitle" label="Title" width="180"/>
-            <el-table-column prop="Status" label="Status" width="180"/>
+            <el-table-column prop="ProblemTitle" label="Title" width="300"/>
+            <el-table-column prop="Status" label="Status" width="250">
+                <template #default="scope">
+                    <el-tag size="medium"
+                            :type="ChangeStatusToType(scope.row.Status)"
+                            disable-transitions
+                            hit>
+                        {{ ChangeStatusToTitle(scope.row.Status) }}
+                        <i class="el-icon-loading"
+                        v-show="true"></i>
+                    </el-tag>
+                </template>
+            </el-table-column>
             <el-table-column prop="RunTime" label="RunTime" width="100"/>
             <el-table-column prop="RunMemory" label="Memory" width="100"/>
             <el-table-column prop="Length" label="Length" width="100"/>
@@ -91,6 +102,34 @@ function GetStatusRecordInfo(ProblemId,UserId){
             console.log('请求失败了',error.data)
         }
     )
+}
+
+function ChangeStatusToType(status)
+{
+    if(status == 0) return "info"
+	else if(status == 2) return "success"
+	else if(status == 3)return "error"
+	else return "warning"
+}
+
+function ChangeStatusToTitle(status)
+{
+	if(status == 0)
+		return "Pending"
+	else if(status == 1)
+		return "Compile Error"
+	else if(status == 2)
+		return "Accepted"
+	else if(status == 3)
+		return  "Wrong Answer"
+	else if(status == 4)
+		return "Runtime Error"
+	else if(status == 5)
+		return "Time Limit Exceeded"
+	else if(status == 6)
+		return "Memory Limit Exceeded"
+	else if(status == 7)
+		return "System Error"
 }
 // 点击单元格
 function statusrecordclick(row, column, cell, event) {

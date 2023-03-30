@@ -1,32 +1,45 @@
 <template>
-    <el-card class="box-card">
-        <template #header>
-        <div class="card-header">
-            <span>公告</span>
-        </div>
-        </template>
-        <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
-            <el-table-column prop="Title" label="标题" width="400" />
-            <el-table-column prop="Comments" label="评论数" width="100"/>
-            <el-table-column prop="Views" label="浏览量" width="100"/>
-            <el-table-column prop="CreateTime" label="创建时间" width="360"/>
-        </el-table>
-
-        <div class="demo-pagination-block">
-            <el-pagination
-            v-model:current-page="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30]"
-            :small="small"
-            :disabled="disabled"
-            :background="background"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="TotalNum"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            />
-        </div>
+    <el-card v-for="(data,index) in serverdata.array" id="announcementcard">
+        <el-row>
+            <el-col :span="4">
+                <el-icon size="40"><ChatDotSquare /></el-icon>
+            </el-col>
+            <el-col :span="20">
+                <el-row>
+                    <el-col :span="20">
+                        <router-link :to="{name:'Announcement',query:{AnnouncementId:data._id}}">
+                            <span>{{ data.Title }}</span>
+                        </router-link>
+                    </el-col>
+                    <el-col :span="4">
+                        <el-icon><View /></el-icon> &nbsp {{ data.Views }}
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="20">
+                        {{ data.CreateTime }}
+                    </el-col>
+                    <el-col :span="4">
+                        <el-icon><ChatRound /></el-icon> &nbsp {{ data.Comments }}
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
     </el-card>
+    <div class="demo-pagination-block">
+        <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[10, 20, 30]"
+        :small="small"
+        :disabled="disabled"
+        :background="background"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="TotalNum"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        />
+    </div>
 </template>
 
 
@@ -63,14 +76,6 @@ function GetServerInfo(){
     )
 }
 
-function cellclick(row, column, cell, event) {
-    router.push({
-        name: "Announcement",
-        query: { 
-            AnnouncementId: row._id, 
-        }
-    });
-}
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
     pageSize.value = val;
@@ -89,10 +94,8 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#announcementcard{
+    margin: 10px;
 }
 .demo-pagination-block + .demo-pagination-block {
   margin-top: 10px;

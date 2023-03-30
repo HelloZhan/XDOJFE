@@ -2,9 +2,13 @@
 	<MonacoEditor></MonacoEditor>
 </template>
   
-<script lang="ts" setup>
-import { ref } from 'vue'
+<script setup>
+import { ref ,onMounted} from 'vue'
 import MonacoEditor from '../components/Problem/MonacoEditor.vue'
+import store from '../store'
 
+onMounted(()=>{
+	console.log('tags',store.state.ProblemTags)
+})
 </script>
   

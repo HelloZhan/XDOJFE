@@ -1,11 +1,15 @@
 <template>
+    <center>
+        <h2>{{ title }}</h2>
+    </center>
     <div id ="main" style="height:300px;width:300px"></div>
 </template>
 
 <script setup>
-import { onMounted,reactive } from 'vue'
+import { onMounted,reactive,ref } from 'vue'
 import * as echarts from 'echarts'
 let myChart
+const title = ref('')
 const options = reactive({
     tooltip: {
     },
@@ -58,6 +62,7 @@ function SetDataInfo(info)
     options.series[0].data[3].value = info.TLENum
     options.series[0].data[4].value = info.MLENum
     options.series[0].data[5].value = info.SENum
+    title.value = info.Title
     myChart.setOption(options)
 }
 

@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import service from '../axios'
 
 export default createStore({
 	// 存放数据
@@ -10,7 +11,8 @@ export default createStore({
 		Solves:[],
 		Authority:1,
 		IsLogin:false,
-		IsAdmin:false
+		IsAdmin:false,
+		ProblemTags:[]
 	},
 	mutations: {
 		/*
@@ -28,6 +30,22 @@ export default createStore({
 			state.IsLogin = true
 			if(state.Authority==5)
 				state.IsAdmin=true
+		},
+		GetProblemTags(state){
+			service
+			.get(`/api/tags`, {
+				params:{
+					TagType:"Problem"
+				}
+			})
+			.then(
+				(response) => {
+					state.ProblemTags = response.data.Tags
+				},
+				(error) => {
+					
+				}
+			);
 		}
 	},
 	actions: {

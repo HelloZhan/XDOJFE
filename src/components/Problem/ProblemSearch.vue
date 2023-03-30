@@ -29,14 +29,14 @@
 	</div>
 </template>
   
-<script lang="ts" setup>
+<script setup>
 import { ref ,reactive,onMounted} from 'vue'
-import service from '../../axios'
+import store from '../../store'
 import { ElMessage } from 'element-plus'
 import { Search} from '@element-plus/icons-vue'
 
 // 保存搜索的标签内容
-const options = reactive({array:[{value:'',label:''}]})
+const options = reactive({array:[]})
 
 const pointmessage = ref('')
 
@@ -60,37 +60,18 @@ function searchbutton()
 {
     props.SearchProblemSet()
 }
-function GetServerInfo()
-{
-    service
-        .get(`/api/tags`, {
-            params:{
-                TagType:"Problem"
-            }
-        })
-        .then(
-            (response) => {
-                console.log('tags',response.data)
-                setdatainfo(response.data.Tags)
-                pointmessage.value = "请求信息成功！";
-                SuccessMessage()
-            },
-            (error) => {
-                pointmessage.value = "网络似乎出现了问题！";
-                ErrorMessage()
-            }
-        );
-}
-function setdatainfo(info:Array<string>)
+
+function SetTags()
 {
     options.array.splice(0)
-    for(var i = 0; i < info.length; i++){
-        options.array.push({value:info[i],label:info[i]})
+    for(var i = 0; i < store.state.ProblemTags.length; i++){
+        options.array.push({value:store.state.ProblemTags[i],label:store.state.ProblemTags[i]})
     }
 }
 onMounted(()=>{
-    GetServerInfo()
+    SetTags()
 })
+
 defineExpose({
     GetSearchInfo
 })

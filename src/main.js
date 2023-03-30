@@ -68,7 +68,8 @@ if(account && password){
 	}
 	);
 }
-
+// 获取题目标签
+store.commit('GetProblemTags')
 
 const app = createApp(App)
 app.mount('#app')

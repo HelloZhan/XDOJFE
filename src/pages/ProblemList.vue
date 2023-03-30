@@ -53,6 +53,9 @@
             <el-card class="box-card">
                 <PieChart ref="piechart"></PieChart>
             </el-card>
+            <el-card class="box-card">
+                <TagsButton></TagsButton>
+            </el-card>
         </el-col>
     </el-row>
 
@@ -65,6 +68,8 @@ import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
 import PieChart from '../components/Chart/PieChart.vue'
 import ProblemSearch from '../components/Problem/ProblemSearch.vue'
+import TagsButton from '../components/Problem/TagsButton.vue'
+
 const router = useRouter()
 
 // 子组件
@@ -139,7 +144,8 @@ function changepiechart(row, column, cell, event){
         WANum : row.WANum,
         TLENum: row.TLENum,
         MLENum: row.MLENum,
-        SENum : row.SENum
+        SENum : row.SENum,
+        Title : row.Title
     }
     piechart.value.SetDataInfo(info)
 }

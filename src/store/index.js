@@ -31,6 +31,18 @@ export default createStore({
 			if(state.Authority==5)
 				state.IsAdmin=true
 		},
+		Logout(state){
+			state.UserId = '0'
+			state.NickName = '未登录'
+			state.Avatar = 'http://192.168.49.132:8081/image/1'
+			state.CommentLikes = []
+			state.Solves = []
+			state.Authority = 1
+			state.IsLogin = false
+			state.IsAdmin = false
+			localStorage.removeItem('Account')
+			localStorage.removeItem('PassWord')
+		},
 		GetProblemTags(state){
 			service
 			.get(`/api/tags`, {

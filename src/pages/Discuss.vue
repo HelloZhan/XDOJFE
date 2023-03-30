@@ -1,14 +1,28 @@
 <template>
 	<el-card class="box-card">
-		<h2>标题：{{ title }}</h2>
-		<el-avatar :size="50" :src="useravatar" />
-		<h2>作者：{{ usernickname }}</h2>
-		<div>
-		<v-md-preview :text=content></v-md-preview>
+
+		<div id="top">
+			<el-avatar :size="50" :src="useravatar" /> &nbsp
+			<h2>{{ title }}</h2>
 		</div>
-		<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
-		<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
-		<Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
+		
+		
+		<h2>作者：{{ usernickname }}</h2>
+		<el-row>
+			<el-col :span="2"></el-col>
+
+			<el-col :span="20">
+				<div>
+					<v-md-preview :text=content></v-md-preview>
+				</div>
+				<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
+				<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
+				<Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
+			</el-col>
+
+			<el-col :span="2"></el-col>
+		</el-row>
+		
 	</el-card>
 	
 </template>
@@ -97,6 +111,11 @@ onMounted(()=>{
 })
 </script>
   
-<style>
+<style scoped>
+#top{
+	display: flex;
+    justify-content: center;
+    align-items: center
+}
 </style>
   

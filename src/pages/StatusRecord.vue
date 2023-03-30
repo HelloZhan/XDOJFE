@@ -11,8 +11,6 @@
                             disable-transitions
                             hit>
                         {{ ChangeStatusToTitle(scope.row.Status) }}
-                        <i class="el-icon-loading"
-                        v-show="true"></i>
                     </el-tag>
                 </template>
             </el-table-column>
@@ -26,7 +24,7 @@
             <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
-            :page-sizes="[25, 50, 75]"
+            :page-sizes="[15, 20, 30, 40]"
             :small="small"
             :disabled="disabled"
             :background="background"
@@ -55,8 +53,8 @@ const searchinfo = reactive({
 })
 
 let currentPage = ref(1) // 当前页数
-let pageSize = ref(25) // 当前页的数量
-let totalsize = ref(25)
+let pageSize = ref(15) // 当前页的数量
+let totalsize = ref(0)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
@@ -147,10 +145,10 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
-}
-.demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+.demo-pagination-block{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 </style>

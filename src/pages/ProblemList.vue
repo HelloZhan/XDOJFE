@@ -2,7 +2,7 @@
     <el-row>
         <el-col :span="18">
             <el-card class="box-card">
-                <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet"></ProblemSearch>
+                <ProblemSearch ref="problemsearch" :SearchProblemSet="SearchProblemSet" id="problemsearch"></ProblemSearch>
             <el-table :data="problemsetdata.array"
                 @cell-click="problemclick"
                 @cell-mouse-enter="changepiechart"
@@ -37,7 +37,7 @@
                 <el-pagination
                 v-model:current-page="currentPage"
                 v-model:page-size="pageSize"
-                :page-sizes="[20, 40, 60]"
+                :page-sizes="[15, 20, 30, 40]"
                 :small="small"
                 :disabled="disabled"
                 :background="background"
@@ -77,8 +77,8 @@ const piechart = ref()
 const problemsearch = ref()
 
 let currentPage = ref(1) // 当前页数
-let pageSize = ref(20) // 当前页的数量
-let totalsize = ref(20)
+let pageSize = ref(15) // 当前页的数量
+let totalsize = ref(0)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
@@ -156,10 +156,16 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
+#problemsearch{
+    margin-bottom: 10px;
 }
-.demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+.demo-pagination-block{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.box-card{
+    margin: 10px;
 }
 </style>

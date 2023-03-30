@@ -1,36 +1,52 @@
 <template>
     <el-card class="box-card">
-        <h1>题解</h1>
-        <el-button type="primary" @click="AddSolution">写题解</el-button>
-        <el-table :data="serverdata.array" style="width: 100%" @cell-click="cellclick">
-            <el-table-column prop="User[0].Avatar" label="头像" width="100">
-                <template #default="scope">
-                    <div style="display: flex; align-items: center">
-                        <el-avatar :size="50" :src="scope.row.User[0].Avatar" />
+        <el-row>
+            <el-col :span="2"></el-col>
+            <el-col :span="20">
+                <div>
+                    <h1>题解</h1>
+                    <div id="addbutton">
+                        <el-button type="primary" @click="AddSolution">写题解</el-button>
                     </div>
-                </template>
-            </el-table-column>
-            <el-table-column prop="User[0].NickName" label="作者" width="100"/>
-            <el-table-column prop="Title" label="标题" width="700" />
-            <el-table-column prop="Comments" label="评论数" width="100"/>
-            <el-table-column prop="Views" label="浏览量" width="100"/>
-            <el-table-column prop="CreateTime" label="创建时间" width="360"/>
-        </el-table>
+                </div>
+                <el-card v-for="(data,index) in serverdata.array" id="solutioncard">
+                    <el-row>
+                        <el-col :span="2">
+                            <el-avatar :size="70" :src="data.User[0].Avatar"/>
+                        </el-col>
+                        <el-col :span="22">
+                            <router-link :to="{name:'Solution',query:{SolutionId:data._id}}">
+                                <span id="solutiontitle">{{ data.Title }}</span>
+                            </router-link>
+                            <br> 
+                            <br>
+                            {{ data.User[0].NickName }} &nbsp
+                            {{ data.CreateTime }} &nbsp
+                            <div class="iconright">
+                                <el-icon><View /></el-icon> &nbsp {{ data.Views }} &nbsp
+                                <el-icon><ChatRound /></el-icon> &nbsp {{ data.Comments }}
+                            </div>
+                        </el-col>
+                    </el-row>
+                </el-card>
 
-        <div class="demo-pagination-block">
-            <el-pagination
-            v-model:current-page="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30]"
-            :small="small"
-            :disabled="disabled"
-            :background="background"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="TotalNum"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            />
-        </div>
+                <div class="demo-pagination-block">
+                    <el-pagination
+                    v-model:current-page="currentPage"
+                    v-model:page-size="pageSize"
+                    :page-sizes="[10, 15, 25]"
+                    :small="small"
+                    :disabled="disabled"
+                    :background="background"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="TotalNum"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    />
+                </div>
+            </el-col>
+            <el-col :span="2"></el-col>
+        </el-row>
     </el-card>
 </template>
 
@@ -123,10 +139,25 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
+
+#addbutton{
+    margin-left: auto;
 }
-.demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+.iconright{
+    float:right;
+}
+
+#solutiontitle{
+    font-family:Arial;
+	font-size:18px;
+}
+#solutioncard{
+    margin: 10px;
+}
+.demo-pagination-block{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 </style>

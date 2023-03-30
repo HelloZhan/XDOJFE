@@ -7,61 +7,64 @@
 			v-bind:router="true"
 		>
 			<el-menu-item index="/">
-				<el-icon><HomeFilled /></el-icon>
-				首页
+				<el-icon size="30"><HomeFilled /></el-icon>
+				<span class="navtext">首页</span> 
 			</el-menu-item>
 			<el-menu-item index="/problemlist">
-				<el-icon><Grid /></el-icon>
-				题库
+				<el-icon size="30"><Grid /></el-icon>
+				<span class="navtext">题库</span>
 			</el-menu-item>
 			<el-menu-item index="/statusrecord">
-				<el-icon><Tools /></el-icon>
-				测评
+				<el-icon size="30"><Tools /></el-icon>
+				<span class="navtext">测评</span>	
 			</el-menu-item>
 			<el-menu-item index="/discusslist">
-				<el-icon><Comment /></el-icon>
-				讨论
+				<el-icon size="30"><Comment /></el-icon>
+				<span class="navtext">讨论</span>
 			</el-menu-item>
 			<el-menu-item index="/userrank">
-				<el-icon><Histogram /></el-icon>
-				排名
+				<el-icon size="30"><Histogram /></el-icon>
+				<span class="navtext">排名</span>
 			</el-menu-item>
 			<el-menu-item index="/test">
-				测试
+				<span class="navtext">测试</span>
 			</el-menu-item>
-			<div class="flex-grow" />
-			<el-button id="button" type="primary" @click="openlogindialog">登录</el-button>
-			<el-button id="button" type="primary" @click="openregisterdialog">注册</el-button>
-			<el-dropdown @command="handleCommand" id="user">
-				<el-button type="primary">
-					<el-icon><User /></el-icon>{{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
-				</el-button>
-				<template #dropdown>
-					<el-dropdown-menu>
-						<el-dropdown-item command="userhome">
-							<el-icon><User /></el-icon>个人主页
-						</el-dropdown-item>
-						<el-dropdown-item command="statusrecord">
-							<el-icon><Edit /></el-icon>我的提交
-						</el-dropdown-item>
-						<el-dropdown-item command="discuss">
-							<el-icon><Edit /></el-icon>我的讨论
-						</el-dropdown-item>
-						<el-dropdown-item command="solution">
-							<el-icon><Edit /></el-icon>我的题解
-						</el-dropdown-item>
-						<el-dropdown-item command="usersetting">
-							<el-icon><Setting /></el-icon>设置
-						</el-dropdown-item>
-						<el-dropdown-item command="admin">
-							<el-icon><Odometer /></el-icon>管理员
-						</el-dropdown-item>
-						<el-dropdown-item>
-							<el-icon><SwitchButton /></el-icon>退出登录
-						</el-dropdown-item>
-					</el-dropdown-menu>
-				</template>
-			</el-dropdown>
+			<div v-if="!store.state.IsLogin" class="navright">
+				<el-button id="button" type="primary" @click="openlogindialog" text>登录</el-button>
+				<el-button id="button" type="primary" @click="openregisterdialog" text>注册</el-button>
+			</div>
+			<div v-if="store.state.IsLogin" class="navright">
+				<el-dropdown @command="handleCommand" id="user">
+					<el-button type="primary">
+						<el-icon><User /></el-icon> &nbsp {{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+					</el-button>
+					<template #dropdown>
+						<el-dropdown-menu>
+							<el-dropdown-item command="userhome">
+								<el-icon><User /></el-icon>个人主页
+							</el-dropdown-item>
+							<el-dropdown-item command="statusrecord">
+								<el-icon><Edit /></el-icon>我的提交
+							</el-dropdown-item>
+							<el-dropdown-item command="discuss">
+								<el-icon><Edit /></el-icon>我的讨论
+							</el-dropdown-item>
+							<el-dropdown-item command="solution">
+								<el-icon><Edit /></el-icon>我的题解
+							</el-dropdown-item>
+							<el-dropdown-item command="usersetting">
+								<el-icon><Setting /></el-icon>设置
+							</el-dropdown-item>
+							<el-dropdown-item command="admin">
+								<el-icon><Odometer /></el-icon>管理员
+							</el-dropdown-item>
+							<el-dropdown-item command="logout">
+								<el-icon><SwitchButton /></el-icon>退出登录
+							</el-dropdown-item>
+						</el-dropdown-menu>
+					</template>
+				</el-dropdown>
+			</div>
 		</el-menu>
 	</div>
 	<div class="main">
@@ -106,6 +109,7 @@ function handleCommand(command){
 		router.push({name:"UserSetting",query:{UserId:store.state.UserId}})
 	}else if(command == "admin"){
 		router.push({name:"Admin"})
+		
 	}else if(command == "statusrecord"){
 		router.push({
 			name:"StatusRecord",
@@ -127,6 +131,9 @@ function handleCommand(command){
 				UserId:store.state.UserId
 			}
 		})
+	}else if(command = "logout"){
+		store.commit('Logout')
+		router.push({name:'HomePage'})
 	}
 
 }
@@ -136,22 +143,21 @@ function handleCommand(command){
 .flex-grow {
   flex-grow: 1;
 }
-
-
-#button {
-  float: right;
-  margin: 20px;
+.navtext{
+	font-family:Arial;
+	font-size:15px;
 }
-#user {
-  float: right;
-  margin: 10px;
+
+.navright{
+	margin-left: auto;
+	margin-right: 15px;
+	align-self:center
 }
+
 #nav {
   background-color: #ffffff;
   position: relative;
   margin: 5px;
-  /* left: 0px; */
-  /* top: 0px; */
   z-index: 5;
   width: 100%;
 }

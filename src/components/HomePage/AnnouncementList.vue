@@ -30,7 +30,7 @@
         <el-pagination
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
-        :page-sizes="[10, 20, 30]"
+        :page-sizes="[5, 10, 15]"
         :small="small"
         :disabled="disabled"
         :background="background"
@@ -54,7 +54,7 @@ let serverdata = reactive({'array':[]})
 let TotalNum = ref(0)
 
 let currentPage = ref(1) // 当前页数
-let pageSize = ref(10) // 当前页的数量
+let pageSize = ref(5) // 当前页的数量
 
 function GetServerInfo(){
     service.get(`/api/announcementlist`,{
@@ -97,10 +97,11 @@ onMounted(()=>{
 #announcementcard{
     margin: 10px;
 }
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
-}
-.demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+
+.demo-pagination-block{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 </style>

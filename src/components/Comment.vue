@@ -11,22 +11,53 @@
 			@reply-page="replyPage"
 		></u-comment>
 	</div>
+	<div class="demo-pagination-block">
+		<n-pagination
+			v-model:page="currentPage"
+			v-model:page-size="pageSize"
+			:item-count="TotalNum"
+			show-size-picker
+			:page-sizes="pageSizes"
+			@update:page="handlepage"
+			@update:page-size="handlpagesize"
+		/>
+	</div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 	import store from '../store'
 	import service from '../axios'
-  	import { reactive, ref } from 'vue'
+	import { ElMessage } from 'element-plus'
+  	import { reactive, ref,onMounted } from 'vue'
+	import { NPagination } from 'naive-ui'
+	
   	import { UToast, ConfigApi, CommentApi, ReplyPageParam, CommentSubmitParam, ReplyApi } from 'undraw-ui'
 	// 下载表情包资源emoji.zip https://gitee.com/undraw/undraw-ui/releases
 	// static文件放在public下,引入emoji.ts文件可以移动到自定义位置
   	import emoji from '../../public/emoji'
 	// 父亲ID（讨论ID或者题解ID）
 	const props = defineProps(['ParentId','ArticleType'])
+	const pointmessage = ref('')
+	
+	const currentPage = ref(1) // 当前页数
+	const pageSize = ref(5) // 当前页的数量
+	const TotalNum = ref(0) // 总数
+	const pageSizes = [
+      {
+        label: '5 每页',
+        value: 5
+      },
+      {
+        label: '10 每页',
+        value: 10
+      },
+      {
+        label: '15 每页',
+        value: 15
+      }
+    ]
 	// 保存父评论信息
 	let commentinfo = reactive({'array':[]})
-	// 保存父评论个数
-  	let commetnum = ref(0)
 	// 获取父评论信息
 	function getCommentInfo(ParentId:string){
 		service
@@ -34,8 +65,8 @@
 			params: {
 				Type:"Father",
 				ParentId: ParentId,
-				Skip:0,
-				Limit:10,
+				Page:currentPage.value,
+				PageSize:pageSize.value,
 				SonNum:5,
 			},
 			})
@@ -43,7 +74,7 @@
 			(response) => {
 				console.log("请求成功了！！！",response.data);
 				commentinfo.array = response.data.ArryInfo;
-        		commetnum.value = response.data.TotalNum;
+        		TotalNum.value = response.data.TotalNum;
 				if(response.data.ArryInfo!=null) setCommentInfo()
 			},
 			(error) => {
@@ -52,8 +83,7 @@
 			}
 		);
 	}
-	// 调用函数
-	getCommentInfo(props.ParentId)
+	
   	// 本人的信息 id，name，头像，点赞的
 	const config = reactive<ConfigApi>({
 		user: {
@@ -67,8 +97,9 @@
 		comments: []
 	})
 	function setCommentInfo(){
-    console.log('setCommentInfo')
-		for(var i=0;i<commentinfo.array.length;i++){
+		// 将原数组清空
+		config.comments = []
+		for(var i=0;i < commentinfo.array.length;i++){
 			let commentone: CommentApi = {
 				id: String(commentinfo.array[i]["_id"]),
 				parentId: commentinfo.array[i]["ParentId"],
@@ -128,6 +159,12 @@
   
 	// 提交评论事件
 	const submit = ({ content, parentId, files, finish }: CommentSubmitParam) => {
+		if(store.state.UserId == '0'){
+			pointmessage.value = "请先登录！"
+			WaringMessage()
+			return
+		}
+
 		console.log('提交评论: ' + content, parentId, files)
 		let info={}
 		if(parentId == null){ // 父评论
@@ -236,6 +273,8 @@
 			params: {
 				Type:"Son",
 				ParentId: parentId,
+				Page:pageNum,
+				PageSize:pageSize,
 				Skip:(pageNum - 1) * pageSize,
 				Limit:pageSize,
 				SonNum:5,
@@ -279,6 +318,34 @@
 		);
 		console.log('回复分页')
 	}
+
+// 处理页数发生改变
+function handlepage(page: number){
+	console.log('handlenext',page)
+	currentPage.value = page
+	getCommentInfo(props.ParentId)
+}
+
+// 处理每页数量发送改变
+function handlpagesize(pagesize: number)
+{
+	console.log('handlpagesize',pagesize)
+	pageSize.value = pagesize;
+    getCommentInfo(props.ParentId)
+}
+
+// 发送警告消息
+const WaringMessage = () => {
+	ElMessage({
+		showClose: true,
+		message: pointmessage.value,
+		type: 'warning',
+	})
+}
+onMounted(()=>{
+	// 调用函数
+	getCommentInfo(props.ParentId)
+})
 </script>
 
 
@@ -289,19 +356,26 @@
   	display: flex;
 }
 
-  .vp-doc ul {
-    list-style: none !important;
-  }
-  
-  .vp-doc ul,
-  .vp-doc ol {
-    padding-left: 0 !important;
-    margin: 0 !important;
-  }
-  
-  .vp-doc li + li {
-    margin-top: 0px !important;
-  }
-  
+.demo-pagination-block{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.vp-doc ul {
+	list-style: none !important;
+}
+
+.vp-doc ul,
+.vp-doc ol {
+	padding-left: 0 !important;
+	margin: 0 !important;
+}
+
+.vp-doc li + li {
+	margin-top: 0px !important;
+}
+
   </style>
   

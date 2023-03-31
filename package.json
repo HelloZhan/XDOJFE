@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "naive-ui": "^2.34.3",
     "sass": "^1.58.3",
     "vite": "^4.1.4",
     "vite-plugin-monaco-editor": "^1.0.10"

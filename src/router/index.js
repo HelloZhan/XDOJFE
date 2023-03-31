@@ -34,6 +34,7 @@ import AdminProblem from '../components/Admin/AdminProblem.vue'
 import AdminUser from '../components/Admin/AdminUser.vue'
 import AdminAnnouncement from '../components/Admin/AdminAnnouncement.vue'
 import AdminSolution from '../components/Admin/AdminSolution.vue'
+import AdminComment from '../components/Admin/AdminComment.vue'
 
 import AnnouncementEditor from '../pages/Editor/AnnouncementEditor.vue'
 import SolutionEditor from '../pages/Editor/SolutionEditor.vue'
@@ -106,7 +107,11 @@ const routes = [
             {
                 path:'adminsolution',
                 component: AdminSolution
-            } 
+            },
+            {
+                path:'admincomment',
+                component: AdminComment
+            }
         ]
     },
     {

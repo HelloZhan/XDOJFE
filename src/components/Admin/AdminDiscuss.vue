@@ -1,6 +1,8 @@
 <template>
     <h1>DiscussSet</h1>
-    <el-table :data="discussdata.array" style="width: 100%">
+    <el-table :data="discussdata.array" style="width: 100%"
+        border
+        default-expand-all>
         <el-table-column prop="Title" label="标题" width="400" />
         <el-table-column prop="User[0].NickName" label="作者" width="180"/>
         <el-table-column prop="Comments" label="评论数" width="100"/>

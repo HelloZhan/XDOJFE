@@ -1,7 +1,9 @@
 <template>
     <h1>ProblemSet</h1>
     <el-button type="primary" @click="AddProblem">添加题目</el-button>
-    <el-table :data="problemsetdata.array" style="width: 100%">
+    <el-table :data="problemsetdata.array" style="width: 100%"
+        border
+        default-expand-all>
         <el-table-column prop="ProblemId" label="ID" width="180" />
         <el-table-column prop="Title" label="Title" width="180" />
         <el-table-column prop="SubmitNum" label="提交次数" width="180"/>

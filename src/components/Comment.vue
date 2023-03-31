@@ -229,10 +229,11 @@
 	// 删除评论
 	const remove = (id: number, finish: () => void) => {
 		service
-			.post(`/api/comment/delete`, {
-				ArticleType:props.ArticleType,
-				ArticleId:props.ParentId,
-				CommentId:id
+			.delete(`/api/comment`, {
+				params:{
+					ArticleId:props.ParentId,
+					CommentId:id
+				}
 			})
 			.then(
 			(response) => {

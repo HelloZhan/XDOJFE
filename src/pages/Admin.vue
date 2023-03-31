@@ -27,6 +27,10 @@
 					<el-icon><icon-menu /></el-icon>
 					题解管理
 				</el-menu-item>
+				<el-menu-item index="/admin/admincomment">
+					<el-icon><icon-menu /></el-icon>
+					评论管理
+				</el-menu-item>
 			</el-menu>
 			</el-col>
 			<el-col :span="21">

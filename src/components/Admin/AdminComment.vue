@@ -5,7 +5,6 @@
             style="width: 100%; margin-bottom: 20px"
             row-key="id"
             border
-            default-expand-all
         >
             <el-table-column prop="content" label="内容" sortable />
             <el-table-column prop="createtime" label="创建时间" sortable />
@@ -56,7 +55,7 @@ interface Comment {
     children?: Comment[]
 }
 
-const TableData:Comment[] = reactive([])
+let TableData:Comment[] = reactive([])
 
 function GetServerInfo(){
     service.get(`/api/commentlist/admin`,{
@@ -78,6 +77,8 @@ function GetServerInfo(){
 
 // 设置数据
 function SetInfo(ServerInfo){
+    // 设置数据为空
+    TableData = []
     console.log('serverinfo',ServerInfo)
     for(var i in ServerInfo){
         let Info = ServerInfo[i]

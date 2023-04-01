@@ -2,7 +2,6 @@
     <h1>用户列表</h1>
     <el-table :data="usersetdata.array" 
         border
-        default-expand-all
         style="width: 100%">
         <el-table-column prop="_id" label="ID" width="180" />
         <el-table-column prop="NickName" label="昵称" width="180" />

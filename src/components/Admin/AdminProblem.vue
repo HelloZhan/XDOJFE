@@ -1,9 +1,7 @@
 <template>
     <h1>ProblemSet</h1>
     <el-button type="primary" @click="AddProblem">添加题目</el-button>
-    <el-table :data="problemsetdata.array" style="width: 100%"
-        border
-        default-expand-all>
+    <el-table :data="problemsetdata.array" style="width: 100%" border>
         <el-table-column prop="ProblemId" label="ID" width="180" />
         <el-table-column prop="Title" label="Title" width="180" />
         <el-table-column prop="SubmitNum" label="提交次数" width="180"/>
@@ -76,8 +74,10 @@ function handleEdit(row){
 // 删除题目
 function handleDelete(row){
     console.log('点击删除',row)
-    service.post(`/api/problem/delete`,{
-        ProblemId:row.ProblemId
+    service.delete(`/api/problem`,{
+        params:{
+            ProblemId:row.ProblemId
+        }
     }).then(
         response => {
             console.log('请求成功了',response.data)

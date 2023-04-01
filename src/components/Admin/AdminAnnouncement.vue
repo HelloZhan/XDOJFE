@@ -1,9 +1,7 @@
 <template>
     <h1>公告</h1>
     <el-button type="primary" @click="AddAnnouncement">添加公告</el-button>
-    <el-table :data="serverdata.array" style="width: 100%"
-        border
-        default-expand-all>
+    <el-table :data="serverdata.array" style="width: 100%" border>
         <el-table-column prop="Title" label="标题" width="400" />
         <el-table-column prop="Comments" label="评论数" width="100"/>
         <el-table-column prop="Views" label="浏览量" width="100"/>

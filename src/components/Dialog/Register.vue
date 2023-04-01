@@ -119,6 +119,11 @@
 			WaringMessage()
 			return
 		}
+		if(!checkstr(form.password)){
+			pointmessage.value = "密码只能包含字母和数字！"
+			WaringMessage()
+			return
+		}
 		// 判断两次密码是否一致
 		if(form.password != form.confirmpassword){
 			pointmessage.value = "密码和确认密码不一致！"

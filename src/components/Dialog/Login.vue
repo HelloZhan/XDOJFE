@@ -54,7 +54,7 @@
 		}
 		// 检查账户长度
 		if(form.account.length < 6){
-			pointmessage.value = "账户长度太短！"
+			pointmessage.value = "账号长度太短！"
 			WaringMessage()
 			return
 		}

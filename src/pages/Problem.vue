@@ -134,10 +134,18 @@ function SubmitCode() {
 	})
 	.then(
 		(response) => {
-			console.log("提交成功了！！！", response.data);
-			result.value = response.data.Status;
-			reason.value = response.data.CompilerInfo;
-			// TODO:如果AC成功 需要添加到表中
+			if(response.data.Result == "Success"){
+				console.log("提交成功了！！！", response.data);
+				result.value = response.data.Status;
+				reason.value = response.data.CompilerInfo;
+				// 如果第一次AC
+				if(response.data.IsFirstAC){
+					store.state.Solves.push(data.problemid)
+				}
+			}else{
+				console.log('提交失败')
+			}
+			
 		},
 		(error) => {
 			console.log("提交失败了！！！");

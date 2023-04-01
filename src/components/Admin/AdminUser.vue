@@ -80,6 +80,10 @@ function handleDelete(row){
             if(response.data.Result=="Success"){
                 pointmessage.value = "删除成功"
                 SuccessMessage()
+                router.go(0)
+            }else{
+                pointmessage.value = response.data.Reason
+                ErrorMessage()
             }
         },
         error => {
@@ -109,9 +113,15 @@ function GetUserSetInfo(m_page, m_pagesize){
         },
     }).then(
         response => {
-            console.log('请求成功了',response.data)
-            usersetdata.array = response.data.ArrayInfo
-            totalsize.value = Number(response.data.TotalNum)
+            if(response.data.Result == "Success"){
+                console.log('请求成功了',response.data)
+                usersetdata.array = response.data.ArrayInfo
+                totalsize.value = Number(response.data.TotalNum)
+            }else{
+                pointmessage.value = response.data.Reason
+                ErrorMessage()
+            }
+            
         },
         error => {
             console.log('请求失败了',error.data)

@@ -30,6 +30,7 @@
 import {reactive,ref,onMounted} from 'vue'
 import service from '../axios'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 let currentPage = ref(1) // 当前页数
@@ -38,6 +39,8 @@ let TotalNum = ref(0)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
+
+const pointmessage = ref('')
 
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
@@ -66,18 +69,32 @@ function GetUserRank(){
         },
     }).then(
         response => {
-            console.log('请求成功了',response.data)
-            userrankdata.array = response.data.ArrayInfo
-            TotalNum.value = Number(response.data.TotalNum)
+            if(response.data.Result == "Success"){
+                userrankdata.array = response.data.ArrayInfo
+                TotalNum.value = Number(response.data.TotalNum)
+            }else{
+                pointmessage.value = response.data.Reason
+                ErrorMessage()
+            }
         },
         error => {
-            console.log('请求失败了',error.data)
+            pointmessage.value = "网络似乎出现了问题！";
+            ErrorMessage()
         }
     )
 }
 
 function rankclick(row, column, cell, event){
     router.push({name:"UserHome",query:{UserId:row._id}})
+}
+
+// 发送错误消息
+const ErrorMessage = () => {
+    ElMessage({
+        showClose: true,
+        message: pointmessage.value,
+        type: 'error',
+    })
 }
 
 onMounted(()=>{

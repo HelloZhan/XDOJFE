@@ -60,7 +60,6 @@ function GetInfo(){
         .then(
             (response) => {
                 if(response.data.Result == "Success"){
-                    console.log('请求数据',response.data)
                     setinfo(response.data)
                 }else{
                     pointmessage.value = response.data.Reason
@@ -68,7 +67,6 @@ function GetInfo(){
                 }
             },
             (error) => {
-                console.log("请求失败了！！！");
                 pointmessage.value = "网络似乎出现了问题！";
                 ErrorMessage()
             }

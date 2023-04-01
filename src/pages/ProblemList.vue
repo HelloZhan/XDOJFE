@@ -112,7 +112,7 @@ function GetProblemSetInfo(){
     }).then(
         response => {
             console.log('请求成功了',response.data)
-            problemsetdata.array = response.data.Array
+            problemsetdata.array = response.data.ArrayInfo
             totalsize.value = Number(response.data.TotalNum)
         },
         error => {

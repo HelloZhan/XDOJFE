@@ -56,8 +56,6 @@
         value: 15
       }
     ]
-	// 保存父评论信息
-	let commentinfo = reactive({'array':[]})
 	// 获取父评论信息
 	function getCommentInfo(ParentId:string){
 		service
@@ -73,9 +71,8 @@
 			.then(
 			(response) => {
 				console.log("请求成功了！！！",response.data);
-				commentinfo.array = response.data.ArryInfo;
         		TotalNum.value = response.data.TotalNum;
-				if(response.data.ArryInfo!=null) setCommentInfo()
+				setCommentInfo(response.data.ArryInfo)
 			},
 			(error) => {
 				console.log("请求失败了！！！");
@@ -96,66 +93,62 @@
 		emoji: emoji,
 		comments: []
 	})
-	function setCommentInfo(){
+	
+	function setCommentInfo(Info){
 		// 将原数组清空
 		config.comments = []
-		for(var i=0;i < commentinfo.array.length;i++){
-			let commentone: CommentApi = {
-				id: String(commentinfo.array[i]["_id"]),
-				parentId: commentinfo.array[i]["ParentId"],
-				uid: commentinfo.array[i]["User"][0]["_id"],
-				address: '',
-				content: commentinfo.array[i]["Content"],
-				likes: commentinfo.array[i]["Likes"],
-				createTime: commentinfo.array[i]["CreateTime"],
+		// 循环获取父评论
+		for(var i in Info){
+			let fatherinfo = Info[i]
+			// 获取父评论
+			let Father:CommentApi = {
+				id: String(fatherinfo["_id"]),
+				parentId: fatherinfo["ParentId"],
+				uid: fatherinfo["User"][0]["_id"],
+				address:'',
+				content: fatherinfo["Content"],
+				likes: fatherinfo["Likes"],
+				createTime: fatherinfo["CreateTime"],
 				user: {
-					username: commentinfo.array[i]["User"][0]["NickName"],
-					avatar: commentinfo.array[i]["User"][0]["Avatar"],
+					username: fatherinfo["User"][0]["NickName"],
+					avatar: fatherinfo["User"][0]["Avatar"],
 					level: 0,
-					homeLink: ``
+					homeLink: ''
 				},
 				reply: null
-    		}
-			let child_total = commentinfo.array[i]["Child_Total"];
-			let replayinfo:ReplyApi={
-				total:child_total,
-				list:[]
 			}
-			if(child_total > 0){
-				var tmpinfo = commentinfo.array[i]["Child_Comments"];
-				for(var tmp in tmpinfo){
-					let info={
-						id: tmpinfo[tmp]["_id"],
-						parentId: String(commentinfo.array[i]["_id"]),
-						uid: tmpinfo[tmp]["User"][0]["_id"],
+			// 判断是否有子评论
+			if(fatherinfo["Child_Total"] > 0){
+				let Son:ReplyApi={
+					total: fatherinfo["Child_Total"],
+					list: []
+				}
+				// 循环获取子评论
+				for(var j in fatherinfo["Child_Comments"]){
+					let soninfo = fatherinfo["Child_Comments"][j]
+					let info = {
+						id: soninfo["_id"],
+						parentId: String(fatherinfo["ParentId"]),
+						uid: soninfo["User"][0]["_id"],
 						address: '',
-						content: tmpinfo[tmp]["Content"],
-						likes: tmpinfo[tmp]["Likes"],
-						createTime: tmpinfo[tmp]["CreateTime"],
+						content: soninfo["Content"],
+						likes: soninfo["Likes"],
+						createTime: soninfo["CreateTime"],
 						user: {
-							username: tmpinfo[tmp]["User"][0]["NickName"],
-							avatar:tmpinfo[tmp]["User"][0]["Avatar"],
+							username: soninfo["User"][0]["NickName"],
+							avatar:soninfo["User"][0]["Avatar"],
 							level: 0,
 							homeLink: ''
 						}
 					}
-					replayinfo.list.push(info)
+					Son.list.push(info)
 				}
-				commentone.reply = replayinfo
+				Father.reply = Son
 			}
-			config.comments.push(commentone)
+			config.comments.push(Father)
+			
 		}
 	}
-	//获取文件url
-	// function createObjectURL(blob: any) {
-	// 	if (window.URL) {
-	// 	return window.URL.createObjectURL(blob)
-	// 	} else if (window.webkitURL) {
-	// 	return window.webkitURL.createObjectURL(blob)
-	// 	} else {
-	// 	return ''
-	// 	}
-	// }
   
 	// 提交评论事件
 	const submit = ({ content, parentId, files, finish }: CommentSubmitParam) => {
@@ -195,10 +188,7 @@
 			.then(
 			(response) => {
 				console.log("请求成功了！！！",response.data);
-				/**
-				 * 上传文件后端返回图片访问地址，格式以', '为分割; 如:  '/static/img/program.gif, /static/img/normal.webp'
-				 */
-				//let contentImg = files.map((e: any) => createObjectURL(e)).join(', ')
+
 				let comment: CommentApi = {
 					id: String((response.data._id)),
 					parentId: parentId,

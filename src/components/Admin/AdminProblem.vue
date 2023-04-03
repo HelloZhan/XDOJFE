@@ -84,6 +84,7 @@ function handleDelete(row){
             if(response.data.Result=="Success"){
                 pointmessage.value = "删除成功"
                 SuccessMessage()
+                router.go(0)
             }
         },
         error => {

@@ -34,7 +34,9 @@
 <script lang="ts" setup>
 import service from '../../axios'
 import {reactive,ref,onMounted} from 'vue'
+import { useRouter} from 'vue-router'
 
+const router = useRouter()
 
 let currentPage = ref(1) // 当前页数
 let pageSize = ref(10) // 当前页的数量
@@ -116,7 +118,7 @@ function handleDelete(row){
         response => {
             console.log('请求成功了',response.data)
             if(response.data.Result=="Success"){
-                
+                router.go(0)
             }
         },
         error => {

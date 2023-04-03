@@ -142,7 +142,9 @@ function SubmitCode() {
 				reason.value = response.data.CompilerInfo;
 				// 如果第一次AC
 				if(response.data.IsFirstAC){
+					console.log('添加进去了')
 					store.state.Solves.push(data.problemid)
+					console.log('solves:',store.state.Solves)
 				}
 			}else{
 				console.log('提交失败')

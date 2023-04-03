@@ -1,5 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+// ---------- element UI -------
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+// -------------------------
 // ---------- ?? ----------
 // -------------------------
 // ---------- vuex ----------
@@ -8,11 +13,6 @@ import store from './store'
 import './assets/main.css'
 // ---------- 路由 ----------
 import router from './router'
-// -------------------------
-// ---------- element UI -------
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // -------------------------
 // ---------- markdown ----------
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
@@ -72,7 +72,7 @@ if(account && password){
 store.commit('GetProblemTags')
 
 const app = createApp(App)
-app.mount('#app')
+
 // 评论UI
 app.use(UndrawUi)
 // 路由
@@ -84,6 +84,9 @@ app.use(VMdPreview)
 app.use(VMdEditor)
 // vuex
 app.use(store)
+
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 	app.component(key, component)
 }
+// 将app放置在最后
+app.mount('#app')

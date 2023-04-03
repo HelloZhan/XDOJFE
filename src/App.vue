@@ -57,7 +57,7 @@
 							</el-dropdown-item>
 							<el-dropdown-item command="admin">
 								<el-icon><Odometer /></el-icon>管理员
-							</el-dropdown-item>
+							</el-dropdown-item>	
 							<el-dropdown-item command="logout">
 								<el-icon><SwitchButton /></el-icon>退出登录
 							</el-dropdown-item>
@@ -136,7 +136,6 @@ function handleCommand(command){
 	}
 
 }
-
 </script>
 <style scoped>
 .flex-grow {

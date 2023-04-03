@@ -1,15 +1,14 @@
 <template>
-    <h1>用户列表</h1>
+    <h1>用户</h1>
     <el-table :data="usersetdata.array" 
         border
         style="width: 100%">
         <el-table-column prop="_id" label="ID" width="180" />
         <el-table-column prop="NickName" label="昵称" width="180" />
-        <el-table-column prop="PersonalProfile" label="个人简介" width="180"/>
+        <el-table-column prop="PersonalProfile" label="个人简介" width="300"/>
         <el-table-column prop="School" label="学校" width="100"/>
         <el-table-column prop="Major" label="专业" width="100"/>
-        <el-table-column prop="JoinTime" label="加入时间" width="100"/>
-        <el-table-column prop="Authority" label="权限" width="100"/>
+        <el-table-column prop="JoinTime" label="加入时间" width="200"/>
         <el-table-column label="操作">
             <template #default="scope">
                 <el-button size="small" @click="handleCheck(scope.row)">查看</el-button>

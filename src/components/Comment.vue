@@ -344,7 +344,6 @@ onMounted(()=>{
 <style lang="scss">
 .comment-view{
     margin-top: 2rem;
-  	display: flex;
 }
 
 .demo-pagination-block{

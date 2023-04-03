@@ -1,5 +1,5 @@
 <template>
-    <h1>ProblemSet</h1>
+    <h1>题目</h1>
     <el-button type="primary" @click="AddProblem">添加题目</el-button>
     <el-table :data="problemsetdata.array" style="width: 100%" border>
         <el-table-column prop="ProblemId" label="ID" width="180" />

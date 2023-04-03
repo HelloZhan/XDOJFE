@@ -1,22 +1,22 @@
 <template>
-    <div>
-        <el-table
-            :data="TableData"
-            style="width: 100%; margin-bottom: 20px"
-            row-key="id"
-            border
-        >
-            <el-table-column prop="content" label="内容" sortable />
-            <el-table-column prop="createtime" label="创建时间" sortable />
-            <el-table-column label="操作">
-            <template #default="scope">
-                <el-button size="small" type="danger"
-                @click="handleDelete(scope.row)">删除</el-button>
-            </template>
-        </el-table-column>
-        </el-table>
-        <div class="demo-pagination-block">
-            <el-pagination
+    <h1>评论</h1>
+    <el-table
+        :data="TableData"
+        style="width: 100%; margin-bottom: 20px"
+        row-key="id"
+        border
+    >
+        <el-table-column prop="content" label="内容" sortable />
+        <el-table-column prop="createtime" label="创建时间" sortable />
+        <el-table-column label="操作">
+        <template #default="scope">
+            <el-button size="small" type="danger"
+            @click="handleDelete(scope.row)">删除</el-button>
+        </template>
+    </el-table-column>
+    </el-table>
+    <div class="demo-pagination-block">
+        <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
             :page-sizes="[10, 15, 20]"
@@ -28,7 +28,6 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
         />
-    </div>
     </div>
 </template>
 

@@ -2,10 +2,11 @@
     <h1>公告</h1>
     <el-button type="primary" @click="AddAnnouncement">添加公告</el-button>
     <el-table :data="serverdata.array" style="width: 100%" border>
+        <el-table-column prop="_id" label="ID" width="100" />
         <el-table-column prop="Title" label="标题" width="400" />
         <el-table-column prop="Comments" label="评论数" width="100"/>
         <el-table-column prop="Views" label="浏览量" width="100"/>
-        <el-table-column prop="CreateTime" label="创建时间" width="360"/>
+        <el-table-column prop="CreateTime" label="创建时间" width="200"/>
         <el-table-column label="操作">
             <template #default="scope">
                 <el-button size="small" @click="handleCheck(scope.row)">查看</el-button>

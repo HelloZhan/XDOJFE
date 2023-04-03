@@ -187,6 +187,7 @@ function Submit()
 			if(response.data.Result == "Success"){
 				pointmessage.value = "题目插入成功！"
 				SuccessMessage()
+				router.go(-1)
 			}else{
 				pointmessage.value = response.data.Reason
 				WaringMessage()

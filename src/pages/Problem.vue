@@ -1,49 +1,52 @@
 <template>
 	<el-card class="box-card">
-	<el-row>
-		<el-col :span="20">
-			<h1>ID: {{data.problemid}}</h1>
-			<h1>题目：{{data.title}}</h1>
-			<div class="content">
-				<v-md-preview :text="data.content"></v-md-preview>
-			</div>
-			<MonacoEditor ref="monacoeditor"></MonacoEditor>
-			<hr />
-			<h4>结果是 {{ result }}</h4>
-			<h4>原因是 {{ reason }}</h4>
-			<button @click="SubmitCode()">提交</button>
-		</el-col>
-		<el-col :span="4">
-			<div class="demo-collapse">
-				<el-collapse v-model="activeNames" @change="handleChange">
-					<el-collapse-item title="作者" name="1">
-						<div>
-							{{ data.nickname }}
-						</div>
-					</el-collapse-item>
-					<el-collapse-item title="时间限制" name="2">
-						<div>
-							{{ data.timelimit }} MS
-						</div>
-					</el-collapse-item>
-					<el-collapse-item title="空间限制" name="3">
-						<div>
-							{{ data.memorylimit }} MB
-						</div>
-					</el-collapse-item>
-					<el-collapse-item title="标签" name="4">
-						<div>
-							<el-tag v-for="(tag,index) in data.tags" :key="index">{{ tag }}</el-tag>
-						</div>
-					</el-collapse-item>
-				</el-collapse>
-			</div>
+		<center>
+			<h1>{{ data.problemid }}.{{ data.title }}</h1>
+		</center>
+		<el-row>
+			<el-col :span="20">
+				<div class="content">
+					<v-md-preview :text="data.content"></v-md-preview>
+				</div>
+				<MonacoEditor ref="monacoeditor"></MonacoEditor>
+				<hr />
+				<el-button type="primary" @click="SubmitCode()">提交</el-button>
+				<div id="resultdiv">
+					<h4>代码运行状态： {{ result }}</h4>
+					<h4>错误提示： {{ reason }}</h4>
+				</div>
+			</el-col>
+			<el-col :span="4">
+				<div class="demo-collapse">
+					<el-collapse v-model="activeNames" @change="handleChange">
+						<el-collapse-item title="作者" name="1">
+							<div>
+								{{ data.nickname }}
+							</div>
+						</el-collapse-item>
+						<el-collapse-item title="时间限制" name="2">
+							<div>
+								{{ data.timelimit }} MS
+							</div>
+						</el-collapse-item>
+						<el-collapse-item title="空间限制" name="3">
+							<div>
+								{{ data.memorylimit }} MB
+							</div>
+						</el-collapse-item>
+						<el-collapse-item title="标签" name="4">
+							<div>
+								<el-tag v-for="(tag,index) in data.tags" :key="index">{{ tag }}</el-tag>
+							</div>
+						</el-collapse-item>
+					</el-collapse>
+				</div>
 
-			<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
-			<el-button type="primary" @click="ClickSolution">题解</el-button>
-			<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
-		</el-col>
-	</el-row>
+				<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
+				<el-button type="primary" @click="ClickSolution">题解</el-button>
+				<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
+			</el-col>
+		</el-row>
 	</el-card>
 </template>
 
@@ -52,7 +55,6 @@ import MonacoEditor from '../components/Problem/MonacoEditor.vue'
 import service from '../axios'
 import { ref,onMounted,reactive } from "vue"
 import store from '../store'
-import axios from 'axios'
 import { useRoute,useRouter} from 'vue-router'
 
 const monacoeditor = ref()
@@ -76,7 +78,7 @@ let result = ref("");
 let reason = ref("");
 // 请求当前题目详情
 function GetProblem() {
-	axios
+	service
 	.get(`/api/problem`, {
 		params: {
 			ProblemId: data.problemid,

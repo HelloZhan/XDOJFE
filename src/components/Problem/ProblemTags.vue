@@ -41,6 +41,7 @@ function GetTagsData()
 // 设置数据
 function SetTagsData(Info:Array<string>)
 {
+    dynamicTags.value.splice(0)
     for(var i = 0; i < Info.length;i++)
     {
         dynamicTags.value.push(Info[i])

@@ -35,7 +35,7 @@
 			</div>
 			<div v-if="store.state.IsLogin" class="navright">
 				<el-dropdown @command="handleCommand" id="user">
-					<el-button type="primary">
+					<el-button type="primary" text>
 						<el-icon><User /></el-icon> &nbsp {{store.state.NickName}}<el-icon class="el-icon--right"><arrow-down /></el-icon>
 					</el-button>
 					<template #dropdown>
@@ -55,7 +55,7 @@
 							<el-dropdown-item command="usersetting">
 								<el-icon><Setting /></el-icon>设置
 							</el-dropdown-item>
-							<el-dropdown-item command="admin">
+							<el-dropdown-item command="admin" v-if="store.state.IsAdmin">
 								<el-icon><Odometer /></el-icon>管理员
 							</el-dropdown-item>	
 							<el-dropdown-item command="logout">

@@ -13,7 +13,7 @@
             <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30]"
+            :page-sizes="[15, 30, 50]"
             :small="small"
             :disabled="disabled"
             :background="background"
@@ -34,7 +34,7 @@ import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 let currentPage = ref(1) // 当前页数
-let pageSize = ref(10) // 当前页的数量
+let pageSize = ref(15) // 当前页的数量
 let TotalNum = ref(0)
 const small = ref(false)
 const background = ref(false)
@@ -103,10 +103,10 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
-}
-.demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+.demo-pagination-block{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 </style>

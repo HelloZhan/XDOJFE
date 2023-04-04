@@ -6,7 +6,7 @@
                 <div>
                     <h1>题解</h1>
                     <div id="addbutton">
-                        <el-button type="primary" @click="AddSolution">写题解</el-button>
+                        <el-button type="primary" @click="AddSolution" v-show="addbuttonshow" :disabled="addbuttondisabled">写题解</el-button>
                     </div>
                 </div>
                 <el-card v-for="(data,index) in serverdata.array" id="solutioncard">
@@ -54,10 +54,14 @@
 <script setup>
 import service from '../axios'
 import {reactive,ref,onMounted} from 'vue'
+import store from '../store'
 
 import { useRouter,useRoute,onBeforeRouteUpdate } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
+
+const addbuttonshow = ref(true)
+const addbuttondisabled = ref(false)
 
 const searchinfo = reactive({
     ParentId:'0',
@@ -92,6 +96,7 @@ function GetServerInfo(ParentId,UserId){
     }).then(
         response => {
             console.log('请求成功了',response.data)
+            if(response.data.ArrayInfo == null) serverdata.array = []
             serverdata.array = response.data.ArrayInfo
             TotalNum.value = Number(response.data.TotalNum)
         },
@@ -131,10 +136,17 @@ const handleCurrentChange = (val) => {
 // 路由更改前
 onBeforeRouteUpdate(to=>{
     GetServerInfo(to.query.ParentId,to.query.UserId)
+    if(to.query.UserId != null) addbuttonshow.value = false
+    else addbuttonshow.value = true
 })
 // 组件初始化
 onMounted(()=>{
     GetServerInfo(route.query.ParentId,route.query.UserId)
+
+    if(store.state.UserId == '0')addbuttondisabled.value = true
+
+    if(route.query.UserId != null) addbuttonshow.value = false
+    else addbuttonshow.value = true
 })
 </script>
 

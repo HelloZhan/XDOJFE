@@ -10,7 +10,7 @@
 				</div>
 				<MonacoEditor ref="monacoeditor"></MonacoEditor>
 				<hr />
-				<el-button type="primary" @click="SubmitCode()">提交</el-button>
+				<el-button type="primary" @click="SubmitCode()" :disabled="submitbutton">提交</el-button>
 				<div id="resultdiv">
 					<h4>代码运行状态： {{ result }}</h4>
 					<h4>错误提示： {{ reason }}</h4>
@@ -56,6 +56,9 @@ import service from '../axios'
 import { ref,onMounted,reactive } from "vue"
 import store from '../store'
 import { useRoute,useRouter} from 'vue-router'
+
+
+const submitbutton = ref(false)
 
 const monacoeditor = ref()
 const route = useRoute()
@@ -189,6 +192,7 @@ function ClickDiscuss()
 onMounted(()=>{
 	data.problemid = route.query.ProblemId
 	GetProblem();
+	if(store.state.UserId == '0')submitbutton.value = true
 })
 </script>
 

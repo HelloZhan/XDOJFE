@@ -10,6 +10,7 @@
             </el-main>
             <el-footer>
                 <el-switch v-model="ispublic" />是否公开
+                <br>
                 <el-button type="primary" @click="Affirm">发布</el-button>
                 <el-button type="primary" @click="Cancel">取消</el-button>
             </el-footer>

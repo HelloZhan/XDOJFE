@@ -212,7 +212,6 @@ function GetServerInfo()
 		})
 		.then(
 		(response) => {
-			console.log("提交成功了！！！", response.data);
 			if(response.data.Result == "Success"){
 				pointmessage.value = "题目获取成功！"
 				SuccessMessage()

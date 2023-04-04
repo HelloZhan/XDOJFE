@@ -6,8 +6,6 @@
 			<h2>{{ title }}</h2>
 		</div>
 		
-		
-		<h2>作者：{{ usernickname }}</h2>
 		<el-row>
 			<el-col :span="2"></el-col>
 
@@ -15,8 +13,8 @@
 				<div>
 					<v-md-preview :text=content></v-md-preview>
 				</div>
-				<el-button v-if="showbutton" type="primary" @click="UpdateArticle">修改</el-button>
-				<el-button v-if="showbutton" type="primary" @click="DeleteArticle">删除</el-button>
+				<el-button type="primary" @click="UpdateArticle" v-show="buttonshow">修改</el-button>
+				<el-button type="primary" @click="DeleteArticle" v-show="buttonshow">删除</el-button>
 				<Comment :ParentId=$route.query.DiscussId ArticleType="Discuss" ></Comment>
 			</el-col>
 
@@ -32,6 +30,7 @@ import Comment from '../components/Comment.vue'
 import {ref,onMounted } from 'vue'
 import { useRouter,useRoute } from 'vue-router'
 import service from '../axios'
+import store from '../store';
 
 const router = useRouter()
 const route = useRoute()
@@ -45,7 +44,7 @@ const comments = ref(0)
 const usernickname = ref('')
 const useravatar = ref('')
 
-const showbutton = ref(true)
+const buttonshow = ref(false)
 
 function GetServerInfo() {
 	service
@@ -75,7 +74,8 @@ function SetServerData(data)
     comments.value = data.Comments
     usernickname.value = data.User[0].NickName
     useravatar.value = data.User[0].Avatar
-
+	if(Number(data.User[0]._id) == Number(store.state.UserId))
+		buttonshow.value = true
 }
 
 function UpdateArticle(){

@@ -1,20 +1,17 @@
 <template>
     <h1>公告编辑器</h1>
-    <div class="common-layout">
-        <el-container>
-            <el-header>
-                <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
-            </el-header>
-            <el-main>
-                <v-md-editor v-model="content" height="400px"></v-md-editor>
-            </el-main>
-            <el-footer>
-                <el-input v-model="level" placeholder="请输入重要等级！"/>
-                <el-button type="primary" @click="Affirm">发布</el-button>
-                <el-button type="primary" @click="Cancel">取消</el-button>
-            </el-footer>
-        </el-container>
-  </div>
+
+    <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
+
+    <v-md-editor v-model="content" height="400px"></v-md-editor>
+
+    <h4>Tip:重要等级1-5，等级越高越靠前</h4>
+    <el-input-number v-model="level" :min="1" :max="5"/>
+    <br>
+    <br>
+    <el-button type="primary" @click="Affirm">发布</el-button>
+    <el-button type="primary" @click="Cancel">取消</el-button>
+
 </template>
   
 <script setup>

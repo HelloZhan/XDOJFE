@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">确认</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="onCancel">取消</el-button>
             </el-form-item>
         </el-form>
     </el-card>
@@ -76,6 +76,9 @@ const onSubmit = () => {
     console.log('submit!')
 }
 
+const onCancel = () =>{
+    router.go(-1)
+}
 // 获取用户信息
 function GetServerInfo()
 {

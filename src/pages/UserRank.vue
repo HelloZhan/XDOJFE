@@ -1,10 +1,23 @@
 <template>
     <el-card class="box-card">
-        <h1>用户Rank排名</h1>
+        <el-carousel :interval="4000" type="card" height="300px">
+            <el-carousel-item v-for="(item,index) in carouseldata.array" :key="index">
+                <center>
+                    <h1>{{item.rank}}</h1>
+                    <el-avatar :size="100" :src="item.avatar" />
+                    <h1>{{item.nickname}}</h1>
+                </center>
+            </el-carousel-item>
+        </el-carousel>
         <el-table :data="userrankdata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>rankclick(row, column, cell, event)">
-            <el-table-column prop="Rank" label="排名" width="180" />
+            <el-table-column prop="Rank" label="排名" width="100" />
+            <el-table-column prop="Avatar" label="" width="100">
+                <template #default="scope">
+                    <el-avatar :size="50" :src="scope.row.Avatar" />
+                </template>
+            </el-table-column>
             <el-table-column prop="NickName" label="NickName" width="180" />
-            <el-table-column prop="PersonalProfile" label="PersonalProfile" width="360"/>
+            <el-table-column prop="PersonalProfile" label="PersonalProfile" width="400"/>
             <el-table-column prop="ACNum" label="ACNum" width="100"/>
             <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
         </el-table>
@@ -56,6 +69,8 @@ const handleCurrentChange = (val) => {
 // 用户排名信息列表
 let userrankdata = reactive({'array':[]})
 
+let carouseldata = reactive({'array':[]})
+
 /*
     功能：获取用户的Rank排名
     传入：Json(Page,PageSize)
@@ -72,6 +87,9 @@ function GetUserRank(){
             if(response.data.Result == "Success"){
                 userrankdata.array = response.data.ArrayInfo
                 TotalNum.value = Number(response.data.TotalNum)
+                if(currentPage.value == 1){
+                    setCarousel(response.data.ArrayInfo)
+                }
             }else{
                 pointmessage.value = response.data.Reason
                 ErrorMessage()
@@ -84,6 +102,18 @@ function GetUserRank(){
     )
 }
 
+function setCarousel(Info)
+{
+    let size = Info.length >= 3 ? 3 : Info.length
+    for(var i = 0; i < size; i++){
+        let info = {
+            rank: Info[i].Rank,
+            nickname: Info[i].NickName,
+            avatar: Info[i].Avatar
+        }
+        carouseldata.array.push(info)
+    }
+}
 function rankclick(row, column, cell, event){
     router.push({name:"UserHome",query:{UserId:row._id}})
 }
@@ -108,5 +138,21 @@ onMounted(()=>{
     display: flex;
     justify-content: center;
     align-items: center
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+  text-align: center;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 </style>

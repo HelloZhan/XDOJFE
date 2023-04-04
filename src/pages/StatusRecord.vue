@@ -1,8 +1,8 @@
 <template>
     <el-card class="box-card">
         <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
-            <el-table-column prop="_id" label="ID" width="180" />
-            <el-table-column prop="UserNickName" label="User" width="180" />
+            <el-table-column prop="_id" label="ID" width="150" />
+            <el-table-column prop="UserNickName" label="User" width="150" />
             <el-table-column prop="ProblemTitle" label="Title" width="300"/>
             <el-table-column prop="Status" label="Status" width="250">
                 <template #default="scope">
@@ -14,9 +14,9 @@
                     </el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="RunTime" label="RunTime" width="100"/>
-            <el-table-column prop="RunMemory" label="Memory" width="100"/>
-            <el-table-column prop="Length" label="Length" width="100"/>
+            <el-table-column prop="RunTime" label="RunTime" width="150"/>
+            <el-table-column prop="RunMemory" label="Memory" width="150"/>
+            <el-table-column prop="Length" label="Length" width="150"/>
             <el-table-column prop="SubmitTime" label="SubmitTime" />
         </el-table>
         <ViewStatus ref="viewstatusdialog"></ViewStatus>

@@ -9,11 +9,11 @@
 					<v-md-preview :text="data.content"></v-md-preview>
 				</div>
 				<MonacoEditor ref="monacoeditor"></MonacoEditor>
-				<hr />
-				<el-button type="primary" @click="SubmitCode()" :disabled="submitbutton">提交</el-button>
+				<el-button type="primary" @click="SubmitCode()" :disabled="submitbutton" :loading="submitloading">提交</el-button>
 				<div id="resultdiv">
-					<h4>代码运行状态： {{ result }}</h4>
+					<h4>代码运行状态： {{ ResultMsg() }}</h4>
 					<h4>错误提示： {{ reason }}</h4>
+					<h3>Tip：可以通过查看测评记录查看每个测试点详细信息</h3>
 				</div>
 			</el-col>
 			<el-col :span="4">
@@ -58,7 +58,8 @@ import store from '../store'
 import { useRoute,useRouter} from 'vue-router'
 
 
-const submitbutton = ref(false)
+let submitbutton = ref(false)
+let submitloading = ref(false)
 
 const monacoeditor = ref()
 const route = useRoute()
@@ -77,7 +78,7 @@ const data = reactive({
 	tags:[]
 })
 
-let result = ref("");
+let result = ref(-1);
 let reason = ref("");
 // 请求当前题目详情
 function GetProblem() {
@@ -117,14 +118,9 @@ function SetDataInfo(Info)
 }
 // 提交代码
 function SubmitCode() {
-	let Info = {
-		ProblemId: route.query.ProblemId,
-		UserId: store.state.UserId,
-		UserNickName: store.state.NickName,
-		Code: monacoeditor.value.GetCode(),
-		Language: monacoeditor.value.GetLanguage(),
-	}
-	console.log(Info)
+	submitloading.value = true
+	result.value = 0
+
 	service
 	.post(`/api/problemcode`, { 
 		ProblemId: data.problemid,
@@ -141,26 +137,38 @@ function SubmitCode() {
 		(response) => {
 			if(response.data.Result == "Success"){
 				console.log("提交成功了！！！", response.data);
-				result.value = response.data.Status;
+				result.value = Number(response.data.Status);
 				reason.value = response.data.CompilerInfo;
 				// 如果第一次AC
 				if(response.data.IsFirstAC){
-					console.log('添加进去了')
 					store.state.Solves.push(data.problemid)
 					console.log('solves:',store.state.Solves)
 				}
 			}else{
 				console.log('提交失败')
 			}
-			
+			submitloading.value = false
 		},
 		(error) => {
 			console.log("提交失败了！！！");
 			console.log(error.data);
+			submitloading.value = false
 		}
 	);
+	
 }
-
+function ResultMsg()
+{
+	if(result.value == -1)return ""
+	else if(result.value == 0)return "Pending"
+	else if(result.value == 1)return "Compile Error"
+	else if(result.value == 2)return "Accepted"
+	else if(result.value == 3)return "Wrong Answer"
+	else if(result.value == 4)return "Runtime Error"
+	else if(result.value == 5)return "Time Limit Exceeded"
+	else if(result.value == 6)return "Memory Limit Exceeded"
+	else if(result.value == 7)return "System Error"
+}
 function ClickStatusRecord()
 {
 	router.push({

@@ -4,7 +4,7 @@
             <el-table-column prop="_id" label="ID" width="150" />
             <el-table-column prop="UserNickName" label="User" width="150" />
             <el-table-column prop="ProblemTitle" label="Title" width="300"/>
-            <el-table-column prop="Status" label="Status" width="250">
+            <el-table-column prop="Status" label="Status" width="200">
                 <template #default="scope">
                     <el-tag size="medium"
                             :type="ChangeStatusToType(scope.row.Status)"
@@ -14,9 +14,10 @@
                     </el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="RunTime" label="RunTime" width="150"/>
-            <el-table-column prop="RunMemory" label="Memory" width="150"/>
-            <el-table-column prop="Length" label="Length" width="150"/>
+            <el-table-column prop="Language" label="语言" width="100"/>
+            <el-table-column prop="RunTime" label="RunTime" width="120"/>
+            <el-table-column prop="RunMemory" label="Memory" width="120"/>
+            <el-table-column prop="Length" label="Length" width="120"/>
             <el-table-column prop="SubmitTime" label="SubmitTime" />
         </el-table>
         <ViewStatus ref="viewstatusdialog"></ViewStatus>

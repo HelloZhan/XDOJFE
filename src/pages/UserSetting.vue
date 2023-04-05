@@ -5,7 +5,7 @@
             <el-form-item label="头像">
                 <el-avatar :size="100" :src="form.Avatar" />
                 <el-input v-model="form.Avatar" />
-                <el-text class="mx-1">大家可以通过网上获取图片地址链接更改头像，本OJ提供10个头像大家更改后缀即可</el-text>
+                <el-text class="mx-1">Tip：大家可以通过网上获取图片地址链接更改头像</el-text>
             </el-form-item>
             <el-form-item label="个性签名">
                 <el-input v-model="form.PersonalProfile" maxlength="25" show-word-limit/>

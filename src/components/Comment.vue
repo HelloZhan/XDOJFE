@@ -104,7 +104,7 @@
 			let Father:CommentApi = {
 				id: String(fatherinfo["_id"]),
 				parentId: fatherinfo["ParentId"],
-				uid: fatherinfo["User"][0]["_id"],
+				uid: String(fatherinfo["User"][0]["_id"]),
 				address:'',
 				content: fatherinfo["Content"],
 				likes: fatherinfo["Likes"],
@@ -129,7 +129,7 @@
 					let info = {
 						id: soninfo["_id"],
 						parentId: String(fatherinfo["ParentId"]),
-						uid: soninfo["User"][0]["_id"],
+						uid: String(soninfo["User"][0]["_id"]),
 						address: '',
 						content: soninfo["Content"],
 						likes: soninfo["Likes"],
@@ -152,7 +152,7 @@
   
 	// 提交评论事件
 	const submit = ({ content, parentId, files, finish }: CommentSubmitParam) => {
-		if(store.state.UserId == '0'){
+		if(Number(config.user.id) == 0){
 			pointmessage.value = "请先登录！"
 			WaringMessage()
 			return

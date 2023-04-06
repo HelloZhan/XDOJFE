@@ -26,6 +26,8 @@
 	import { ElMessage } from 'element-plus'
 	import service from '../../axios'
 	import store from '../../store'
+	import { useRouter } from 'vue-router'
+	const router = useRouter()
 	const pointmessage = ref('')
 	// 对话框是否关闭
 	const dialogFormVisible = ref(false)
@@ -87,6 +89,7 @@
 					localStorage.setItem('PassWord',form.password)
 
 					store.commit('Login',response.data.Info)
+					router.push({name:'HomePage'})
 					return
 				}else{
 					localStorage.removeItem('Account')

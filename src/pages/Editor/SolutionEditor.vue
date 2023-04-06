@@ -6,7 +6,7 @@
                 <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
             </el-header>
             <el-main>
-                <v-md-editor v-model="content" height="400px"></v-md-editor>
+                <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
             </el-main>
             <el-footer>
                 <el-switch v-model="ispublic" />是否公开
@@ -24,13 +24,14 @@ import {ref,onMounted} from 'vue'
 import store from '../../store';
 import service from '../../axios'
 import { useRouter,useRoute } from 'vue-router'
+import MarkDownEditor from './MarkDownEditor.vue'
 const router = useRouter()
 const route = useRoute()
+const markdowneditor = ref()
 
 const parentid = ref(0)
 const edittype = ref('')
 const solutionid = ref('')
-const content = ref('')
 const title = ref('')
 const ispublic = ref(true)
 
@@ -45,20 +46,20 @@ function Affirm(){
     }
 }
 function InsertArticle(){
-    console.log('InsertArticle')
+    let content = markdowneditor.value.GetContent()
     if(title.value.length < 1){
         pointmessage.value = "请输入标题！"
         WaringMessage()
         return
     }
-    if(content.value.length < 2){
+    if(content.length < 2){
         pointmessage.value = "内容不能少于两个字！"
         WaringMessage()
         return
     }
     service.post(`/api/solution/insert`,{
         Title:title.value,
-        Content:content.value,
+        Content:content,
         ParentId:parentid.value,
         UserId:store.state.UserId,
         Public:ispublic.value
@@ -83,12 +84,13 @@ function InsertArticle(){
 }
 
 function UpdateArticle(){
+    let content = markdowneditor.value.GetContent()
     if(title.value.length < 1){
         pointmessage.value = "请输入标题！"
         WaringMessage()
         return
     }
-    if(content.value.length < 2){
+    if(content.length < 2){
         pointmessage.value = "内容不能少于两个字！"
         WaringMessage()
         return
@@ -96,7 +98,7 @@ function UpdateArticle(){
     service.post(`/api/solution/update`,{
         SolutionId:solutionid.value,
         Title:title.value,
-        Content:content.value,
+        Content:content,
         Public:ispublic.value
     }).then(
         response => {
@@ -172,7 +174,7 @@ function GetServerInfo()
 function SetServerData(data)
 {
     title.value = data.Title
-    content.value = data.Content
+    markdowneditor.value.SetContent(data.Content)
     ispublic.value = data.Public
 }
 

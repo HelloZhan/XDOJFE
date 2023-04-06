@@ -4,7 +4,8 @@
             <h5>标题：</h5>
             <el-input v-model="title" placeholder="标题" />
             <h5>题目描述（可全屏编辑）</h5>
-            <v-md-editor v-model="mdtext" height="400px"></v-md-editor>
+            <!-- <v-md-editor v-model="mdtext" height="400px"></v-md-editor> -->
+			<MarkDownEditor ref="markdowneditor"></MarkDownEditor>
         </el-col>
     </el-row>
     <el-row>
@@ -44,6 +45,7 @@
 import {  reactive, ref ,onMounted} from 'vue'
 import TestDataFrom from '../../components/Problem/TestDataFrom.vue'
 import ProblemTags from '../../components/Problem/ProblemTags.vue'
+import MarkDownEditor from './MarkDownEditor.vue'
 import store from '../../store'
 import { ElMessage } from 'element-plus'
 import service from '../../axios'
@@ -51,6 +53,7 @@ import { useRouter,useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
+const markdowneditor = ref()
 
 // 组件
 const intestdatafrom = ref()
@@ -64,18 +67,7 @@ const problemid = ref('')
 const edittype = ref('')
 
 const title = ref('')
-const mdtext = ref(`# 标题
-...
-## 输入格式
-...
-## 输出格式
-...
-## 样例
-### 样例输入 #1
-...
-### 样例输出 #1
-..
-## 提示`)
+
 const spjdata = ref(`#include <stdio.h>
 #include <fstream>
 using namespace std;
@@ -167,7 +159,7 @@ function Submit()
     data.EditType = edittype.value
     data.ProblemId = problemid.value
 	data.Title = title.value
-	data.Description = mdtext.value
+	data.Description = markdowneditor.value.GetContent()
 	data.JudgeNum = indata.length
 	data.IsSPJ = isspj.value
 	data.SPJ = spjdata.value
@@ -234,7 +226,7 @@ function GetServerInfo()
 function handledata(Info:any)
 {
     title.value = Info.Title
-    mdtext.value = Info.Description
+	markdowneditor.value.SetContent(Info.Description)
     timelimit.value = Number(Info.TimeLimit)
     memorylimit.value = Number(Info.MemoryLimit)
     isspj.value = Info.IsSPJ

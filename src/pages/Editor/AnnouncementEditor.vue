@@ -2,8 +2,7 @@
     <h1>公告编辑器</h1>
 
     <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
-
-    <v-md-editor v-model="content" height="400px"></v-md-editor>
+    <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
 
     <h4>Tip:重要等级1-5，等级越高越靠前</h4>
     <el-input-number v-model="level" :min="1" :max="5"/>
@@ -20,12 +19,13 @@ import {ref,onMounted} from 'vue'
 import store from '../../store';
 import service from '../../axios'
 import { useRouter,useRoute } from 'vue-router'
+import MarkDownEditor from './MarkDownEditor.vue'
 const router = useRouter()
 const route = useRoute()
+const markdowneditor = ref()
 
 const edittype = ref('')
 const announcementid = ref('')
-const content = ref('')
 const title = ref('')
 const level = ref(1)
 
@@ -40,13 +40,14 @@ function Affirm(){
     }
 }
 function InsertArticle(){
+    let content = markdowneditor.value.GetContent()
     console.log('InsertArticle')
     if(title.value.length < 1){
         pointmessage.value = "请输入标题！"
         WaringMessage()
         return
     }
-    if(content.value.length < 2){
+    if(content.length < 2){
         pointmessage.value = "内容不能少于两个字！"
         WaringMessage()
         return
@@ -58,7 +59,7 @@ function InsertArticle(){
     }
     service.post(`/api/announcement/insert`,{
         Title:title.value,
-        Content:content.value,
+        Content:content,
         UserId:store.state.UserId,
         Level:level.value
     }).then(
@@ -82,12 +83,13 @@ function InsertArticle(){
 }
 
 function UpdateArticle(){
+    let content = markdowneditor.value.GetContent()
     if(title.value.length < 1){
         pointmessage.value = "请输入标题！"
         WaringMessage()
         return
     }
-    if(content.value.length < 2){
+    if(content.length < 2){
         pointmessage.value = "内容不能少于两个字！"
         WaringMessage()
         return
@@ -100,7 +102,7 @@ function UpdateArticle(){
     service.post(`/api/announcement/update`,{
         AnnouncementId:announcementid.value,
         Title:title.value,
-        Content:content.value,
+        Content:content,
         Level:level.value
     }).then(
         response => {
@@ -176,7 +178,7 @@ function GetServerInfo()
 function SetServerData(data)
 {
     title.value = data.Title
-    content.value = data.Content
+    markdowneditor.value.SetContent(data.Content)
     level.value = data.Level
 }
 

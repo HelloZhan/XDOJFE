@@ -6,7 +6,8 @@ export default createStore({
 	state: {
 		UserId:'0',
 		NickName:'未登录',
-		Avatar:'http://192.168.49.132:8081/image/1',
+		// Avatar:'http://192.168.49.132:8081/image/1',    // 本地
+		Avatar:'http://175.178.54.194:8081/image/1', // 云服务器
 		CommentLikes:[],
 		Solves:[],
 		Authority:1,
@@ -34,7 +35,8 @@ export default createStore({
 		Logout(state){
 			state.UserId = '0'
 			state.NickName = '未登录'
-			state.Avatar = 'http://192.168.49.132:8081/image/1'
+			// state.Avatar = 'http://192.168.49.132:8081/image/1' // 本地
+			state.Avatar = 'http://175.178.54.194:8081/image/1' // 云服务器
 			state.CommentLikes = []
 			state.Solves = []
 			state.Authority = 1

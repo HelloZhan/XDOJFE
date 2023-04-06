@@ -32,6 +32,26 @@ VMdPreview.use(githubTheme, {
 VMdEditor.use(githubTheme, {
 	Hljs: hljs,
 });
+// Tip 提示
+import createTipPlugin from '@kangc/v-md-editor/lib/plugins/tip/index'
+import '@kangc/v-md-editor/lib/plugins/tip/tip.css'
+// emoji 表情
+import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index';
+import '@kangc/v-md-editor/lib/plugins/emoji/emoji.css';
+// katex
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
+
+// 快速复制代码
+import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index';
+import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
+VMdEditor.use(createTipPlugin())
+VMdEditor.use(createEmojiPlugin())
+VMdEditor.use(createKatexPlugin())
+VMdEditor.use(createCopyCodePlugin())
+VMdPreview.use(createTipPlugin())
+VMdPreview.use(createEmojiPlugin())
+VMdPreview.use(createKatexPlugin())
+VMdPreview.use(createCopyCodePlugin())
 // -------------------------
 
 // ---------- 评论 ----------

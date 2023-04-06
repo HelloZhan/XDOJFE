@@ -26,9 +26,9 @@
 				<el-icon size="30"><Histogram /></el-icon>
 				<span class="navtext">排名</span>
 			</el-menu-item>
-			<el-menu-item index="/test">
+			<!-- <el-menu-item index="/test">
 				<span class="navtext">测试</span>
-			</el-menu-item>
+			</el-menu-item> -->
 			<div v-if="!store.state.IsLogin" class="navright">
 				<el-button id="button" type="primary" @click="openlogindialog" text>登录</el-button>
 				<el-button id="button" type="primary" @click="openregisterdialog" text>注册</el-button>

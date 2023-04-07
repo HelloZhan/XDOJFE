@@ -29,8 +29,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://192.168.49.132:8081', // 虚拟机请求地址
-        // target: 'http://175.178.54.194:8081', // 云服务器请求地址
+        // target: 'http://192.168.49.132:8081', // 虚拟机请求地址
+        target: 'http://175.178.54.194:8081', // 云服务器请求地址
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
@@ -39,5 +39,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 4000,
   },
-  // base: './',
+  base: './',
 })

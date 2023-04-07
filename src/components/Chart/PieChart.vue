@@ -17,7 +17,7 @@ const options = reactive({
       orient: 'horizontal',
       x: 'center',
       y: 'bottom',
-      data: [ 'CE', 'AC', 'WA', 'TLE', 'MLE', 'SE' ],
+      data: [ 'CE', 'AC', 'WA', 'RE', 'TLE', 'MLE', 'SE' ],
     },
     series: [
         {
@@ -35,6 +35,10 @@ const options = reactive({
                 {
                     value: 0,
                     name: 'WA'
+                },
+                {
+                    value: 0,
+                    name: 'RE'
                 },
                 {
                     value: 0,
@@ -59,9 +63,10 @@ function SetDataInfo(info)
     options.series[0].data[0].value = info.CENum
     options.series[0].data[1].value = info.ACNum
     options.series[0].data[2].value = info.WANum
-    options.series[0].data[3].value = info.TLENum
-    options.series[0].data[4].value = info.MLENum
-    options.series[0].data[5].value = info.SENum
+    options.series[0].data[3].value = info.RENum
+    options.series[0].data[4].value = info.TLENum
+    options.series[0].data[5].value = info.MLENum
+    options.series[0].data[6].value = info.SENum
     title.value = info.Title
     myChart.setOption(options)
 }

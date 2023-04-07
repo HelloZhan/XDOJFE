@@ -142,6 +142,7 @@ function changepiechart(row, column, cell, event){
         CENum : row.CENum,
         ACNum : row.ACNum,
         WANum : row.WANum,
+        RENum : row.RENum,
         TLENum: row.TLENum,
         MLENum: row.MLENum,
         SENum : row.SENum,

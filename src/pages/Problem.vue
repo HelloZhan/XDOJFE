@@ -8,7 +8,10 @@
 				<div class="content">
 					<v-md-preview :text="data.content"></v-md-preview>
 				</div>
-				<MonacoEditor ref="monacoeditor"></MonacoEditor>
+				<div :style="{boxShadow: `var(--el-box-shadow)`}">
+					<MonacoEditor ref="monacoeditor"></MonacoEditor>
+				</div>
+				<br>
 				<el-button type="primary" @click="SubmitCode()" :disabled="submitbutton" :loading="submitloading">提交</el-button>
 				<div id="resultdiv">
 					<h4>代码运行状态： {{ ResultMsg() }}</h4>
@@ -41,7 +44,7 @@
 						</el-collapse-item>
 					</el-collapse>
 				</div>
-
+				<br>
 				<el-button type="primary" @click="ClickStatusRecord">提交记录</el-button>
 				<el-button type="primary" @click="ClickSolution">题解</el-button>
 				<el-button type="primary" @click="ClickDiscuss">讨论</el-button>
@@ -138,7 +141,7 @@ function SubmitCode() {
 			if(response.data.Result == "Success"){
 				console.log("提交成功了！！！", response.data);
 				result.value = Number(response.data.Status);
-				reason.value = response.data.CompilerInfo;
+				reason.value = response.data.ComplierInfo;
 				// 如果第一次AC
 				if(response.data.IsFirstAC){
 					store.state.Solves.push(data.problemid)
@@ -204,8 +207,9 @@ onMounted(()=>{
 })
 </script>
 
-<style>
+<style scoped>
 .content{
-	width: 1000px
+	width: 1200px
 }
+
 </style>

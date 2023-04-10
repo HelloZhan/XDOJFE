@@ -1,7 +1,8 @@
 <template>
     <div class="wrapper">
+        <br>
         <el-row>
-            <el-col :span="12">
+            <el-col :offset="2" :span="10">
                 语言：
                 <el-select v-model="language" placeholder="选择语言" @change="handleLanguage">
                     <el-option
@@ -12,7 +13,7 @@
                     </el-option>
                 </el-select>
             </el-col>
-            <el-col :span="12">
+            <el-col :offset="2" :span="10">
                 主题：
                 <el-select v-model="editorTheme" placeholder="设置主题" @change="handleTheme">
                     <el-option label="Visual Studio Dark" value="vs-dark"></el-option>
@@ -21,6 +22,7 @@
                 </el-select>
             </el-col>
         </el-row>
+        <br>
         <el-row>
             <el-col :span="24"><div id="codeEdit"></div></el-col>
         </el-row>
@@ -105,11 +107,11 @@ defineExpose({
 </script>
 <style scoped>
 #codeEdit{
-    width:1000px;
-    height: 500px;
+    width:1200px;
+    height: 450px;
 }
 .wrapper{
-    width: 1000px;
-    height: 700px;
+    width: 1200px;
+    height: 550px;
 }
 </style>

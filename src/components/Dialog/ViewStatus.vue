@@ -22,23 +22,23 @@
 					标准输入：
 					<el-input
 						v-model="info.StandardInput"
-						autosize
 						type="textarea"
 						placeholder="Please input"
+						:autosize="{ minRows: 1, maxRows:10 }"
 					/>
 					标准输出：
 					<el-input
 						v-model="info.StandardOutput"
-						autosize
 						type="textarea"
 						placeholder="Please input"
+						:autosize="{ minRows: 1, maxRows:10 }"
 					/>
 					你的输出：
 					<el-input
 						v-model="info.PersonalOutput"
-						autosize
 						type="textarea"
 						placeholder="Please input"
+						:autosize="{ minRows: 1, maxRows:10 }"
 					/>
 					运行时间：{{ info.RunTime }}
 					运行内存：{{ info.RunMemory }}

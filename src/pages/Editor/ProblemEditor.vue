@@ -22,7 +22,9 @@
         <el-col :span="24">
 			<h5>SPJ文件（如果要启用请设置开关开启）</h5>
 			<el-switch v-model="isspj" />
-			<el-input v-model="spjdata" placeholder="spj文件"  type="textarea" autosize/>
+			<el-input v-model="spjdata" placeholder="spj文件"  type="textarea" 
+			:autosize="{ minRows: 10, maxRows: 30 }"
+			/>
 
 			<h5>时间复杂度：单位MS</h5>
 			<el-input v-model="timelimit" placeholder="时间复杂度" />

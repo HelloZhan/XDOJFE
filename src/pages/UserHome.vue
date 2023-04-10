@@ -16,7 +16,7 @@
                         <el-divider />
                         专业：{{ Major }}
                         <el-divider />
-                        通过次数：{{ ACNum }}
+                        解题数量：{{ ACNum }}
                         <el-divider />
                         提交次数：{{ SubmitNum }}
                         <el-divider />

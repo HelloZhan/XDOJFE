@@ -16,10 +16,10 @@
                     <el-avatar :size="50" :src="scope.row.Avatar" />
                 </template>
             </el-table-column>
-            <el-table-column prop="NickName" label="NickName" width="180" />
-            <el-table-column prop="PersonalProfile" label="PersonalProfile" width="400"/>
-            <el-table-column prop="ACNum" label="ACNum" width="100"/>
-            <el-table-column prop="SubmitNum" label="SubmitNum" width="180"/>
+            <el-table-column prop="NickName" label="NickName" width="200" />
+            <el-table-column prop="PersonalProfile" label="PersonalProfile" width="700"/>
+            <el-table-column prop="ACNum" label="ACNum" width="150"/>
+            <el-table-column prop="SubmitNum" label="SubmitNum" width="150"/>
         </el-table>
         <ViewStatus ref="viewstatusdialog"></ViewStatus>
         <div class="demo-pagination-block">

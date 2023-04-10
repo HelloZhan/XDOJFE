@@ -138,6 +138,9 @@ function handleCommand(command){
 }
 </script>
 <style scoped>
+.main{
+	width:1500px
+}
 .flex-grow {
   flex-grow: 1;
 }

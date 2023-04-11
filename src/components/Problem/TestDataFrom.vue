@@ -11,7 +11,7 @@
 			:label="'测试点' + (index+1)"
 			:prop="'domains.' + index + '.value'"
 		>
-			<el-input v-model="domain.value" type="textarea" autosize/>
+			<el-input v-model="domain.value" type="textarea" :autosize="{ minRows: 1, maxRows:10 }"/>
 			<el-button class="mt-2" @click.prevent="removeDomain(domain)"
 			>删除</el-button
 			>

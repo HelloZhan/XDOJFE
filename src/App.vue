@@ -73,6 +73,8 @@
 		<router-view></router-view>
 	</div>
 	<div class="footer">
+		<a href="https://beian.miit.gov.cn/" target="_blank"
+		style="text-decoration: none;color:#409EFF;">渝ICP备2023003325号-1</a>
 		<p>
 			Powered by
 			<a href="https://github.com/HelloZhan/XDOJ.git"
@@ -138,8 +140,20 @@ function handleCommand(command){
 }
 </script>
 <style scoped>
+
+.header{
+	width:1500px
+}
 .main{
 	width:1500px
+}
+
+.footer {
+	width:1500px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: small;
 }
 .flex-grow {
   flex-grow: 1;
@@ -171,10 +185,5 @@ function handleCommand(command){
   display: flex;
   align-items: center;
 }
-.footer {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: small;
-}
+
 </style>

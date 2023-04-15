@@ -1,16 +1,12 @@
 <template>
     <el-card class="box-card">
-        <div class="common-layout">
-            <el-container>
-                <el-header>
-                    <h1>个人主页：{{ NickName }}</h1>
-                </el-header>
-                <el-container>
-                    <el-aside width="150px">
-                        <el-avatar :size="150" :src="Avatar" />
-                    </el-aside>
-                    <el-main>
-                        个性签名：{{ PersonalProfile }}
+        <h1>{{ NickName }}</h1>
+        <el-row :gutter="20">
+            <el-col :span="4">
+                <el-avatar :size="170" :src="Avatar" />
+            </el-col>
+            <el-col :span="14">
+                个性签名：{{ PersonalProfile }}
                         <el-divider />
                         学校：{{ School }}
                         <el-divider />
@@ -22,19 +18,22 @@
                         <el-divider />
                         加入时间：{{ JoinTime }}
                         <el-divider />
-                    </el-main>
-                </el-container>
-            </el-container>
-        </div>
+            </el-col>
+            <el-col :span="6">
+                <UserPieChart ref="userpiechart"></UserPieChart>
+            </el-col>
+        </el-row>
     </el-card>
 </template>
   
 <script setup>
 import service  from '../axios'
+import UserPieChart from '../components/Chart/UserPieChart.vue'
 import { ref,reactive,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
+const userpiechart = ref()
 const router = useRouter()
 const userid = router.currentRoute.value.query.UserId
 const pointmessage = ref('')
@@ -83,6 +82,9 @@ function setinfo(info)
     ACNum.value = info.ACNum
     Solves.array = info.Solves
     SubmitNum.value = info.SubmitNum
+
+    let tmpinfo = {ACNum:info.ACNum,SubmitNum:info.SubmitNum}
+    userpiechart.value.SetDataInfo(tmpinfo)
 }
 
 // 发送错误消息
@@ -102,6 +104,7 @@ onMounted(()=>{
 <style scoped>
 .h1{
     font-size:50px;
+    margin-left: 20px;
 }
 </style>
   

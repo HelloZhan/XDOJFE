@@ -36,6 +36,12 @@ function SetData(Info)
         language = "c"
     }else if(Info.Language == "Go"){
         language = "go"
+    }else if(Info.Language == "Java"){
+        language = "java"
+    }else if(Info.language == "Python2"|| Info.language == "Python3"){
+        language = "python"
+    }else if(Info.language == "JavaScript"){
+        language = "javascript"
     }
     let code = Info.Code
     const curmodel = toRaw(editor.value).getModel()

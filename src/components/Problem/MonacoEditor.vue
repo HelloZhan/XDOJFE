@@ -50,6 +50,22 @@ const languageOptions = [
     {
         value:'go',
         label:'Go'
+    },
+    {
+        value:'java',
+        label:'Java'
+    },
+    {
+        value:'python2',
+        label:'Python2'
+    },
+    {
+        value:'python3',
+        label:'Python3'
+    },
+    {
+        value:'javascript',
+        label:'JavaScript'
     }
 ]
 // 初始化代码编辑器
@@ -95,6 +111,14 @@ function GetLanguage()
         return "C++"
     }else if(language.value == "go"){
         return "Go"
+    }else if(language.value == 'java'){
+        return "Java"
+    }else if(language.value == 'python2'){
+        return "Python2"
+    }else if(language.value == 'python3'){
+        return "Python3"
+    }else if(language.value == 'javascript'){
+        return "JavaScript"
     }
 }
 onMounted(()=>{

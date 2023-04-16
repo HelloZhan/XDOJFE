@@ -75,118 +75,142 @@ const routes = [
     {
         path:'/',
         name:'HomePage',
-        component:HomePage
+        component:HomePage,
+        meta: { title: 'HomePage | XDOJ' },
     },
     {
         path:'/problemlist',
         name:'ProblemList',
-        component:ProblemList
+        component:ProblemList,
+        meta: { title: 'ProblemList | XDOJ' },
     },
     {
         path:'/problem',
         name:'Problem',
-        component:Problem
+        component:Problem,
+        meta: { title: 'Problem | XDOJ' },
     },
     {
         path:'/statusrecord',
         name:'StatusRecord',
-        component:StatusRecord
+        component:StatusRecord,
+        meta: { title: 'StatusRecord | XDOJ' },
     },
     {
         path:'/discusslist',
         name:'DiscussList',
-        component:DiscussList
+        component:DiscussList,
+        meta: { title: 'DiscussList | XDOJ' },
     },
     {
         path:'/userrank',
         name:'UserRank',
-        component:UserRank
+        component:UserRank,
+        meta: { title: 'UserRank | XDOJ' },
     },
     {
         path:'/userhome',
         name:'UserHome',
-        component:UserHome
+        component:UserHome,
+        meta: { title: 'UserHome | XDOJ' },
     },
     {
         path:'/usersetting',
         name:'UserSetting',
-        component:UserSetting
+        component:UserSetting,
+        meta: { title: 'UserSetting | XDOJ' },
     },
     {
         path:'/admin',
         name:'Admin',
         component:Admin,
+        meta: { title: 'Admin | XDOJ' },
         children:[
             {
                 path:'admindiscuss',
-                component: AdminDiscuss
+                component: AdminDiscuss,
+                meta: { title: 'AdminDiscuss | XDOJ' },
             },
             {
                 path:'adminproblem',
-                component: AdminProblem
+                component: AdminProblem,
+                meta: { title: 'AdminProblem | XDOJ' },
             },
             {
                 path:'adminuser',
-                component: AdminUser
+                component: AdminUser,
+                meta: { title: 'AdminUser | XDOJ' },
             },
             {
                 path:'adminannouncement',
-                component: AdminAnnouncement
+                component: AdminAnnouncement,
+                meta: { title: 'AdminAnnouncement | XDOJ' },
             },
             {
                 path:'adminsolution',
-                component: AdminSolution
+                component: AdminSolution,
+                meta: { title: 'AdminSolution | XDOJ' },
             },
             {
                 path:'admincomment',
-                component: AdminComment
+                component: AdminComment,
+                meta: { title: 'AdminComment | XDOJ' },
             }
         ]
     },
     {
         path:'/problemeditor',
         name:'ProblemEditor',
-        component:ProblemEditor
+        component:ProblemEditor,
+        meta: { title: 'ProblemEditor | XDOJ' },
     },
     {
         path:'/announcement',
         name:'Announcement',
-        component:Announcement
+        component:Announcement,
+        meta: { title: 'Announcement | XDOJ' },
     },
     {
         path:'/solution',
         name:'Solution',
-        component:Solution
+        component:Solution,
+        meta: { title: 'Solution | XDOJ' },
     },
     {
         path:'/discuss',
         name:'Discuss',
-        component:Discuss
+        component:Discuss,
+        meta: { title: 'Discuss | XDOJ' },
     },
     {
         path:'/solutionlist',
         name:'SolutionList',
-        component:SolutionList
+        component:SolutionList,
+        meta: { title: 'SolutionList | XDOJ' },
     },
     {
         path:'/announcementeditor',
         name:'AnnouncementEditor',
-        component:AnnouncementEditor
+        component:AnnouncementEditor,
+        meta: { title: 'AnnouncementEditor | XDOJ' },
     },
     {
         path:'/solutioneditor',
         name:'SolutionEditor',
-        component:SolutionEditor
+        component:SolutionEditor,
+        meta: { title: 'SolutionEditor | XDOJ' },
     },
     {
         path:'/discusseditor',
         name:'DiscussEditor',
-        component:DiscussEditor
+        component:DiscussEditor,
+        meta: { title: 'DiscussEditor | XDOJ' },
     },
     {
         path:'/test',
         name:'Test',
-        component:Test
+        component:Test,
+        meta: { title: 'Test | XDOJ' },
     },
     
 ]
@@ -197,6 +221,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    to.meta.title && (document.title = to.meta.title);
     NProgress.start() // 进度条开始
     next()
 })

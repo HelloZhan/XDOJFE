@@ -7,12 +7,12 @@
             <el-col :span="7">
                 <el-input v-model="searchtitle" placeholder="标题" />
             </el-col>
-            <el-col :span="10">
+            <el-col :span="11">
                 <el-select
                     v-model="selectvalue"
                     multiple
                     placeholder="标签"
-                    style="width: 450px"
+                    style="width: 480px"
                 >
                     <el-option
                         v-for="item in options.array"
@@ -22,7 +22,7 @@
                     />
                 </el-select>
             </el-col>
-            <el-col :span="3">
+            <el-col :span="2">
                 <el-button type="primary" :icon="Search" @click="searchbutton">搜索</el-button>
             </el-col>
         </el-row>

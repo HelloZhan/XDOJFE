@@ -6,7 +6,9 @@
                 <div>
                     <h1>题解</h1>
                     <div id="addbutton">
-                        <el-button type="primary" @click="AddSolution" v-show="addbuttonshow" :disabled="addbuttondisabled">写题解</el-button>
+                        <el-button type="success" @click="AddSolution" v-show="addbuttonshow" :disabled="addbuttondisabled">
+                            写题解
+                        </el-button>
                     </div>
                 </div>
                 <el-card v-for="(data,index) in serverdata.array" id="solutioncard">
@@ -153,7 +155,8 @@ onMounted(()=>{
 <style scoped>
 
 #addbutton{
-    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
 }
 .iconright{
     float:right;

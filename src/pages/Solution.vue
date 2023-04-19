@@ -12,9 +12,13 @@
 				<div>
 					<v-md-preview :text=content></v-md-preview>
 				</div>
-				<el-button type="primary" @click="UpdateArticle" v-show="buttonshow">修改</el-button>
-				<el-button type="primary" @click="DeleteArticle" v-show="buttonshow">删除</el-button>
-				<Comment :ParentId=$route.query.SolutionId ArticleType="Solution" ></Comment>
+				<div id="twobutton">
+					<el-button type="primary" @click="UpdateArticle" v-show="buttonshow">修改</el-button>
+					<el-button type="primary" @click="DeleteArticle" v-show="buttonshow">删除</el-button>
+				</div>
+				<div>
+					<Comment :ParentId=$route.query.SolutionId ArticleType="Solution" ></Comment>
+				</div>
 			</el-col>
 
 			<el-col :span="2"></el-col>
@@ -109,6 +113,10 @@ onMounted(()=>{
 </script>
   
 <style scoped>
+#twobutton{
+	display: flex;
+    justify-content: flex-end;
+}
 #top{
 	display: flex;
     justify-content: center;

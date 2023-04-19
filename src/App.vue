@@ -70,7 +70,9 @@
 	<div class="main">
 		<login ref="logindialog"></login>
 		<register ref="registerdialog"></register>
-		<router-view></router-view>
+		<transition name="el-fade-in-linear" mode="out-in">
+			<router-view></router-view>
+		</transition>
 	</div>
 	<div class="footer">
 		<a href="https://beian.miit.gov.cn/" target="_blank"

@@ -24,5 +24,7 @@ import AnnouncementList from '../components/HomePage/AnnouncementList.vue'
   justify-content: space-between;
   align-items: center;
 }
-
+.box-card{
+    margin: 10px;
+}
 </style>

@@ -102,6 +102,9 @@ onMounted(()=>{
 </script>
 
 <style scoped>
+.box-card{
+    margin: 10px;
+}
 .h1{
     font-size:50px;
     margin-left: 20px;

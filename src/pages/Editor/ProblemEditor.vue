@@ -1,46 +1,48 @@
 <template>
-    <el-row>
-        <el-col :span="24">
-            <h5>标题：</h5>
-            <el-input v-model="title" placeholder="标题" />
-            <h5>题目描述（可全屏编辑）</h5>
-            <!-- <v-md-editor v-model="mdtext" height="400px"></v-md-editor> -->
-			<MarkDownEditor ref="markdowneditor"></MarkDownEditor>
-        </el-col>
-    </el-row>
-    <el-row>
-        <el-col :span="12">
-            <h7>输入</h7>
-            <TestDataFrom ref="intestdatafrom"></TestDataFrom>
-        </el-col>
-        <el-col :span="12">
-          	<h7>输出</h7>
-            <TestDataFrom ref="outtestdatafrom"></TestDataFrom>
-        </el-col>
-    </el-row>
-	<el-row>
-        <el-col :span="24">
-			<h5>SPJ文件（如果要启用请设置开关开启）</h5>
-			<el-switch v-model="isspj" />
-			<el-input v-model="spjdata" placeholder="spj文件"  type="textarea" 
-			:autosize="{ minRows: 10, maxRows: 30 }"
-			/>
+	<el-card class="box-card">
+		<el-row>
+			<el-col :span="24">
+				<h5>标题：</h5>
+				<el-input v-model="title" placeholder="标题" />
+				<h5>题目描述（可全屏编辑）</h5>
+				<!-- <v-md-editor v-model="mdtext" height="400px"></v-md-editor> -->
+				<MarkDownEditor ref="markdowneditor"></MarkDownEditor>
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-col :span="12">
+				<h7>输入</h7>
+				<TestDataFrom ref="intestdatafrom"></TestDataFrom>
+			</el-col>
+			<el-col :span="12">
+				<h7>输出</h7>
+				<TestDataFrom ref="outtestdatafrom"></TestDataFrom>
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-col :span="24">
+				<h5>SPJ文件（如果要启用请设置开关开启）</h5>
+				<el-switch v-model="isspj" />
+				<el-input v-model="spjdata" placeholder="spj文件"  type="textarea" 
+				:autosize="{ minRows: 10, maxRows: 30 }"
+				/>
 
-			<h5>时间复杂度：单位MS</h5>
-			<el-input v-model="timelimit" placeholder="时间复杂度" />
+				<h5>时间复杂度：单位MS</h5>
+				<el-input v-model="timelimit" placeholder="时间复杂度" />
 
-			<h5>空间复杂度：单位MB</h5>
-			<el-input v-model="memorylimit" placeholder="空间复杂度" />
+				<h5>空间复杂度：单位MB</h5>
+				<el-input v-model="memorylimit" placeholder="空间复杂度" />
 
-			<h5>标签</h5>
-			<ProblemTags ref="problemtags"></ProblemTags>
+				<h5>标签</h5>
+				<ProblemTags ref="problemtags"></ProblemTags>
 
-			<h5>作者：</h5>
-			<el-input v-model="usernickname" placeholder="作者" disabled/>
+				<h5>作者：</h5>
+				<el-input v-model="usernickname" placeholder="作者" disabled/>
 
-			<el-button type="primary" @click="Submit()">提交</el-button>
-        </el-col>
-    </el-row>
+				<el-button type="primary" @click="Submit()">提交</el-button>
+			</el-col>
+		</el-row>
+	</el-card>
 </template>
 
 <script lang="ts" setup>
@@ -295,7 +297,9 @@ const ErrorMessage = () => {
 .el-col {
   border-radius: 4px;
 }
-
+.box-card{
+    margin: 10px;
+}
 .grid-content {
   border-radius: 4px;
   min-height: 36px;

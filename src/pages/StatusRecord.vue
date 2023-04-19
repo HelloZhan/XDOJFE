@@ -152,4 +152,8 @@ onMounted(()=>{
     justify-content: center;
     align-items: center
 }
+
+.box-card{
+    margin: 10px;
+}
 </style>

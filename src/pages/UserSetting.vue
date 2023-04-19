@@ -134,4 +134,10 @@ const SuccessMessage = () => {
     })
 }
 </script>
+
+<style scoped>
+.box-card{
+    margin: 10px;
+}
+</style>
   

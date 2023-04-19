@@ -133,6 +133,9 @@ onMounted(()=>{
 </script>
 
 <style scoped>
+.box-card{
+    margin: 10px;
+}
 .demo-pagination-block{
     margin-top: 20px;
     display: flex;

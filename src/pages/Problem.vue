@@ -211,5 +211,7 @@ onMounted(()=>{
 .content{
 	width: 1200px
 }
-
+.box-card{
+    margin: 10px;
+}
 </style>

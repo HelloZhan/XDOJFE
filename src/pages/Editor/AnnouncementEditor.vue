@@ -1,16 +1,17 @@
 <template>
-    <h1>公告编辑器</h1>
+    <el-card class="box-card">
+        <h1>公告编辑器</h1>
 
-    <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
-    <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
+        <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
+        <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
 
-    <h4>Tip:重要等级1-5，等级越高越靠前</h4>
-    <el-input-number v-model="level" :min="1" :max="5"/>
-    <br>
-    <br>
-    <el-button type="primary" @click="Affirm">发布</el-button>
-    <el-button type="primary" @click="Cancel">取消</el-button>
-
+        <h4>Tip:重要等级1-5，等级越高越靠前</h4>
+        <el-input-number v-model="level" :min="1" :max="5"/>
+        <br>
+        <br>
+        <el-button type="primary" @click="Affirm">发布</el-button>
+        <el-button type="primary" @click="Cancel">取消</el-button>
+    </el-card>
 </template>
   
 <script setup>
@@ -193,3 +194,9 @@ onMounted(()=>{
     }
 })
 </script>
+
+<style scoped>
+.box-card{
+    margin: 10px;
+}
+</style>

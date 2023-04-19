@@ -45,4 +45,10 @@ import {
 	Menu as IconMenu,
 } from '@element-plus/icons-vue'
 </script>
+
+<style scoped>
+.box-card{
+    margin: 10px;
+}
+</style>
   

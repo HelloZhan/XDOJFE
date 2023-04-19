@@ -1,5 +1,5 @@
 <template>
-	<el-card>
+	<el-card class="box-card">
 		<center>
 			<h2>{{ title }}</h2>
 		</center>
@@ -72,6 +72,9 @@ onMounted(()=>{
 })
 </script>
   
-<style>
+<style scoped>
+.box-card{
+    margin: 10px;
+}
 </style>
   

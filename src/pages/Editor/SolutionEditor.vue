@@ -1,21 +1,23 @@
 <template>
-    <h1>题解编辑器</h1>
-    <div class="common-layout">
-        <el-container>
-            <el-header>
-                <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
-            </el-header>
-            <el-main>
-                <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
-            </el-main>
-            <el-footer>
-                <el-switch v-model="ispublic" />是否公开
-                <br>
-                <el-button type="primary" @click="Affirm">发布</el-button>
-                <el-button type="primary" @click="Cancel">取消</el-button>
-            </el-footer>
-        </el-container>
-  </div>
+    <el-card class="box-card">
+        <h1>题解编辑器</h1>
+            <div class="common-layout">
+                <el-container>
+                    <el-header>
+                        <el-input v-model="title" placeholder="请输入标题！" maxlength = "50" show-word-limit/>
+                    </el-header>
+                    <el-main>
+                        <MarkDownEditor ref="markdowneditor"></MarkDownEditor>
+                    </el-main>
+                    <el-footer>
+                        <el-switch v-model="ispublic" />是否公开
+                        <br>
+                        <el-button type="primary" @click="Affirm">发布</el-button>
+                        <el-button type="primary" @click="Cancel">取消</el-button>
+                    </el-footer>
+                </el-container>
+        </div>
+    </el-card>
 </template>
   
 <script setup>
@@ -190,3 +192,9 @@ onMounted(()=>{
     }
 })
 </script>
+
+<style scoped>
+.box-card{
+    margin: 10px;
+}
+</style>

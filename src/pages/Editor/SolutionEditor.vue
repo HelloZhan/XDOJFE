@@ -36,6 +36,7 @@ const edittype = ref('')
 const solutionid = ref('')
 const title = ref('')
 const ispublic = ref(true)
+const authorid = ref('')
 
 // 提示消息
 const pointmessage = ref('')
@@ -60,6 +61,7 @@ function InsertArticle(){
         return
     }
     service.post(`/api/solution/insert`,{
+        VerifyId:store.state.UserId,
         Title:title.value,
         Content:content,
         ParentId:parentid.value,
@@ -98,6 +100,8 @@ function UpdateArticle(){
         return
     }
     service.post(`/api/solution/update`,{
+        VerifyId:store.state.UserId,
+        UserId:authorid.value,
         SolutionId:solutionid.value,
         Title:title.value,
         Content:content,
@@ -154,6 +158,7 @@ function GetServerInfo()
 {
     service.get(`/api/solution/select`,{
         params: {
+            VerifyId:store.state.UserId,
             SolutionId:solutionid.value
         },
     }).then(
@@ -178,6 +183,7 @@ function SetServerData(data)
     title.value = data.Title
     markdowneditor.value.SetContent(data.Content)
     ispublic.value = data.Public
+    authorid.value = data.UserId
 }
 
 onMounted(()=>{

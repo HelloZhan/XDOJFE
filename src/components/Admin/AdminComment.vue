@@ -35,6 +35,7 @@
 import service from '../../axios'
 import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
+import store from '../../store'
 
 const router = useRouter()
 
@@ -61,6 +62,7 @@ let TableData:Comment[] = reactive([])
 function GetServerInfo(){
     service.get(`/api/commentlist/admin`,{
         params: {
+            VerifyId:store.state.UserId,
             Page : currentPage.value,
             PageSize : pageSize.value
         },

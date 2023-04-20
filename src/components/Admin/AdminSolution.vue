@@ -36,6 +36,7 @@
 
 <script setup>
 import service from '../../axios'
+import store from '../../store'
 import {reactive,ref,onMounted} from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
@@ -71,6 +72,8 @@ function handleEdit(row){
 function handleDelete(row){
     service.delete(`/api/solution`,{
         params:{
+            VerifyId:store.state.UserId,
+            UserId:row.UserId,
             SolutionId:row._id
         }
     }).then(
@@ -91,6 +94,7 @@ function handleDelete(row){
 function GetServerInfo(){
     service.get(`/api/solutionlist/admin`,{
         params: {
+            VerifyId:store.state.UserId,
             Page : currentPage.value,
             PageSize : pageSize.value
         },

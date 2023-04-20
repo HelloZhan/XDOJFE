@@ -37,6 +37,7 @@
 
 <script setup>
 import service from '../../axios'
+import store from '../../store'
 import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -71,6 +72,7 @@ function handleDelete(row){
     console.log('点击删除',row)
     service.delete(`/api/user`,{
         params:{
+            VerifyId:store.state.UserId,
             UserId:row._id
         }
     }).then(
@@ -107,6 +109,7 @@ let usersetdata = reactive({'array':[]})
 function GetUserSetInfo(m_page, m_pagesize){
     service.get(`/api/userset`,{
         params: {
+            VerifyId:store.state.UserId,
             Page : m_page,
             PageSize : m_pagesize
         },

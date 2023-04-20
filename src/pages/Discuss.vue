@@ -47,7 +47,7 @@ const views = ref(0)
 const comments = ref(0)
 const usernickname = ref('')
 const useravatar = ref('')
-
+const authorid = ref('')
 const buttonshow = ref(false)
 
 function GetServerInfo() {
@@ -78,6 +78,7 @@ function SetServerData(data)
     comments.value = data.Comments
     usernickname.value = data.User[0].NickName
     useravatar.value = data.User[0].Avatar
+	authorid.value = data.User[0]._id
 	if(Number(data.User[0]._id) == Number(store.state.UserId))
 		buttonshow.value = true
 }
@@ -94,6 +95,8 @@ function DeleteArticle(){
 	service
 	.delete(`/api/discuss`, {
         params:{
+			VerifyId:store.state.UserId,
+			UserId:authorid.value,
             DiscussId:discussid.value,
         }
 	})

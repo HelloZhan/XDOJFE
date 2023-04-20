@@ -116,6 +116,7 @@ interface TestInfo{
 	out : string
 }
 interface ProblemData {
+	VerifyId:string,
     ProblemId:string
     EditType:string
 	Title: string
@@ -160,6 +161,7 @@ function Submit()
 	}
 
 	const data=<ProblemData>{}
+	data.VerifyId = store.state.UserId,
     data.EditType = edittype.value
     data.ProblemId = problemid.value
 	data.Title = title.value
@@ -203,6 +205,7 @@ function GetServerInfo()
     service
 		.get(`/api/problem/select`, {
 			params: {
+				VerifyId:store.state.UserId,
                 ProblemId : problemid.value
             },
 		})

@@ -35,6 +35,7 @@ const parentid = ref(0)
 const edittype = ref('')
 const discussid = ref('')
 const title = ref('')
+const authorid = ref('')
 
 // 提示消息
 const pointmessage = ref('')
@@ -60,6 +61,7 @@ function InsertArticle(){
         return
     }
     service.post(`/api/discuss/insert`,{
+        VerifyId:store.state.UserId,
         Title:title.value,
         Content:content,
         ParentId:parentid.value,
@@ -97,6 +99,8 @@ function UpdateArticle(){
         return
     }
     service.post(`/api/discuss/update`,{
+        VerifyId:store.state.UserId,
+        UserId:authorid.value,
         DiscussId:discussid.value,
         Title:title.value,
         Content:content,
@@ -152,6 +156,7 @@ function GetServerInfo()
 {
     service.get(`/api/discuss/select`,{
         params: {
+            VerifyId:store.state.UserId,
             DiscussId:discussid.value
         },
     }).then(
@@ -175,6 +180,7 @@ function SetServerData(data)
 {
     title.value = data.Title
     markdowneditor.value.SetContent(data.Content)
+    authorid.value = data.UserId
 }
 
 onMounted(()=>{

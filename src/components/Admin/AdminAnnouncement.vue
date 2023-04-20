@@ -77,6 +77,7 @@ function handleEdit(row){
 function handleDelete(row){
     service.delete(`/api/announcement`,{
         params:{
+            VerifyId:store.state.UserId,
             AnnouncementId:row._id
         }
     }).then(

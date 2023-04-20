@@ -126,6 +126,7 @@ function SubmitCode() {
 
 	service
 	.post(`/api/problemcode`, { 
+		VerifyId:store.state.UserId,
 		ProblemId: data.problemid,
 		UserId:store.state.UserId,
 		UserNickName:store.state.NickName,

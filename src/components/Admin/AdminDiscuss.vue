@@ -37,6 +37,7 @@
 
 <script setup>
 import service from '../../axios'
+import store from '../../store'
 import {reactive,ref,onMounted} from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
@@ -73,6 +74,8 @@ function handleDelete(row){
     console.log('点击删除',row)
     service.delete(`/api/discuss`,{
         params:{
+            VerifyId:store.state.UserId,
+            UserId:row.UserId,
             DiscussId:row._id
         }
     }).then(
@@ -94,6 +97,7 @@ function GetDiscussInfo(m_page, m_pagesize){
     console.log(m_page,m_pagesize)
     service.get(`/api/discusslist/admin`,{
         params: {
+            VerifyId:store.state.UserId,
             Page : m_page,
             PageSize : m_pagesize
         },

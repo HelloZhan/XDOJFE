@@ -46,6 +46,7 @@ const form = reactive({
 const onSubmit = () => {
     service
         .post(`/api/user/update`, {
+            VerifyId:store.state.UserId,
             UserId:userid.value,
             Avatar:form.Avatar,
             School:form.School,
@@ -85,6 +86,7 @@ function GetServerInfo()
     service
         .get(`/api/user/updateinfo`, {
             params:{
+                VerifyId:store.state.UserId,
                 UserId:userid.value
             }
         })

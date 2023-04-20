@@ -75,36 +75,27 @@ const title = ref('')
 const spjdata = ref(`#include <stdio.h>
 #include <fstream>
 using namespace std;
+
 int main(int argc, char *argv[])
 {
-    FILE *f_out = fopen(argv[1], "r");  // 测试输出
-    FILE *f_user = fopen(argv[2], "r"); // 用户输出
-    int ret = 0;                        // AC=0, WA=1, 在调用那边返回值是256的倍数
+    FILE *f_out = fopen(argv[2], "r");  // 测试输出
+    FILE *f_user = fopen(argv[3], "r"); // 用户输出
+    int ret = 0;                        // AC=0, WA=1
 
-    /*****spj代码区域*******/
-    // 以下是一个a+b的例子
-
-    int c, d;
-    fscanf(f_out, "%d", &c);
-    fscanf(f_user, "%d", &d);
-    if (c == d)
+    int a, b;
+    // 获取输入输出
+    fscanf(f_out, "%d", &a);
+    fscanf(f_user, "%d", &b);
+    // 比较答案
+    if (a == b)
         ret = 0;
     else
         ret = 1;
-    /*****spj-end********/
 
     fclose(f_out);
     fclose(f_user);
 
-    ofstream out("spjmsg.txt");
-    if (out.is_open())
-    {
-        out << "This is a line.\n";
-        out << "This is another line.\n";
-        out.close();
-    }
-
-    return ret; // 返回结果，返回值为0时，答案正确，为1时，答案错误，返回值为其他时，会报System Error
+    return ret; // 返回结果，返回值为0时，答案正确，为1时，答案错误
 }`)
 const isspj = ref(false)
 const timelimit = ref(2000)

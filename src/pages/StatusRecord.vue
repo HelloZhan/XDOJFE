@@ -1,5 +1,12 @@
 <template>
     <el-card class="box-card">
+        <div>
+            <StatusRecordSearch ref="statusrecordsearch"
+                :SearchStatusRecordList="SearchStatusRecordList"
+                v-show="searchshow"
+                id="statusrecordsearch"
+            ></StatusRecordSearch>
+        </div>
         <el-table :data="statusrecorddata.array" style="width: 100%" @cell-click="(row, column, cell, event)=>statusrecordclick(row, column, cell, event)">
             <el-table-column prop="_id" label="ID" width="150" />
             <el-table-column prop="UserNickName" label="User" width="150" />
@@ -43,14 +50,21 @@
 import {reactive,ref,onMounted} from 'vue'
 import { useRoute,onBeforeRouteUpdate } from 'vue-router'
 import ViewStatus from '../components/Dialog/ViewStatus.vue'
+import StatusRecordSearch from '../components/StatusRecord/StatusRecordSearch.vue'
 import service from '../axios'
 
 const route = useRoute()
 
 const viewstatusdialog = ref()
+const statusrecordsearch = ref()
+const searchshow = ref(true)
+
 const searchinfo = reactive({
-    ProblemId: '0',
-    UserId : '0'
+    ProblemId: '',
+    UserId : '',
+    ProblemTitle:'',
+    Status:'',
+    Language:''
 })
 
 let currentPage = ref(1) // 当前页数
@@ -62,28 +76,17 @@ const disabled = ref(false)
 
 const handleSizeChange = (val) => {
     pageSize.value = val;
-    GetStatusRecordInfo(searchinfo.ProblemId,searchinfo.UserId)
+    GetStatusRecordInfo()
 }
 const handleCurrentChange = (val) => {
     currentPage.value = val;
-    GetStatusRecordInfo(searchinfo.ProblemId,searchinfo.UserId)
+    GetStatusRecordInfo()
 }
 
 // 题目信息列表
 let statusrecorddata = reactive({'array':[]})
 
-function GetStatusRecordInfo(ProblemId,UserId){
-    if(ProblemId!=null){
-        searchinfo.ProblemId = ProblemId
-    }else{
-        searchinfo.ProblemId = 0
-    }
-
-    if(UserId!=null){
-        searchinfo.UserId = UserId
-    }else{
-        searchinfo.UserId = 0
-    }
+function GetStatusRecordInfo(){
 
     service.get(`/api/statusrecordlist`,{
         params: {
@@ -103,6 +106,15 @@ function GetStatusRecordInfo(ProblemId,UserId){
     )
 }
 
+function SearchStatusRecordList()
+{
+    let Info = statusrecordsearch.value.GetSearchInfo()
+    searchinfo.ProblemId = Info.ProblemId
+    searchinfo.ProblemTitle = Info.ProblemTitle
+    searchinfo.Status = Info.Status
+    searchinfo.Language = Info.Language
+    GetStatusRecordInfo()
+}
 function ChangeStatusToType(status)
 {
     if(status == 0) return "info"
@@ -134,18 +146,45 @@ function ChangeStatusToTitle(status)
 function statusrecordclick(row, column, cell, event) {
     viewstatusdialog.value.opendialog(row._id)
 }
+
+function InitSearchInfo(ProblemId,UserId)
+{
+    searchinfo.ProblemId = ''
+    searchinfo.ProblemTitle = ''
+    searchinfo.Status = ''
+    searchinfo.UserId = ''
+    searchinfo.Language = ''
+    searchshow.value = true
+    if(ProblemId!=null){
+        searchinfo.ProblemId = ProblemId
+        searchshow.value = false
+    }
+        
+
+    if(UserId!=null){
+        searchinfo.UserId = UserId
+        searchshow.value = false
+    }
+        
+}
 // 检测组件是否更新
 onBeforeRouteUpdate(to=>{
-    GetStatusRecordInfo(to.query.ProblemId,to.query.UserId)
+    InitSearchInfo(to.query.ProblemId,to.query.UserId)
+    GetStatusRecordInfo()
 })
 // 组件初始化
 onMounted(()=>{
-    GetStatusRecordInfo(route.query.ProblemId,route.query.UserId)
+    InitSearchInfo(route.query.ProblemId,route.query.UserId)
+    GetStatusRecordInfo()
 })
 
 </script>
 
+
 <style scoped>
+#statusrecordsearch{
+    margin: 10px;
+}
 .demo-pagination-block{
     margin-top: 10px;
     display: flex;

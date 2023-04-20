@@ -49,9 +49,9 @@ const props = defineProps(['SearchProblemSet'])
 function GetSearchInfo()
 {
     let Info={
-        Id:searchid,
+        Id:searchid.value,
         Title:searchtitle.value,
-        Tags:selectvalue
+        Tags:selectvalue.value
     }
     return Info
 }

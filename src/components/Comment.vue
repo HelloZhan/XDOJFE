@@ -30,7 +30,7 @@
 	import { ElMessage } from 'element-plus'
   	import { reactive, ref,onMounted } from 'vue'
 	import { NPagination } from 'naive-ui'
-	
+	import { useRouter } from 'vue-router'
   	import { UToast, ConfigApi, CommentApi, ReplyPageParam, CommentSubmitParam, ReplyApi } from 'undraw-ui'
 	// 下载表情包资源emoji.zip https://gitee.com/undraw/undraw-ui/releases
 	// static文件放在public下,引入emoji.ts文件可以移动到自定义位置
@@ -39,6 +39,8 @@
 	const props = defineProps(['ParentId','ArticleType'])
 	const pointmessage = ref('')
 	
+	const router = useRouter()
+
 	const currentPage = ref(1) // 当前页数
 	const pageSize = ref(5) // 当前页的数量
 	const TotalNum = ref(0) // 总数
@@ -233,6 +235,7 @@
 				console.log("请求成功了！！！",response.data);
 				finish()
 				alert(`删除成功: ${id}`)
+				router.go(0)
 			},
 			(error) => {
 				console.log("请求失败了！！！");

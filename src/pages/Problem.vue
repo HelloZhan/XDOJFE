@@ -149,7 +149,7 @@ function SubmitCode() {
 					console.log('solves:',store.state.Solves)
 				}
 			}else{
-				console.log('提交失败')
+				console.log('提交失败',response.data)
 			}
 			submitloading.value = false
 		},

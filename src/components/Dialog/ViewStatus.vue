@@ -1,5 +1,5 @@
 <template>  
-    <el-dialog id="dialog" v-model="dialogVisible" title="测评详情">
+    <el-dialog id="dialog" v-model="dialogVisible" title="测评详情" :close="closedialog">
 		<el-alert 
 			:title="alerttitle"
 			:type="alerttype"
@@ -100,6 +100,10 @@ function SetDataInfo(statusinfo)
 	alerttitle.value = ChangeStatusToTitle(statusinfo.Status)
 }
 
+function closedialog()
+{
+	console.log('关闭对话框')
+}
 function ChangeStatusToTitle(status)
 {
 	if(status == 0)

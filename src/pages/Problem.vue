@@ -9,7 +9,7 @@
 					<v-md-preview :text="data.content"></v-md-preview>
 				</div>
 				<div :style="{boxShadow: `var(--el-box-shadow)`}">
-					<MonacoEditor ref="monacoeditor"></MonacoEditor>
+					<MonacoEditor ref="monacoeditor" :ProblemId=$route.query.ProblemId></MonacoEditor>
 				</div>
 				<br>
 				<el-button type="primary" @click="SubmitCode()" :disabled="submitbutton" :loading="submitloading">提交</el-button>

@@ -4,7 +4,8 @@
         <el-row>
             <el-col :offset="2" :span="10">
                 语言：
-                <el-select v-model="language" placeholder="选择语言" @change="handleLanguage">
+                <el-select v-model="language" placeholder="选择语言" @change="handleLanguage" 
+                    ref="languageselect">
                     <el-option
                         v-for="item in languageOptions"
                         :key="item.value"
@@ -30,10 +31,14 @@
 </template>
 
 <script setup>
-import { ref,onMounted,toRaw } from 'vue'
+import { ref,onMounted,toRaw,onUnmounted } from 'vue'
 import * as monaco from 'monaco-editor'
+import store from '../../store'
 
+const props = defineProps(['ProblemId'])
 const editor = ref(null)
+const languageselect = ref(null)
+
 const language = ref('cpp')
 const editorTheme = ref("vs")
 const fontSize = ref(15)
@@ -92,10 +97,12 @@ function initEditor(){
 const handleTheme = () => {
     monaco.editor.setTheme(editorTheme.value)
 }
-// 更换语言
+
 const handleLanguage = (item) => {
+    // 保存代码
+    SetLocalStorage(GetCode(), languageselect.value.selected.value)
     language.value = item
-    monaco.editor.setModelLanguage(toRaw(editor.value).getModel(), language.value)
+    SetCodeAndLanguage()
 }
 
 function GetCode()
@@ -121,9 +128,47 @@ function GetLanguage()
         return "JavaScript"
     }
 }
+
+// 获取浏览器本地存储
+function GetLocalStorage()
+{
+    // 1-1234-cpp
+    var getstr = String(props.ProblemId)+'-'+String(store.state.UserId)+'-'+language.value
+    console.log('getstr',getstr)
+    if(localStorage.getItem(getstr) == null) return ''
+    else return localStorage.getItem(getstr)
+}
+
+// 设置浏览器本地存储
+function SetLocalStorage(code, language)
+{
+    var setstr = String(props.ProblemId)+'-'+String(store.state.UserId)+'-'+language
+    console.log('setstr',setstr)
+    localStorage.setItem(setstr,code)
+}
+
+// 通过浏览器本地存储设置代码和语言
+function SetCodeAndLanguage()
+{
+    let code = GetLocalStorage()
+    const curmodel = toRaw(editor.value).getModel()
+    const model = monaco.editor.createModel(code,language.value)
+    toRaw(editor.value).setModel(model)
+    curmodel.dispose()
+}
+
 onMounted(()=>{
     initEditor()
+    if(store.state.UserId != 0)
+    {
+        SetCodeAndLanguage()
+    }
 })
+
+onUnmounted(()=>{
+    SetLocalStorage(GetCode(), language.value)
+})
+
 defineExpose({
     GetLanguage,
     GetCode

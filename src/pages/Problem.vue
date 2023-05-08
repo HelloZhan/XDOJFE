@@ -126,7 +126,6 @@ function SubmitCode() {
 
 	service
 	.post(`/api/problemcode`, { 
-		VerifyId:store.state.UserId,
 		ProblemId: data.problemid,
 		UserId:store.state.UserId,
 		UserNickName:store.state.NickName,
@@ -139,6 +138,7 @@ function SubmitCode() {
 	})
 	.then(
 		(response) => {
+			submitloading.value = false
 			if(response.data.Result == "Success"){
 				console.log("提交成功了！！！", response.data);
 				result.value = Number(response.data.Status);
@@ -151,7 +151,6 @@ function SubmitCode() {
 			}else{
 				console.log('提交失败',response.data)
 			}
-			submitloading.value = false
 		},
 		(error) => {
 			console.log("提交失败了！！！");

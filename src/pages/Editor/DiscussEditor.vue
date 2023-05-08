@@ -61,7 +61,6 @@ function InsertArticle(){
         return
     }
     service.post(`/api/discuss/insert`,{
-        VerifyId:store.state.UserId,
         Title:title.value,
         Content:content,
         ParentId:parentid.value,
@@ -99,7 +98,6 @@ function UpdateArticle(){
         return
     }
     service.post(`/api/discuss/update`,{
-        VerifyId:store.state.UserId,
         UserId:authorid.value,
         DiscussId:discussid.value,
         Title:title.value,
@@ -156,7 +154,6 @@ function GetServerInfo()
 {
     service.get(`/api/discuss/select`,{
         params: {
-            VerifyId:store.state.UserId,
             DiscussId:discussid.value
         },
     }).then(

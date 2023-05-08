@@ -61,7 +61,6 @@ function InsertArticle(){
         return
     }
     service.post(`/api/solution/insert`,{
-        VerifyId:store.state.UserId,
         Title:title.value,
         Content:content,
         ParentId:parentid.value,
@@ -100,7 +99,6 @@ function UpdateArticle(){
         return
     }
     service.post(`/api/solution/update`,{
-        VerifyId:store.state.UserId,
         UserId:authorid.value,
         SolutionId:solutionid.value,
         Title:title.value,
@@ -158,7 +156,6 @@ function GetServerInfo()
 {
     service.get(`/api/solution/select`,{
         params: {
-            VerifyId:store.state.UserId,
             SolutionId:solutionid.value
         },
     }).then(

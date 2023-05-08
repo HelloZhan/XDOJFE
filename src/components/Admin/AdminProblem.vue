@@ -77,7 +77,6 @@ function handleDelete(row){
     console.log('点击删除',row)
     service.delete(`/api/problem`,{
         params:{
-            VerifyId:store.state.UserId,
             ProblemId:row.ProblemId
         }
     }).then(
@@ -111,7 +110,6 @@ let problemsetdata = reactive({'array':[]})
 function GetProblemSetInfo(){
     service.get(`/api/problemlist/admin`,{
         params: {
-            VerifyId:store.state.UserId,
             Page : currentPage.value,
             PageSize : pageSize.value
         },

@@ -59,7 +59,6 @@ function InsertArticle(){
         return
     }
     service.post(`/api/announcement/insert`,{
-        VerifyId:store.state.UserId,
         Title:title.value,
         Content:content,
         UserId:store.state.UserId,
@@ -102,7 +101,6 @@ function UpdateArticle(){
         return
     }
     service.post(`/api/announcement/update`,{
-        VerifyId:store.state.UserId,
         AnnouncementId:announcementid.value,
         Title:title.value,
         Content:content,
@@ -159,7 +157,6 @@ function GetServerInfo()
 {
     service.get(`/api/announcement/select`,{
         params: {
-            VerifyId:store.state.UserId,
             AnnouncementId:announcementid.value
         },
     }).then(

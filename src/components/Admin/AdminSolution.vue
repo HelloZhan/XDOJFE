@@ -72,7 +72,6 @@ function handleEdit(row){
 function handleDelete(row){
     service.delete(`/api/solution`,{
         params:{
-            VerifyId:store.state.UserId,
             UserId:row.UserId,
             SolutionId:row._id
         }
@@ -94,7 +93,6 @@ function handleDelete(row){
 function GetServerInfo(){
     service.get(`/api/solutionlist/admin`,{
         params: {
-            VerifyId:store.state.UserId,
             Page : currentPage.value,
             PageSize : pageSize.value
         },

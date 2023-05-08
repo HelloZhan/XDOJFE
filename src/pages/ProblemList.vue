@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import axios from 'axios'
+import service from '../axios'
 import store from '../store'
 import {reactive,ref,onMounted} from 'vue'
 import { useRouter} from 'vue-router'
@@ -103,7 +103,7 @@ const handleCurrentChange = (val) => {
 let problemsetdata = reactive({'array':[]})
 
 function GetProblemSetInfo(){
-    axios.get(`/api/problemlist`,{
+    service.get(`/api/problemlist`,{
         params: {
             SearchInfo : JSON.stringify(searchinfo),
             Page : currentPage.value,

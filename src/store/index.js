@@ -22,6 +22,8 @@ export default createStore({
 			传出：Json(Result,Reason,Info(_id,NickName,Avatar,CommentLikes,Solves,Authority))
 		*/
 		Login(state,userinfo){
+			console.log(userinfo)
+			localStorage.setItem('token', userinfo.Token)
 			state.UserId = userinfo._id
 			state.NickName = userinfo.NickName
 			state.Avatar = userinfo.Avatar
@@ -42,8 +44,8 @@ export default createStore({
 			state.Authority = 1
 			state.IsLogin = false
 			state.IsAdmin = false
-			localStorage.removeItem('Account')
-			localStorage.removeItem('PassWord')
+			// 移除浏览器中token
+            localStorage.removeItem('token')
 		},
 		GetProblemTags(state){
 			service

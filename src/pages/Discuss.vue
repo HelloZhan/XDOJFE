@@ -95,7 +95,6 @@ function DeleteArticle(){
 	service
 	.delete(`/api/discuss`, {
         params:{
-			VerifyId:store.state.UserId,
 			UserId:authorid.value,
             DiscussId:discussid.value,
         }

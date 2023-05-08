@@ -165,7 +165,6 @@
 		if(parentId == null){ // 父评论
 			info={
 				Type:"Father",
-				VerifyId:store.state.UserId,
 				ArticleType:props.ArticleType,
 				ArticleId:props.ParentId,
 				ParentId: props.ParentId,
@@ -175,7 +174,6 @@
 		}else{ // 子评论
 			info={
 				Type:"Son",
-				VerifyId:store.state.UserId,
 				ArticleType:props.ArticleType,
 				ArticleId:props.ParentId,
 				ParentId: parentId,
@@ -225,7 +223,6 @@
 		service
 			.delete(`/api/comment`, {
 				params:{
-					VerifyId:store.state.UserId,
 					ArticleId:props.ParentId,
 					CommentId:id
 				}

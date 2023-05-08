@@ -62,7 +62,6 @@ let TableData:Comment[] = reactive([])
 function GetServerInfo(){
     service.get(`/api/commentlist/admin`,{
         params: {
-            VerifyId:store.state.UserId,
             Page : currentPage.value,
             PageSize : pageSize.value
         },

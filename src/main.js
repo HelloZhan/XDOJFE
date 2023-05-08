@@ -61,25 +61,19 @@ import 'undraw-ui/dist/style.css'
 
 // 获取本地用户信息
 import service from './axios'
-let account = localStorage.getItem('Account')
-let password = localStorage.getItem('PassWord')
+let token = localStorage.getItem('token')
 // 如果获取到用户名和密码则进行登录
-if(account && password){
+if(token){
 	service
-	.post(`/api/user/login`, {
-		Account:account,
-		PassWord:password,
-	})
+	.get(`/api/user/tokenlogin`)
 	.then(
 	(response) => {
 		if(response.data.Result == "Success"){
 			// 登录成功
-			store.commit('Login',response.data.Info)
-			return
+			store.commit('SaveUserInfo',response.data.Info)
 		}else{
 			// 登录失败
-			localStorage.removeItem('Account')
-			localStorage.removeItem('PassWord')
+			localStorage.removeItem('token')
 			return
 		}
 	},

@@ -84,16 +84,10 @@
 					SuccessMessage()
 					dialogFormVisible.value = false
 
-					// 本地保存账号密码
-					localStorage.setItem('Account',form.account)
-					localStorage.setItem('PassWord',form.password)
-
 					store.commit('Login',response.data.Info)
 					router.push({name:'HomePage'})
 					return
 				}else{
-					localStorage.removeItem('Account')
-					localStorage.removeItem('PassWord')
 					pointmessage.value = response.data.Reason
 					WaringMessage()
 					return

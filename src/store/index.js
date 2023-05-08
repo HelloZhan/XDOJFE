@@ -22,8 +22,18 @@ export default createStore({
 			传出：Json(Result,Reason,Info(_id,NickName,Avatar,CommentLikes,Solves,Authority))
 		*/
 		Login(state,userinfo){
-			console.log(userinfo)
 			localStorage.setItem('token', userinfo.Token)
+			state.UserId = userinfo._id
+			state.NickName = userinfo.NickName
+			state.Avatar = userinfo.Avatar
+			state.CommentLikes = userinfo.CommentLikes
+			state.Solves = userinfo.Solves
+			state.Authority = userinfo.Authority
+			state.IsLogin = true
+			if(state.Authority==5)
+				state.IsAdmin=true
+		},
+		SaveUserInfo(state,userinfo){
 			state.UserId = userinfo._id
 			state.NickName = userinfo.NickName
 			state.Avatar = userinfo.Avatar

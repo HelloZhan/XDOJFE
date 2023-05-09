@@ -95,7 +95,7 @@ function handleDelete(row){
 }
 
 function GetServerInfo(){
-    service.get(`/api/announcementlist`,{
+    service.get(`/api/announcementlist/admin`,{
         params: {
             Page : currentPage.value,
             PageSize : pageSize.value

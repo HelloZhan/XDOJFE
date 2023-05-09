@@ -1,5 +1,5 @@
 <template>  
-    <el-dialog id="dialog" v-model="dialogVisible" title="测评详情" :close="closedialog">
+    <el-dialog id="dialog" v-model="dialogVisible" title="测评详情" :before-close="closedialog">
 		<el-alert 
 			:title="alerttitle"
 			:type="alerttype"
@@ -102,7 +102,16 @@ function SetDataInfo(statusinfo)
 
 function closedialog()
 {
-	console.log('关闭对话框')
+	alerttitle.value = ''
+	alertdescription.value = ''
+	let Info={
+		Code:'',
+		Language:'C++'
+	}
+	monacoview.value.SetData(Info)
+	testinfo.array=[]
+
+	dialogVisible.value = false
 }
 function ChangeStatusToTitle(status)
 {

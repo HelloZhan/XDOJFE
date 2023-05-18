@@ -9,15 +9,14 @@
 }
 body{
   overflow: auto !important;
-  /*
-    为什么要设置固定宽度？
-    未设置固定宽度：一定操作之后，首页将会没有滚动条，导致页面跳转抖动
-  */
   /* width: 1519.200px; */
-  width: 1510px;
+  /* width: 1510px; */
   align-items: center;
   margin-left:auto;
   margin-right:auto;
+
+  /*解决页面抖动问题*/
+  position:absolute;
 }
 a,
 .green {
